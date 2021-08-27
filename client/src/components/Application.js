@@ -45,22 +45,9 @@ export default function Application(props) {
   });
 
   const {
-    state,
-    // setDay,
-    // bookInterview,
-    // cancelInterview
+    state
+
   } = useApplicationData();
-
-  // const dailyAppointments = getAppointmentsForDay(state, state.day);
-  
-  // const appointments = dailyAppointments.map((appointment) => {
-  //   const interview = getInterview(state, appointment.interview);
-  //   const interviewers = getInterviewersForDay(state, state.day);
-
-  //   return <Appointment key={appointment.id} id={appointment.id} 
-  //     time={appointment.time} interview={interview}
-  //     interviewers={interviewers}/>
-  // })
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline /> 
