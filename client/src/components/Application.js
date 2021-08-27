@@ -14,7 +14,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import { createTheme , createMuiTheme, ThemeProvider, BottomNavigation } from "@material-ui/core";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import "./Application.scss";
-import Appointment from "./Appointment";
+import ProductListItem from "./ProductListItem";
 import useApplicationData from "../hooks/useApplicationData"
 import SmartVille from "./SmartVille";
 
@@ -77,7 +77,7 @@ export default function Application(props) {
       <Router>
         <Switch>
           <Route exact path='/'>
-            <Appointment/>
+            <ProductListItem/>
           </Route>
           {/* <Route path='/login'>
             <Login/>

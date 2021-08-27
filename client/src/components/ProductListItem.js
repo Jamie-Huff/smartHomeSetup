@@ -6,7 +6,7 @@ export default function Appointment (props) {
 
 	return (
 		<div>
-			<h1> APPOINTMENTS</h1>		
+			<h1> SMART PRODUCTS</h1>		
 		</div>
 	
 	)
