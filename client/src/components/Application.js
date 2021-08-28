@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
-
+import { BrowserRouter as Router, Switch,Route, Link} from "react-router-dom";
 import Divider from '@material-ui/core/Divider';
 import { alpha, makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
@@ -17,6 +11,9 @@ import "./Application.scss";
 import ProductListItem from "./ProductListItem";
 import useApplicationData from "../hooks/useApplicationData"
 import SmartVille from "./SmartVille";
+import Signup from "./Signup";
+import Login from "./Login";
+
 
 const useStyles = makeStyles((theme) => ({
   '@global':{
@@ -46,7 +43,6 @@ export default function Application(props) {
 
   const {
     state
-
   } = useApplicationData();
   return (
     <ThemeProvider theme={theme}>
@@ -66,12 +62,12 @@ export default function Application(props) {
           <Route exact path='/'>
             <ProductListItem/>
           </Route>
-          {/* <Route path='/login'>
+          <Route path='/login'>
             <Login/>
           </Route>
           <Route path='/signup'>
             <Signup/>
-          </Route> */}
+          </Route>
           <Route path='/smartville'>
             <SmartVille/>
           </Route>
