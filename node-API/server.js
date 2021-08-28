@@ -32,6 +32,7 @@ db = {
 }
 
 app.use("/signup", singup(db));
+app.use("/login", login(db))
 
 
 
