@@ -1,0 +1,113 @@
+@import "../../styles/variables.scss";
+@import "../../styles/variables.scss";
+@import "../../styles/mixins.scss";
+@import "../../styles/animations.scss";
+
+.survey {
+
+  &__card {
+    min-height: 100px;
+    margin-left: 3rem;
+    border-radius: 0.5rem;
+    display:'flex';
+    flex-direction: column;
+    padding: 1.2rem 1.5rem;
+    color: $white;
+
+    &-nao_ask {
+      display:flex;
+      width:100%;
+      justify-content: center
+    }
+
+    &-img {
+      height: 210px;
+      width: 176px;
+    }
+
+    &--create {
+      background-color: $dark-background;
+      display: flex;
+    }
+
+
+
+    &--error {
+      @include border-card($error-color);
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+
+  &:last-of-type &__add,
+  &:last-of-type &__card {
+    display: none;
+  }
+
+  &__actions {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+    &-button {
+      @include button-inactive--opacity;
+      margin-right: 0.5rem;
+      display: none;
+
+      &:hover {
+        @include button-active--opacity;
+      }
+
+      &:last-of-type {
+        margin-right: 0;
+      }
+    }
+  }
+
+  &__card:hover &__actions-button {
+    display: inline;
+  }
+
+  &__create-input {
+    background-color: $dark-background;
+    border: 0;
+    border-bottom: 1px solid;
+    color: $white;
+    font-size: 1.5rem;
+    height: 2rem;
+    margin-bottom: 0.25rem;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &__status-image {
+    margin-right: 2rem;
+    animation: rotate 1s linear infinite;
+  }
+
+  &__error {
+    &-message {
+      display: flex;
+      flex-direction: column;
+    }
+
+    &-close {
+      @include button-inactive--opacity;
+
+      align-self: flex-start;
+      &:hover {
+        @include button-active--opacity;
+      }
+    }
+  }
+
+  &__validation {
+    color: $danger-color;
+    margin-bottom: 1rem;
+  }
+}
+
+

@@ -15,6 +15,7 @@ const login = (db) => {
       router.post("/", (req, res) => {
         const email = req.body.email
         const password = req.body.password
+        console.log("POST HAPPENED")
         // fetch all the data about the user through their email
         db.query("SELECT * FROM users WHERE email = $1", [email])
         .then(date => {

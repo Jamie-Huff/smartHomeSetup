@@ -15,7 +15,7 @@ import "./Application.scss";
 import ProductListItem from "./ProductListItem";
 import useApplicationData from "../hooks/useApplicationData"
 import SmartVille from "./SmartVille";
-import Survey from "./Survey";
+import Survey from "./Survey/index";
 import Signup from "./Signup";
 import Login from "./Login";
 
@@ -68,13 +68,6 @@ export default function Application(props) {
   const {
     state
   } = useApplicationData();
-
-  // const survey = (
-  //   <div  className={classes.paper} style ={{marginLeft:'20px'}}>
-  //     <p>Take Survery here</p>
-  //     <button>Yus</button>
-  //   </div>
-  // );
 
   return (
     <ThemeProvider theme={theme}>

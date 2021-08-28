@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/styles';
 import Button from '@material-ui/core/Button';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
-import "./Survey.scss";
+import "./index.scss";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -20,6 +20,21 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Survey (props) {
 	const classes = useStyles()
+	const [name, setName] = useState("")
+
+	const [userResponse, setUserResponse] = useState({
+		budget: 0,
+		provider: "",
+		categories: {},
+		rooms: [],	
+	})
+	
+
+
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		console.log(e.target.value)
+	}
 
 	const handleNameChange = event => {
 		console.log ("yus")
@@ -31,6 +46,13 @@ export default function Survey (props) {
 				<section className="survey__card-nao_ask">
 					<img src="images/nao_ask.png" alt="nao" className="survey__card-img"/>
 				</section>
+				<div>
+				<form>
+				<label>User name</label>
+				<input type="text" onChange={(e) => setName(e.target.value)} />
+				<button type = "submit" onClick={handleSubmit}>Sign Up</button>
+			</form>
+				</div>
 
     		<section className="survey__actions">
 					<Button variant="contained" color="default">
