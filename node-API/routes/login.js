@@ -8,13 +8,16 @@ const jwt = require('jsonwebtoken')
 
 const login = (db) => {
     // making sure the route is working
-    // router.get("/", (req, res) => {
-    //     res.send("hello form login")
-    // })
+    router.get("/", (req, res) => {
+        res.send("hello form login")
+    })
 
       router.post("/", (req, res) => {
         const email = req.body.email
         const password = req.body.password
+        console.log(req.body)
+        console.log("this is from login",email)
+        console.log("this is from login ",password)
         // fetch all the data about the user through their email
         db.query("SELECT * FROM users WHERE email = $1", [email])
         .then(date => {
@@ -25,7 +28,7 @@ const login = (db) => {
             // check if the password match with the exsisting password
             if (bcryp.compareSync(password, date.rows[0].password)) {
                 // create a token for that user
-                const token = jwt.sign({email}, ENV["TOKEN"])
+                const token = jwt.sign({email}, process.env.TOKEN)
                 // send the token to the front-end
                 res.json({ token })
 

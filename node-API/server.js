@@ -6,8 +6,9 @@ const cors = require('cors'); // cors require
 const app = express();
 app.use(cors()) // CORS middleware useage
 app.use(morgan('dev'));
+app.use(express.json())
 // import functions
-const singup = require('./routes/signup');
+const signup = require('./routes/signup');
 const login = require('./routes/login')
 
 db = {
@@ -31,7 +32,7 @@ db = {
     }
 }
 
-app.use("/signup", singup(db));
+app.use("/signup", signup(db));
 app.use("/login", login(db))
 
 

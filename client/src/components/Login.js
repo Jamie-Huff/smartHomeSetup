@@ -1,29 +1,95 @@
 import React, { useState } from "react";
 import "./Login.scss";
-import axios from 'axios'
+import axios from "axios";
+import * as yup from "yup";
 
-export default function Login (props) {
-	const [data, setData] = useState({
-		email: "",
-		password: ""
-	})
+const emailError = ["Must be valid email", "Email is required"];
+const passwordError = [
+  "Password is required",
+  "password must be at least 6 characters",
+];
 
+// set the schema for the yup library
+const loginSchema = yup.object().shape({
+  email: yup.string().email(emailError[0]).required(emailError[1]),
+  password: yup.string().min(6).required(passwordError[0]),
+});
 
+export default function Login(props) {
+  // set the states for the compoenet
+  const [data, setData] = useState({
+    email: "",
+    password: "",
+  });
+  const [formErrors, setFormErrors] = useState({});
+  const [signedup, setSignedup] = useState(false);
 
-	const handleSubmit = (e) => {
-		console.log(data)
-		e.preventDefault();
-		return axios.post("http://localhost:3002/signup", data)
-	}
-	return (
-		<div>
-			<form>
-			<label>Email</label>
-			<input type="text" placeholder="email@example.com" onChange={(e) => setData({...data, email: e.target.value})}/>
-			<label>password</label>
-			<input type="password" onChange={(e) => setData({...data, password: e.target.value})} />
-			<button onClick={handleSubmit}>Sign Up</button>
-			</form>
-		</div>
-	)
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+	// validate the schema with try block
+    try {
+      await loginSchema.validate(data, {
+        abortEarly: false,
+      });
+    } catch (err) {
+      const newErrors = {};
+      for (const error of err.errors) {
+        if (emailError.includes(error)) {
+          newErrors.email = error;
+          continue;
+        }
+        if (passwordError.includes(error)) {
+          newErrors.password = error;
+        }
+      }
+      setFormErrors(newErrors);
+      return;
+    }
+    console.log(data);
+    try {
+      setFormErrors({});
+
+      const signupPost = await axios.post("http://localhost:3002/login", data);
+      console.log(signupPost);
+      setSignedup(true);
+    } catch (err) {
+      console.log(err);
+    }
+
+  };
+
+//   if (signedup) {
+// 	return <Redirect to="/login" />
+// }
+  return (
+    <div className="main-div">
+      <form className="signup-form">
+        <div className="signup-div">
+          <label>Email</label>
+          <input
+            type="text"
+            onChange={(e) => setData({ ...data, email: e.target.value })}
+          />
+		  <span className="form-error">{formErrors.email}</span>
+          <label>Password</label>
+          <input
+            type="password"
+            onChange={(e) => setData({ ...data, password: e.target.value })}
+          />
+		  {formErrors.password && (
+            <span className="form-error">
+              {formErrors.password.charAt(0).toUpperCase() +
+                formErrors.password.slice(1)}
+            </span>
+          )}
+          <a className="button" onClick={handleSubmit}>
+            Log in
+          </a>
+          <a className="to-signup" href="/signup">
+            Do not have an account?
+          </a>
+        </div>
+      </form>
+    </div>
+  );
 }
