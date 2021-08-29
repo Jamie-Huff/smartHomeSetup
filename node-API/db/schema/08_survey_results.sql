@@ -3,6 +3,7 @@ DROP TABLE IF EXISTS survey_results CASCADE;
 -- SURVEY RESULTS
 CREATE TABLE survey_results (
   id SERIAL PRIMARY KEY NOT NULL,
-  user_id INTEGER REFERENCES products(id) ON DELETE CASCADE
-  date_completed TIMESTAMP DEFAULT date()::now
+  user_id INTEGER REFERENCES products(id) ON DELETE CASCADE,
+  date_completed TIMESTAMP DEFAULT NOW(),
+  budget INTEGER NOT NULL 
 );
