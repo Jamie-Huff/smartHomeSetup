@@ -66,7 +66,12 @@ export default function Application(props) {
   };
 
   const {
-    state
+    products,
+    rooms,
+    surveys,
+    submitSurvey,
+    editRecommendations,
+    switchSurvey
   } = useApplicationData();
 
   return (
@@ -79,7 +84,7 @@ export default function Application(props) {
             </Button>     
             <Avatar src="images/alpac.jpg" alt="Lit"/>
             <Modal open={open} onClose={handleSurveyClose} style={{display:'flex', alignItems:'center', justifyContent:'center'}}>
-              <Survey/>
+              <Survey submitSurvey={submitSurvey}/>
             </Modal>
         </Toolbar>
       </AppBar>
