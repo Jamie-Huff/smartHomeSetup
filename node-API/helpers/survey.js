@@ -24,13 +24,13 @@ const data = {
 
 const products = {
   1: {
-  id: 1,
-  name: 'Google Nest Hub Max',
-  description: 'short desc',
-  image: 'img link',
-  price: 299.00,
-  category_id: 1,	
-  room_id: 1
+    id: 1,
+    name: 'Google Nest Hub Max',
+    description: 'short desc',
+    image: 'img link',
+    price: 299.00,
+    category_id: 1,	
+    room_id: 1
   },
   2: {
     id: 13,
@@ -109,6 +109,7 @@ const generateProductsInCategory = function (products, categories) {
   return categoryProductGrouping
 }
 
+// filter through the products and add the products to local hold depending on the lowest val
 const reccomendedProductByPrice = function(products, budget, categories, room) {
   let localHold = {
     productIds: [],
