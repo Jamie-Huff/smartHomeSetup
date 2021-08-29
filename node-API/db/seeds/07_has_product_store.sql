@@ -56,5 +56,4 @@ VALUES
   (3, 33, 'https://www.amazon.ca/Garage-Smart-Opener-Compatible-Assistant/dp/B07TP4CQMW/ref=asc_df_B07TP4CQMW/?tag=googleshopc0c-20&linkCode=df0&hvadid=335440293290&hvpos=&hvnetw=g&hvrand=15214082541468294434&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=1002438&hvtargid=pla-900673530237&psc=1'),
   (2, 33, 'https://www.bestbuy.ca/en-ca/product/nexx-garage-nxg-200-smart-wifi-remotely-control-existing-garage-opener-with-app-compatible-with-amazon-alexa-google-assistant-no-hub-required-black/15176612?cmp=seo-15176612&gclid=CjwKCAjwmqKJBhAWEiwAMvGt6D9INYpsxv3XK23tQPtg3rjpeGWf8goaGYrgY17BCdsriw6fWQekZxoCmuQQAvD_BwE&gclsrc=aw.ds'),
   (2, 34, 'https://www.bestbuy.ca/en-ca/product/samsung-30-6-3-cu-ft-fan-convection-electric-air-fry-range-ne63a6511ss-stainless/15268020'),
-  (2, 35, 'https://www.bestbuy.ca/en-ca/product/samsung-30-6-3-cu-ft-true-convection-slide-in-electric-air-fry-range-ne63t8711sg-black-stainless/14669952'),
-  (2, 36, 'https://www.bestbuy.ca/en-ca/product/apple-homepod-mini-space-grey/15037074');
+  (2, 35, 'https://www.bestbuy.ca/en-ca/product/samsung-30-6-3-cu-ft-true-convection-slide-in-electric-air-fry-range-ne63t8711sg-black-stainless/14669952');
