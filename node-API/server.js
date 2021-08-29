@@ -15,8 +15,9 @@ module.exports = { db }
 const app = express();
 app.use(cors()) // CORS middleware useage
 app.use(morgan('dev'));
+app.use(express.json())
 // import functions
-const singup = require('./routes/signup');
+const signup = require('./routes/signup');
 const login = require('./routes/login')
 
 // db.query(`SELECT * FROM USERS;`)
@@ -45,7 +46,7 @@ db1 = {
     }
 }
 
-app.use("/signup", singup(db));
+app.use("/signup", signup(db));
 app.use("/login", login(db))
 
 app.get('/', (req, res) => {

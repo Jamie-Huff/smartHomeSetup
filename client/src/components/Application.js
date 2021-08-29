@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor:"black",
       color:'white'
     }
-  },  
+  },
   appBar: {
     backgroundColor: 'black',
     borderBottom: '1px solid purple'
@@ -49,12 +49,12 @@ export default function Application(props) {
   //material ui theme
   const theme = createTheme({
     palette: {
-      background: {  
+      background: {
         main: 'white',
       },
     }
   });
-  
+
   const [open, setOpen] = React.useState(false);
 
   const handleSurveyOpen = () => {
@@ -78,12 +78,12 @@ export default function Application(props) {
 
   return (
     <ThemeProvider theme={theme}>
-      <CssBaseline /> 
+      <CssBaseline />
       <AppBar position="static" className={classes.appBar} style={{display:'flex', alignItems:"flex-end"}}>
-        <Toolbar > 
+        <Toolbar >
             <Button variant="outlined" color="primary" onClick={handleSurveyOpen}>
               START SURVEY
-            </Button>     
+            </Button>
             <Avatar src="images/alpac.jpg" alt="Lit"/>
             <Modal open={open} onClose={handleSurveyClose} style={{display:'flex', alignItems:'center', justifyContent:'center'}}>
               <Survey/>
@@ -102,17 +102,17 @@ export default function Application(props) {
             <ProductListItem/>
           </Route>
           <Route path='/login'>
-            <Login/>
+            <Login />
           </Route>
           <Route path='/signup'>
-            <Signup/>
+            <Signup />
           </Route>
           <Route path='/smartville'>
             <SmartVille/>
           </Route>
-        </Switch> 
-      </Router>  
+        </Switch>
+      </Router>
     </main>
-  </ThemeProvider>  
+  </ThemeProvider>
   );
 }
