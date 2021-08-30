@@ -20,18 +20,21 @@ const login = (db) => {
         console.log("this is from login ",password)
         // fetch all the data about the user through their email
         db.query("SELECT * FROM users WHERE email = $1", [email])
-        .then(date => {
+        .then(data => {
             // check if the user exist or not if it's not the length of rows will be 0
-            if (date.rows.length < 1) {
-                res.status(400).json({error: "User Does Not Exist"})
+            console.log("this is data.rows: ",data)
+            if (data.rows.length < 1) {
+                return res.status(401).json({error: "User Does Not Exist"})
             }
-            // check if the password match with the exsisting password
-            if (bcryp.compareSync(password, date.rows[0].password)) {
+            // check if the password matches with the existing password
+            if (bcryp.compareSync(password, data.rows[0].password)) {
                 // create a token for that user
-                const token = jwt.sign({email}, process.env.TOKEN)
+                const token = jwt.sign({password}, process.env.TOKEN)
                 // send the token to the front-end
-                res.json({ token })
-
+                return res.json({ token })
+            } else {
+                console.log("this is else: ")
+                return res.status(401).json({error: "Password is incorrect"})
             }
         })
     })

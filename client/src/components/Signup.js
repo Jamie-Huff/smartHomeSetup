@@ -14,7 +14,7 @@ const passwordError = [
 const signupSchema = yup.object().shape({
   name: yup.string().required(nameError),
   email: yup.string().email(emailError[0]).required(emailError[1]),
-  password: yup.string().min(6).required(passwordError[0]),
+  password: yup.string().min(6).required(passwordError[0])
 });
 
 export default function Signup(props) {
@@ -22,9 +22,11 @@ export default function Signup(props) {
     name: "",
     email: "",
     password: "",
+    phone_number: ""
   });
   const [formErrors, setFormErrors] = useState({});
   const [signedup, setSignedup] = useState(false)
+  const [serverError, setServerError] = useState("")
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -51,30 +53,33 @@ export default function Signup(props) {
       setFormErrors(newErrors);
       return;
     }
-    console.log(data);
+    console.log("important",data);
 
     try {
+      setServerError("")
       setFormErrors({});
 
-      const signupPost = await axios.post("http://localhost:3002/signup", data);
-      console.log(signupPost);
-	  setSignedup(true);
+      const signupPost = await axios.post("http://localhost:3002/signup", data)
+      localStorage.setItem("user_token", JSON.stringify({token: signupPost.data.token}))
+	    setSignedup(true);
 
     } catch (err) {
-      console.log(err);
+      console.log(err.response);
+      setServerError(err.response.data.error)
     }
   };
 
 
   if (signedup) {
-	  return <Redirect to="/login" />
+	  return <Redirect to="/" />
   }
   return (
     <div className="main-div">
       <form className="signup-form">
         <div className="signup-div">
-          <label className="">User name</label>
+          <label className="">User Name</label>
           <input
+          className="input-signup"
             type="text"
             onChange={(e) => setData({ ...data, name: e.target.value })}
           />
@@ -83,6 +88,7 @@ export default function Signup(props) {
           )}
           <label>Email</label>
           <input
+            className="input-signup"
             type="text"
             onChange={(e) => setData({ ...data, email: e.target.value })}
           />
@@ -91,6 +97,7 @@ export default function Signup(props) {
           )}
           <label>Password</label>
           <input
+            className="input-signup"
             type="password"
             onChange={(e) => setData({ ...data, password: e.target.value })}
           />
@@ -100,6 +107,13 @@ export default function Signup(props) {
                 formErrors.password.slice(1)}
             </span>
           )}
+          <label>Phone Number</label>
+          <input
+            className="input-signup"
+            type="text"
+            onChange={(e) => setData({ ...data, phone_number: e.target.value })}
+          />
+           <span className="form-error">{serverError}</span>
           <a onClick={handleSubmit} className="button">
             Sign Up
           </a>

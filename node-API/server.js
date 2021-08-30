@@ -1,8 +1,10 @@
+require("dotenv").config();// moe required this Jamie :)
 const PORT = 3002;
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors'); // cors require
 const ENV = process.env.ENV || "development";
+// console.log(process.env.DB_HOST);
 
 // PG database client / connection setup
 const { Pool } = require('pg');
@@ -25,32 +27,35 @@ const login = require('./routes/login')
 //     console.log(data)
 //   })
 
-db1 = {
-    '1': {
-        id: 1,
-        name: "moe",
-        email: "moe@email.com",
-        password: "hashed"
-    },
-    "2":{
-        id: "2",
-        name: "jamie",
-        email:"jamie@email.com",
-        password: "hashed"
-    },
-    "3": {
-        id: 3,
-        name: "David",
-        email: "David@email.com",
-        password: "hashed"
-    }
-}
+// db1 = {
+//     '1': {
+//         id: 1,
+//         name: "moe",
+//         email: "moe@email.com",
+//         password: "hashed"
+//     },
+//     "2":{
+//         id: "2",
+//         name: "jamie",
+//         email:"jamie@email.com",
+//         password: "hashed"
+//     },
+//     "3": {
+//         id: 3,
+//         name: "David",
+//         email: "David@email.com",
+//         password: "hashed"
+//     }
+// }
 
 app.use("/signup", signup(db));
 app.use("/login", login(db))
 
 app.get('/', (req, res) => {
-  res.send("Hello World")
+    db.query(`SELECT * FROM products;`)
+      .then(data => {
+        console.log(data)
+      })
   console.log('test string')
 })
 
