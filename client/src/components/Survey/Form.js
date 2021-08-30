@@ -8,6 +8,8 @@ import Provider from './Provider';
 import Rooms from './Rooms';
 import Categories from './Categories';
 import Loading from './Loading';
+import Error from './Error';
+
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -84,6 +86,8 @@ export default function Form(props) {
         </div>
       } 
       {(mode === "LOADING") && <Loading/>}
+      {(mode === "ERROR") && <Error/>}
+
     </React.Fragment>
     
   )

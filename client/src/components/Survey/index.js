@@ -48,7 +48,10 @@ export default function Survey (props) {
 	//Send survery results to the backend
 	const save = (budget, provider, rooms, category) => {	
 		transition(LOADING);
-		
+		setTimeout(() => {
+			transition(ERROR);
+		}, 2000);
+
 		// submitSurvey(budget, provider, rooms, category)
 		// 	.then((res) => {
 		// 		console.log("Sucessfully saved")
@@ -61,7 +64,7 @@ export default function Survey (props) {
 	return (
 		<div  className={classes.paper} style ={{marginLeft:'20px'}}>
       <div className="survey__card survey__card--create">
-				{ mode!== "LOADING" && 
+				{ (mode!== "LOADING" && mode!= "ERROR") && 
 					<section className="survey__card-nao_ask">
 						<img src="images/nao_ask.png" alt="nao" className="survey__card-img"/>
 					</section>
