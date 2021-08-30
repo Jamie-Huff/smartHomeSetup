@@ -42,8 +42,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-
-
 export default function Application(props) {
   const classes = useStyles();
   //material ui theme
@@ -80,7 +78,7 @@ export default function Application(props) {
       <AppBar position="static" className={classes.appBar} style={{display:'flex', alignItems:"flex-end"}}>
         <Toolbar > 
             <Button variant="outlined" color="primary" onClick={handleSurveyOpen}>
-              START SURVEY
+              TAKE SURVEY
             </Button>     
             <Avatar src="images/alpac.jpg" alt="Lit"/>
             <Modal open={open} onClose={handleSurveyClose} style={{display:'flex', alignItems:'center', justifyContent:'center'}}>

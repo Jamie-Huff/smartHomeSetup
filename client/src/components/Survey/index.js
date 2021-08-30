@@ -28,21 +28,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Survey (props) {
 	const { submitSurvey } = props;
 	const classes = useStyles()
-	const [userResponse, setUserResponse] = useState({
-		budget: 0,
-		provider: "",
-		categories: {},
-		rooms: [],	
-	})
 	
-	const handleSubmit = (e) => {
-		e.preventDefault();
-		console.log(e.target.value)
-	}
-
-	const handleNameChange = event => {
-		console.log ("yus")
-	}
 	//hook for controlling form rendering
 	const { mode, transition, back } = useVisualMode(BUDGET)
 
@@ -74,18 +60,19 @@ export default function Survey (props) {
 	}			
 	return (
 		<div  className={classes.paper} style ={{marginLeft:'20px'}}>
-		
       <div className="survey__card survey__card--create">
 				<section className="survey__card-nao_ask">
 					<img src="images/nao_ask.png" alt="nao" className="survey__card-img"/>
 				</section>
-					{/* <Form onSubmit={save}/> */}
+				<section className="survey__card-form">
+					<Form onSubmit={save} mode={mode} />
+				</section>			
     		<section className="survey__actions">
-					<Button variant="contained" color="default" onClick={goBack}>
-						<ArrowBackIosIcon/> Back 
+					<Button className = "survey__actions-button" variant="contained" color="default" onClick={goBack}>
+						<ArrowBackIosIcon style={{fontSize:'small'}}/> Back 
       		</Button> 
-					<Button variant="contained" color="primary" onClick={next}>
-						Next <ArrowForwardIosIcon/>
+					<Button className = "survey__actions-button" variant="contained" color="primary" onClick={next}>
+						Next <ArrowForwardIosIcon style={{fontSize:'small'}}/>
       		</Button>  				   
     		</section>
 			</div>
