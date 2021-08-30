@@ -24,13 +24,13 @@ const data = {
 
 const products = {
   1: {
-  id: 1,
-  name: 'Google Nest Hub Max',
-  description: 'short desc',
-  image: 'img link',
-  price: 299.00,
-  category_id: 1,	
-  room_id: 1
+    id: 1,
+    name: 'Google Nest Hub Max',
+    description: 'short desc',
+    image: 'img link',
+    price: 299.00,
+    category_id: 1,	
+    room_id: 1
   },
   2: {
     id: 13,
@@ -49,7 +49,16 @@ const products = {
     price: 189.99,
     category_id: 8,	
     room_id: 1
-    }
+    },
+  4: {
+    id: 70,
+    name: 'vaccume 2',
+    description: 'short desc',
+    image: 'img link',
+    price: 189.99,
+    category_id: 7,	
+    room_id: 1
+    },
 }
 
 // the purpose of generate survey resutls, is too generate a formatted version of the products
@@ -84,19 +93,29 @@ const possibleProducts = function (categories) {
 }
 let filteredProducts = possibleProducts(data.categories, products)
 
-const generateSurveyResults = function (products, budget, categories, rooms) {
-  let localVal = {
-    products: [],
-    balanceRemaining: budget
+const generateProductsInCategory = function (products, categories) {
+  // sets categoriesArray equal to an array version of the categories a customer is looking for
+  const categoriesArray = categoryArray(categories)
+  // categoryProductGrouping is equal to an object which will contain our products related to each category
+  let categoryProductGrouping = {}
+  for (const category of categoriesArray) {
+    categoryProductGrouping[category]= []
   }
-  
-
-  console.log('1', products)
-  console.log('2', budget)
-  console.log('3', categories)
-  console.log('4', rooms)
-
-
+  for (const product in products) {
+    if (categoriesArray.includes(products[product].category_id)) {
+      categoryProductGrouping[products[product].category_id].push(products[product])
+    }
+  }
+  return categoryProductGrouping
 }
 
-console.log(generateSurveyResults(filteredProducts, data.budget, data.categories, data.rooms))
+// filter through the products and add the products to local hold depending on the lowest val
+const reccomendedProductByPrice = function(products, budget, categories, room) {
+  let localHold = {
+    productIds: [],
+    budgetRemaining: budget
+  }
+  console.log(products)
+}
+//console.log(generateProductsInCategory(filteredProducts, data.categories))
+console.log(reccomendedProductByPrice(generateProductsInCategory(filteredProducts, data.categories)))

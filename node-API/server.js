@@ -2,15 +2,30 @@ const PORT = 3002;
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors'); // cors require
+const ENV = process.env.ENV || "development";
+
+// PG database client / connection setup
+const { Pool } = require('pg');
+const dbParams = require('./lib/db.js');
+const db = new Pool(dbParams);
+db.connect();
+
+module.exports = { db }
 
 const app = express();
 app.use(cors()) // CORS middleware useage
 app.use(morgan('dev'));
+app.use(express.json())
 // import functions
-const singup = require('./routes/signup');
+const signup = require('./routes/signup');
 const login = require('./routes/login')
 
-db = {
+// db.query(`SELECT * FROM USERS;`)
+//   .then(data => {
+//     console.log(data)
+//   })
+
+db1 = {
     '1': {
         id: 1,
         name: "moe",
@@ -31,25 +46,14 @@ db = {
     }
 }
 
-app.use("/signup", singup(db));
+app.use("/signup", signup(db));
 app.use("/login", login(db))
 
-
-
-const data = [
-	{name: 'Waffle'},
-	{name: 'Doug'},
-	{name: 'Luna'},
-	{name: 'MoonMoon'},
-]
 app.get('/', (req, res) => {
   res.send("Hello World")
   console.log('test string')
 })
 
-app.get('/dogs', (req, res) => {
-  res.json(data);
-})
 
 
 
