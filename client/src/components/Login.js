@@ -1,3 +1,4 @@
+import { Redirect } from "react-router-dom";
 import React, { useState } from "react";
 import "./Login.scss";
 import axios from "axios";
@@ -19,10 +20,11 @@ export default function Login(props) {
   // set the states for the compoenet
   const [data, setData] = useState({
     email: "",
-    password: "",
+    password: ""
   });
   const [formErrors, setFormErrors] = useState({});
   const [signedup, setSignedup] = useState(false);
+  const [serverError, setServerError] = useState("")
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -47,32 +49,38 @@ export default function Login(props) {
     }
     console.log(data);
     try {
-      setFormErrors({});
+		setServerError("")
+      	setFormErrors({});
 
-      const signupPost = await axios.post("http://localhost:3002/login", data);
-      console.log(signupPost);
+      const signupPost = await axios.post("http://localhost:3002/login", data)
+      console.log("======", signupPost);
+	  localStorage.setItem("user_token", JSON.stringify({token: signupPost.data.token}))
       setSignedup(true);
+
     } catch (err) {
-      console.log(err);
+		// console.log("====In",err.response.data.error)
+		setServerError(err.response.data.error)
     }
 
   };
 
-//   if (signedup) {
-// 	return <Redirect to="/login" />
-// }
+  if (signedup) {
+	return <Redirect to="/" />
+}
   return (
     <div className="main-div">
       <form className="signup-form">
         <div className="signup-div">
           <label>Email</label>
           <input
+		  className="input-signup"
             type="text"
             onChange={(e) => setData({ ...data, email: e.target.value })}
           />
 		  <span className="form-error">{formErrors.email}</span>
           <label>Password</label>
           <input
+		  className="input-signup"
             type="password"
             onChange={(e) => setData({ ...data, password: e.target.value })}
           />
@@ -82,6 +90,7 @@ export default function Login(props) {
                 formErrors.password.slice(1)}
             </span>
           )}
+		    <span className="form-error">{serverError}</span>
           <a className="button" onClick={handleSubmit}>
             Log in
           </a>

@@ -1,4 +1,5 @@
 let dbParams = {};
+
 if (process.env.DATABASE_URL) {
   dbParams.connectionString = process.env.DATABASE_URL;
 } else {
@@ -10,5 +11,5 @@ if (process.env.DATABASE_URL) {
     database: process.env.DB_NAME
   };
 }
-
+console.log('@@@', dbParams)
 module.exports = dbParams;

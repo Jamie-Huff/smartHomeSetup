@@ -4,17 +4,21 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server.js",
+    "local": "npx nodemon server.js",
+    "db": "node bin/resetdb.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.1",
+    "chalk": "^4.1.2",
     "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.10.0",
-    "pg": "^8.7.1"
+    "pg": "^8.5.0"
   },
   "description": ""
 }
