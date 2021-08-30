@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
 
-export default function Budget(props) {  
-	const [budget, setBudget] = useState("");
+export default function Budget(props) { 
+  const { budget, setUserResponse } = props;
+
 	const handleBudgetChange = event => {
-		setBudget(event.target.value)
+		setUserResponse(event.target.value)
 	}
 
   return(

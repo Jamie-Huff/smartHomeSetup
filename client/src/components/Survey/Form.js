@@ -12,22 +12,36 @@ export default function Form(props) {
   const [userResponse, setUserResponse] = useState({
 		budget: "",
 		provider: "",
-		categories: {},
-		rooms: [],	
+		rooms: [],
+    categories: {}	
 	})
 
-  const handleSubmit = (e) => {
-		e.preventDefault();
-    console.log("Time to save")
+  const handleBudgetChange = (response) => {
+    setUserResponse({ ...userResponse, budget: response });
+  }
+  const handleProviderChange = (response) => {
+    setUserResponse({ ...userResponse, provider: response });
+  }
+
+  const handleRoomsChange = (response) => {
+    setUserResponse({ ...userResponse, rooms: response });
+  }
+
+  const handleCategoriesChange = (response) => {
+    setUserResponse({ ...userResponse, categories: response });
+  }
+
+  const handleSubmit = () => {
+    console.log(userResponse)
     // save(budget, provider, categories, rooms)
 	}
  
   return(
     <React.Fragment>
-      {(mode === "BUDGET") && <Budget userResponse={setUserResponse}/>}
-      {(mode === "PROVIDER") && <Provider userResponse={setUserResponse}/>} 
-      {(mode === "ROOMS") && <Rooms userResponse={setUserResponse}/>} 
-      {(mode === "CATEGORIES") && <Categories save={handleSubmit} userResponse={setUserResponse}/>} 
+      {(mode === "BUDGET") && <Budget budget= {userResponse.budget} setUserResponse={handleBudgetChange}/>}
+      {(mode === "PROVIDER") && <Provider provider= {userResponse.provider} setUserResponse={handleProviderChange}/>} 
+      {(mode === "ROOMS") && <Rooms rooms= {userResponse.rooms} setUserResponse={handleRoomsChange}/>} 
+      {(mode === "CATEGORIES") && <Categories save={handleSubmit} categories={userResponse.categories} setUserResponse={handleCategoriesChange}/>} 
     </React.Fragment>
     
   )

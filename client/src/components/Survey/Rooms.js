@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Rooms(props) {
+    const { rooms, setUserResponse } = props
 
   const classes = useStyles();
   const [state, setState] = React.useState({

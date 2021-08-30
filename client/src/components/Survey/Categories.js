@@ -26,15 +26,14 @@ const useStyles = makeStyles((theme) => ({
   },
 
   button: {
-    color:"green",
-    marginTop:"3px",
+    color:"#00b7eb",
+    marginTop:"16px",
     fontWeight:"bold"
-
   }
 }));
 
 export default function Categories(props) {
-  const { save } = props;
+  const { save, userResponse } = props;
   const classes = useStyles();
 
   const [category, setCategory] = useState({

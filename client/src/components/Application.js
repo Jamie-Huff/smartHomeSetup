@@ -85,7 +85,7 @@ export default function Application(props) {
               TAKE SURVEY
             </Button>     
             <Avatar src="images/alpac.jpg" alt="Lit"/>
-            <Modal open={open} onClose={handleSurveyClose} style={{display:'flex', alignItems:'center', justifyContent:'center'}}>
+            <Modal open={open} onClose={handleSurveyClose} style={{display:'flex',marginTop:'140px', justifyContent:'center'}}>
               <Survey submitSurvey={submitSurvey}/>
             </Modal>
         </Toolbar>
