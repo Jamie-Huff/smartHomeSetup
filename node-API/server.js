@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const PORT = 3002;
 const express = require('express');
 const morgan = require('morgan');
@@ -50,8 +52,11 @@ app.use("/signup", signup(db));
 app.use("/login", login(db))
 
 app.get('/', (req, res) => {
-  res.send("Hello World")
-  console.log('test string')
+    db.query(`SELECT * FROM USERS;`)
+        .then(data => {
+        console.log(data.rows)
+    })
+    console.log('test string')
 })
 
 
