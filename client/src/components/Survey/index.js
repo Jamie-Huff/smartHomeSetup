@@ -48,7 +48,7 @@ export default function Survey (props) {
 	//When user survey is validated by form, send to backend
 	const save = (budget, provider, rooms, category) => {	
 		transition(SAVING);
-
+		
 		submitSurvey(budget, provider, rooms, category)
 			.then((res) => {
 				console.log("Sucessfully saved")
@@ -65,15 +65,29 @@ export default function Survey (props) {
 					<img src="images/nao_ask.png" alt="nao" className="survey__card-img"/>
 				</section>
 				<section className="survey__card-form">
-					<Form onSubmit={save} mode={mode} />
+					<Form save={save} mode={mode} />
 				</section>			
     		<section className="survey__actions">
-					<Button className = "survey__actions-button" variant="contained" color="default" onClick={goBack}>
-						<ArrowBackIosIcon style={{fontSize:'small'}}/> Back 
-      		</Button> 
-					<Button className = "survey__actions-button" variant="contained" color="primary" onClick={next}>
-						Next <ArrowForwardIosIcon style={{fontSize:'small'}}/>
-      		</Button>  				   
+					{(mode !== "BUDGET") &&
+						<Button className = "survey__actions-button" variant="contained" color="default" onClick={goBack}>
+							<ArrowBackIosIcon style={{fontSize:'small'}}/> Back 
+      			</Button> 
+					}
+					{(mode === "BUDGET") &&
+						<Button className = "survey__actions-button" variant="contained" disabled>
+							<ArrowBackIosIcon style={{fontSize:'small'}}/> Back 
+      			</Button> 
+					}
+					{(mode !== "CATEGORIES") &&
+						<Button className = "survey__actions-button" variant="contained" color="primary" onClick={next}>
+							Next <ArrowForwardIosIcon style={{fontSize:'small'}}/>
+      			</Button> 
+					} 
+					{(mode === "CATEGORIES") &&
+						<Button className = "survey__actions-button" variant="contained" disabled>
+							Next <ArrowForwardIosIcon style={{fontSize:'small'}}/>
+      			</Button> 
+					}				   
     		</section>
 			</div>
     </div>

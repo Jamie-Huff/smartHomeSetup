@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-export default function Form(props) {
+export default function Provider(props) {
   const classes = useStyles(); 
 
   const [provider, setProvider] = useState('');

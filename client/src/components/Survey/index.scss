@@ -73,7 +73,7 @@
 
     &-button {
      height: 30px;
-     width: 88px;
+     width: px;
     }
   }
 
@@ -90,6 +90,21 @@
     &:focus {
       outline: none;
     }
+  }
+
+  &__create-input-category {
+    background-color: $dark-background;
+    border: 0;
+    border-bottom: 1px solid;
+    color: $white;
+    font-size: 1rem;
+    height: 2rem;
+    width: 1rem;
+    margin-bottom: 0.25rem;
+  }
+
+  &__create-flex {
+    display: flex
   }
 
   &__status-image {

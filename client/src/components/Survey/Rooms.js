@@ -20,11 +20,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Form(props) {
+export default function Rooms(props) {
 
   const classes = useStyles();
   const [state, setState] = React.useState({
-    livingRoom: true,
+    livingRoom: false,
     kitchen: false,
     bathRoom: false,
     bedRoom: false,

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
 
-export default function Form(props) {  
+export default function Budget(props) {  
 	const [budget, setBudget] = useState("");
 	const handleBudgetChange = event => {
 		setBudget(event.target.value)
@@ -13,7 +13,7 @@ export default function Form(props) {
       className="survey__create-input text--semi-bold"
       name="budget"
       type="text"
-	value = {budget}
+	    value = {budget}
       placeholder="$"
 			onChange={handleBudgetChange}
       autoComplete="off"

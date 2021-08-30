@@ -4,7 +4,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import Budget from './Budget';
 import Provider from './Provider';
 import Rooms from './Rooms';
+import Categories from './Categories';
 
+//Form
 export default function Form(props) {
   const { save, mode } = props;
   const [userResponse, setUserResponse] = useState({
@@ -14,17 +16,18 @@ export default function Form(props) {
 		rooms: [],	
 	})
 
-  //the forms stuff
   const handleSubmit = (e) => {
 		e.preventDefault();
-		console.log(e.target.value)
+    console.log("Time to save")
+    // save(budget, provider, categories, rooms)
 	}
-
+ 
   return(
     <React.Fragment>
-      {(mode === "BUDGET") && <Budget/>}
-      {(mode === "PROVIDER") && <Provider/>} 
-      {(mode === "ROOMS") && <Rooms/>}   
+      {(mode === "BUDGET") && <Budget userResponse={setUserResponse}/>}
+      {(mode === "PROVIDER") && <Provider userResponse={setUserResponse}/>} 
+      {(mode === "ROOMS") && <Rooms userResponse={setUserResponse}/>} 
+      {(mode === "CATEGORIES") && <Categories save={handleSubmit} userResponse={setUserResponse}/>} 
     </React.Fragment>
     
   )

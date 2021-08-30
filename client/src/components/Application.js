@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   '@global':{
     main:{
       backgroundColor:"black",
-      color:'white'
+      color:'#f5f5f5'
     }
   },  
   appBar: {
@@ -38,6 +38,10 @@ const useStyles = makeStyles((theme) => ({
     border: "2px light #000",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3)
+  },
+
+  button: {
+    color:"#dcdcdc"  
   }
 }));
 
@@ -77,7 +81,7 @@ export default function Application(props) {
       <CssBaseline /> 
       <AppBar position="static" className={classes.appBar} style={{display:'flex', alignItems:"flex-end"}}>
         <Toolbar > 
-            <Button variant="outlined" color="primary" onClick={handleSurveyOpen}>
+            <Button className={classes.button} variant="outlined" color="primary" onClick={handleSurveyOpen}>
               TAKE SURVEY
             </Button>     
             <Avatar src="images/alpac.jpg" alt="Lit"/>
