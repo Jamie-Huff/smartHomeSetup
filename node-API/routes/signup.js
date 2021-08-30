@@ -23,7 +23,7 @@ const signup = (db) => {
     db.query(`SELECT * FROM users WHERE email = $1`, [email]).then((data) => {
         // console.log(data)
         console.log("this is data: ",data)
-        if (data.rows[0]?.email) {
+        if (data.rows[0].email) {
         return res.status(401).json({ error: "Email already in use" });
       } else {
         db.query(
