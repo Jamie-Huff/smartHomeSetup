@@ -24,7 +24,7 @@ const signup = (db) => {
         // console.log(data)
         console.log("this is data: ",data)
         if (data.rows[0]?.email) {
-        return res.status(401).json({ error: "Email does exist" });
+        return res.status(401).json({ error: "Email already in use" });
       } else {
         db.query(
           `INSERT INTO users (name, email, password, phone_number) VALUES($1, $2, $3, $4) RETURNING *`,

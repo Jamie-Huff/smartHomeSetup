@@ -107,7 +107,7 @@ export default function Signup(props) {
                 formErrors.password.slice(1)}
             </span>
           )}
-          <label>Phone Number</label>
+          <label>Phone Number (Optional)</label>
           <input
             className="input-signup"
             type="text"
