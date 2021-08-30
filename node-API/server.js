@@ -54,12 +54,6 @@ const login = require('./routes/login')
 app.use("/signup", signup(db));
 app.use("/login", login(db))
 
-app.get('/', (req, res) => {
-    db.query(`SELECT * FROM products;`)
-      .then(data => {
-        console.log(data)
-      })
-    })
 // app.use("/signup", signup(db));
 // app.use("/login", login(db))
 
