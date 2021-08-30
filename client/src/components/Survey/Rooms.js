@@ -20,27 +20,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Rooms(props) {
-    const { rooms, setUserResponse } = props
-
+export default function Form(props) {
+  const{ rooms, setRooms } = props
   const classes = useStyles();
-  const [state, setState] = React.useState({
-    livingRoom: false,
-    kitchen: false,
-    bathRoom: false,
-    bedRoom: false,
-    laundryRoom: false,
-    entryWay: false,
-    garage: false,
-    yard: false
-  });
 
   const handleChange = (event) => {
-    setState({ ...state, [event.target.name]: event.target.checked });
+    setRooms({ ...rooms, [event.target.name]: event.target.checked });
   };
 
-  const { livingRoom, kitchen, bathRoom, bedRoom, laundryRoom, entryWay, garage, yard } = state;
-
+  const { livingRoom, kitchen, bathRoom, bedRoom, laundryRoom, entryWay, garage, yard } = rooms;
   return(
 
       <div className={classes.root}>

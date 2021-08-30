@@ -14,7 +14,7 @@ const CATEGORIES = "CATEGORIES";
 const ERROR = "ERROR";
 const ROOMS = "ROOMS";
 const PROVIDER = "PROVIDER";
-const SAVING = "SAVING"
+const LOADING = "LOADING"
 
 //style for the survey paper
 const useStyles = makeStyles((theme) => ({
@@ -27,9 +27,9 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Survey (props) {
 	const { submitSurvey } = props;
-	const classes = useStyles()
+	const classes = useStyles();
 	
-	//hook for controlling form rendering
+	//call custom hook for controlling form rendering
 	const { mode, transition, back } = useVisualMode(BUDGET)
 
 	const next = () => {
@@ -45,30 +45,32 @@ export default function Survey (props) {
 	const goBack = () => {
 		back();
 	}
-	//When user survey is validated by form, send to backend
+	//Send survery results to the backend
 	const save = (budget, provider, rooms, category) => {	
-		transition(SAVING);
+		transition(LOADING);
 		
-		submitSurvey(budget, provider, rooms, category)
-			.then((res) => {
-				console.log("Sucessfully saved")
-			})
-			.catch((err) =>{
-				console.log(err);
-				transition(ERROR, true);
-			})
+		// submitSurvey(budget, provider, rooms, category)
+		// 	.then((res) => {
+		// 		console.log("Sucessfully saved")
+		// 	})
+		// 	.catch((err) =>{
+		// 		console.log(err);
+		// 		transition(ERROR, true);
+		// 	})
 	}			
 	return (
 		<div  className={classes.paper} style ={{marginLeft:'20px'}}>
       <div className="survey__card survey__card--create">
-				<section className="survey__card-nao_ask">
-					<img src="images/nao_ask.png" alt="nao" className="survey__card-img"/>
-				</section>
+				{ mode!== "LOADING" && 
+					<section className="survey__card-nao_ask">
+						<img src="images/nao_ask.png" alt="nao" className="survey__card-img"/>
+					</section>
+				}
 				<section className="survey__card-form">
 					<Form save={save} mode={mode} />
 				</section>			
     		<section className="survey__actions">
-					{(mode !== "BUDGET") &&
+					{(mode !== "BUDGET" && mode !== "LOADING") &&
 						<Button className = "survey__actions-button" variant="contained" color="default" onClick={goBack}>
 							<ArrowBackIosIcon style={{fontSize:'small'}}/> Back 
       			</Button> 
@@ -78,7 +80,7 @@ export default function Survey (props) {
 							<ArrowBackIosIcon style={{fontSize:'small'}}/> Back 
       			</Button> 
 					}
-					{(mode !== "CATEGORIES") &&
+					{(mode !== "CATEGORIES" && mode !== "LOADING") &&
 						<Button className = "survey__actions-button" variant="contained" color="primary" onClick={next}>
 							Next <ArrowForwardIosIcon style={{fontSize:'small'}}/>
       			</Button> 

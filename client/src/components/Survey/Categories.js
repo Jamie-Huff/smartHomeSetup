@@ -7,7 +7,6 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Checkbox from '@material-ui/core/Checkbox';
-import Button from '@material-ui/core/Button';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -24,44 +23,22 @@ const useStyles = makeStyles((theme) => ({
     color:"white", 
     fontSize:"0.3em"
   },
-
-  button: {
-    color:"#00b7eb",
-    marginTop:"16px",
-    fontWeight:"bold"
-  }
 }));
 
 export default function Categories(props) {
-  const { save, userResponse } = props;
+  const { save, categories, setCategories, quantities, setQuantities } = props;
   const classes = useStyles();
 
-  const [category, setCategory] = useState({
-    lights: false,
-    speakers: false,
-    hubs: false,
-    appliances: false,
-    thermostat: false,
-    security: false,
-    garage: false,
-  });
-
-  const [quantity, setQuantity] = useState({
-    lights:"",
-    speakers:"",
-    hubs:""
-  });
-
 	const handleQuantityChange = event => {
-		setQuantity({ ...quantity, [event.target.name]: event.target.value });
+		setQuantities({ ...quantities, [event.target.name]: event.target.value });
 	}
 
   const handleCategoryChange = (event) => {
-    setCategory({ ...category, [event.target.name]: event.target.checked });
+    setCategories({ ...categories, [event.target.name]: event.target.checked });
   };
 
-  const { lights, speakers, hubs, appliances, thermostat, security, garage } = category;
-  const { lightsQty, speakersQty, hubsQty } = quantity;
+  const { lights, speakers, hubs, appliances, thermostat, security, garage } = categories;
+  const { lightsQty, speakersQty, hubsQty } = quantities;
 
   return(
 
@@ -74,7 +51,7 @@ export default function Categories(props) {
                 control={<Checkbox checked={lights} onChange={handleCategoryChange} name="lights" />}
                 label="Lights"
               />
-              {lights&&<input
+              {lights&& <input
                 className="survey__create-input-category text--semi-bold"
                 name="lights"
                 type="text"
@@ -89,7 +66,7 @@ export default function Categories(props) {
                 control={<Checkbox checked={speakers} onChange={handleCategoryChange} name="speakers" />}
                 label="Speakers"
               />
-              {speakers&&<input
+              {speakers&& <input
                 className="survey__create-input-category text--semi-bold"
                 name="speakers"
                 type="text"
@@ -104,7 +81,7 @@ export default function Categories(props) {
                 control={<Checkbox checked={hubs} onChange={handleCategoryChange} name="hubs" />}
                 label="Hubs"
               />
-              {hubs&&<input
+              {hubs&& <input
                 className="survey__create-input-category text--semi-bold"
                 name="hubs"
                 type="text"
@@ -131,9 +108,6 @@ export default function Categories(props) {
               label="Garage Devices"
             />
           </FormGroup>
-          <Button className={classes.button} variant="outlined" color="primary" onClick={save}>
-            GET RECOMMENDATIONS
-          </Button>
         </FormControl>
       </div>        
   )

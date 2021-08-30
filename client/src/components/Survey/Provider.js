@@ -42,11 +42,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Provider(props) {
-  const { userResponse } = props
+  const { provider, setProvider } = props
 
   const classes = useStyles(); 
-
-  const [provider, setProvider] = useState('');
   const [open, setOpen] = useState(false);
 
   const handleChange = (event) => {

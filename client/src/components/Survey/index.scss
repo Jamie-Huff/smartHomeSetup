@@ -107,6 +107,11 @@
     display: flex
   }
 
+  &__create-flexColumn {
+    display: flex;
+    flex-direction: column;
+  }
+
   &__status-image {
     margin-right: 2rem;
     animation: rotate 1s linear infinite;
