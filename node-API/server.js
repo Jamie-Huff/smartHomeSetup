@@ -59,6 +59,7 @@ app.get('/', (req, res) => {
       .then(data => {
         console.log(data)
       })
+    })
 // app.use("/signup", signup(db));
 // app.use("/login", login(db))
 
