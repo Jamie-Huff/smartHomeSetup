@@ -1,4 +1,4 @@
-require("dotenv").config();// moe required this Jamie :)
+require('dotenv').config()
 const PORT = 3002;
 const express = require('express');
 const morgan = require('morgan');
@@ -10,7 +10,10 @@ const ENV = process.env.ENV || "development";
 const { Pool } = require('pg');
 const dbParams = require('./lib/db.js');
 const db = new Pool(dbParams);
-db.connect();
+db.connect()
+  .catch(err => {
+    console.error(err)
+  })
 
 module.exports = { db }
 
@@ -56,6 +59,15 @@ app.get('/', (req, res) => {
       .then(data => {
         console.log(data)
       })
+// app.use("/signup", signup(db));
+// app.use("/login", login(db))
+
+app.get('/', (req, res) => {
+  db.query(`SELECT * FROM USERS;`)
+  .then(data => {
+    console.log('#@#@', data.rows[0])
+    res.send('unique string')
+  })
   console.log('test string')
 })
 

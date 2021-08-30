@@ -15,7 +15,7 @@ import "./Application.scss";
 import ProductListItem from "./ProductListItem";
 import useApplicationData from "../hooks/useApplicationData"
 import SmartVille from "./SmartVille";
-import Survey from "./Survey";
+import Survey from "./Survey/index";
 import Signup from "./Signup";
 import Login from "./Login";
 
@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   '@global':{
     main:{
       backgroundColor:"black",
-      color:'white'
+      color:'#f5f5f5'
     }
   },
   appBar: {
@@ -38,10 +38,12 @@ const useStyles = makeStyles((theme) => ({
     border: "2px light #000",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3)
+  },
+
+  button: {
+    color:"#dcdcdc"  
   }
 }));
-
-
 
 
 export default function Application(props) {
@@ -66,27 +68,25 @@ export default function Application(props) {
   };
 
   const {
-    state
+    products,
+    rooms,
+    surveys,
+    submitSurvey,
+    editRecommendations,
+    switchSurvey
   } = useApplicationData();
-
-  // const survey = (
-  //   <div  className={classes.paper} style ={{marginLeft:'20px'}}>
-  //     <p>Take Survery here</p>
-  //     <button>Yus</button>
-  //   </div>
-  // );
 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <AppBar position="static" className={classes.appBar} style={{display:'flex', alignItems:"flex-end"}}>
-        <Toolbar >
-            <Button variant="outlined" color="primary" onClick={handleSurveyOpen}>
-              START SURVEY
-            </Button>
+        <Toolbar > 
+            <Button className={classes.button} variant="outlined" color="primary" onClick={handleSurveyOpen}>
+              TAKE SURVEY
+            </Button>     
             <Avatar src="images/alpac.jpg" alt="Lit"/>
-            <Modal open={open} onClose={handleSurveyClose} style={{display:'flex', alignItems:'center', justifyContent:'center'}}>
-              <Survey/>
+            <Modal open={open} onClose={handleSurveyClose} style={{display:'flex',marginTop:'140px', justifyContent:'center'}}>
+              <Survey submitSurvey={submitSurvey}/>
             </Modal>
         </Toolbar>
       </AppBar>
