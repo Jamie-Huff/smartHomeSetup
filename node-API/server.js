@@ -1,3 +1,4 @@
+require('dotenv').config()
 const PORT = 3002;
 const express = require('express');
 const morgan = require('morgan');
@@ -8,7 +9,10 @@ const ENV = process.env.ENV || "development";
 const { Pool } = require('pg');
 const dbParams = require('./lib/db.js');
 const db = new Pool(dbParams);
-db.connect();
+db.connect()
+  .catch(err => {
+    console.error(err)
+  })
 
 module.exports = { db }
 
@@ -20,37 +24,36 @@ app.use(express.json())
 const signup = require('./routes/signup');
 const login = require('./routes/login')
 
-// db.query(`SELECT * FROM USERS;`)
-//   .then(data => {
-//     console.log(data)
-//   })
+// db1 = {
+//     '1': {
+//         id: 1,
+//         name: "moe",
+//         email: "moe@email.com",
+//         password: "hashed"
+//     },
+//     "2":{
+//         id: "2",
+//         name: "jamie",
+//         email:"jamie@email.com",
+//         password: "hashed"
+//     },
+//     "3": {
+//         id: 3,
+//         name: "David",
+//         email: "David@email.com",
+//         password: "hashed"
+//     }
+// }
 
-db1 = {
-    '1': {
-        id: 1,
-        name: "moe",
-        email: "moe@email.com",
-        password: "hashed"
-    },
-    "2":{
-        id: "2",
-        name: "jamie",
-        email:"jamie@email.com",
-        password: "hashed"
-    },
-    "3": {
-        id: 3,
-        name: "David",
-        email: "David@email.com",
-        password: "hashed"
-    }
-}
-
-app.use("/signup", signup(db));
-app.use("/login", login(db))
+// app.use("/signup", signup(db));
+// app.use("/login", login(db))
 
 app.get('/', (req, res) => {
-  res.send("Hello World")
+  db.query(`SELECT * FROM USERS;`)
+  .then(data => {
+    console.log('#@#@', data.rows[0])
+    res.send('unique string')
+  })
   console.log('test string')
 })
 
