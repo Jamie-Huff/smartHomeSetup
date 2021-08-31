@@ -56,7 +56,7 @@ export default function Survey (props) {
 		setTimeout(() => {
 			submitSurvey(surveyData)
 				.then((res) => {
-					console.log(res)
+					console.log("WITHIN INDEX FRONT END",res)
 				})
 				.catch((err) =>{
 					console.log(err);
