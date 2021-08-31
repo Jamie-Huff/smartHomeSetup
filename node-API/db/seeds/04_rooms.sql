@@ -2,12 +2,12 @@
 INSERT INTO rooms
   (name)
 VALUES
-  ('Inspecific'),
-  ('Bedroom'),
-  ('Kitchen'),
-  ('Common Area'),
-  ('Bathroom'),
-  ('Yard'),
-  ('Garage'),
-  ('Entrance Way'),
-  ('Laundry Room');
+  ('inspecific'),
+  ('bedroom'),
+  ('kitchen'),
+  ('common area'),
+  ('bathroom'),
+  ('yard'),
+  ('garage'),
+  ('entrance way'),
+  ('laundry room');
