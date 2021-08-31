@@ -17,7 +17,7 @@ export default function Budget(props) {
 	    value = {budget}
       placeholder="$"
 			onChange={handleBudgetChange}
-      autoComplete="off"
+      // autoComplete="off"
     />  
   )
 }
