@@ -11,8 +11,9 @@ const surveyData = (db) => {
         console.log('Our categories: ', categories)
         console.log('Our budget: ', query.budget)
         console.log('Our rooms: ', query.rooms)
-        db.query(`SELECT * FROM rooms WHERE name = ${query.rooms[1]}`)
+        db.query(`SELECT * FROM rooms`)
             .then(data => {
+                // for starters, using our rooms, we need to narrow down our products for just those that have that room id
                 console.log('rooms that match', data.rows)
             })
     })
