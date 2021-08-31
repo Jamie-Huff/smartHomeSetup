@@ -104,7 +104,9 @@ export default function Application(props) {
       <Router>
         <Switch>
           <Route exact path='/'>
-            <ProductListItem/>
+            <div>
+              <ProductListItem/>
+            </div>
           </Route>
           <Route path='/login'>
             <Login />
