@@ -77,7 +77,7 @@ export default function useApplicationData () {
       setRooms(all[1].data); 
       setSurveys(all[2].data); 
     });
-  }, [])
+  },[])
 
   const submitSurvey = (surveyData) => {
 

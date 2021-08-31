@@ -4,7 +4,6 @@ export default function useVisualMode (initialMode) {
   const [mode, setMode] = useState(initialMode);
   const [history, setHistory] = useState([initialMode]); // This line is new!
 
-
   const transition = (newMode, replace) => { 
     if(replace) {
       popHistory()
