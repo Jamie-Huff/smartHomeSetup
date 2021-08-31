@@ -10,20 +10,26 @@ import Categories from './Categories';
 import Loading from './Loading';
 import Error from './Error';
 import dataOrganisers from '../../helpers/dataOrganisers'
+import transitions from '@material-ui/core/styles/transitions';
 
 
 const useStyles = makeStyles((theme) => ({
-  button: {
+  buttonRec: {
     color:"#00b7eb",
     marginTop:"10px",
+    fontWeight:"bold"
+  },
+  buttonSurvey: {
+    color:"#00b7eb",
+    marginTop:"40px",
     fontWeight:"bold"
   }
 }));
 
 export default function Form(props) {
   const classes = useStyles()
-  const { save, mode } = props;
-  const { setupCategories, changeToArray, formDataForApi } = dataOrganisers
+  const { save, mode, backToStart } = props;
+  const { setupCategories, changeToArray, formDataForApi, checkForUser } = dataOrganisers
 
   //hooks for tracking the state of each survey question response
   const [budget, setBudget] = useState("");
@@ -56,7 +62,8 @@ export default function Form(props) {
   const handleSubmit = (e) => {
     const surveyCategories = setupCategories(categories, quantities);
     const surveyRooms = changeToArray(rooms);
-    const surveyData = formDataForApi(budget, provider, surveyCategories, surveyRooms);
+    const surveyUser = checkForUser();
+    const surveyData = formDataForApi(budget, provider, surveyCategories, surveyRooms, surveyUser);
     
     save(surveyData);
   }
@@ -74,7 +81,7 @@ export default function Form(props) {
             setCategories={setCategories} 
             save={handleSubmit}
           />
-          <Button className={classes.button} 
+          <Button className={classes.buttonRec} 
             variant="outlined" 
             color="primary"
             onClick={handleSubmit}
@@ -84,7 +91,18 @@ export default function Form(props) {
         </div>
       } 
       {(mode === "LOADING") && <Loading/>}
-      {(mode === "ERROR") && <Error/>}
+      {(mode === "ERROR") && 
+        <div className="survey__create-flexColumn">
+          <Error/>
+          <Button className={classes.buttonSurvey} 
+            variant="outlined" 
+            color="secondary"
+            onClick={backToStart}
+          >
+            GO BACK TO SURVEY
+          </Button>
+        </div>      
+      }
 
     </React.Fragment>
     

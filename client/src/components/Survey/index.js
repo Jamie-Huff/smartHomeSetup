@@ -45,6 +45,10 @@ export default function Survey (props) {
 	const goBack = () => {
 		back();
 	}
+
+	const backToStart = () => {
+		transition(BUDGET);
+	}
 	//Send survery results to the backend
 	const save = (surveyData) => {	
 		transition(LOADING);		
@@ -52,7 +56,7 @@ export default function Survey (props) {
 		setTimeout(() => {
 			submitSurvey(surveyData)
 				.then((res) => {
-					console.log(res)
+					console.log("WITHIN INDEX FRONT END",res)
 				})
 				.catch((err) =>{
 					console.log(err);
@@ -70,25 +74,25 @@ export default function Survey (props) {
 					</section>
 				}
 				<section className="survey__card-form">
-					<Form save={save} mode={mode} />
+					<Form save={save} mode={mode} backToStart={backToStart}/>
 				</section>			
     		<section className="survey__actions">
-					{(mode !== "BUDGET" && mode !== "LOADING") &&
+					{(mode !== "BUDGET" && mode !== "LOADING" && mode != "ERROR") &&
 						<Button className = "survey__actions-button" variant="contained" color="default" onClick={goBack}>
 							<ArrowBackIosIcon style={{fontSize:'small'}}/> Back 
       			</Button> 
 					}
-					{(mode === "BUDGET" && mode === "ERROR") &&
+					{(mode === "BUDGET") &&
 						<Button className = "survey__actions-button" variant="contained" disabled>
 							<ArrowBackIosIcon style={{fontSize:'small'}}/> Back 
       			</Button> 
 					}
-					{(mode !== "CATEGORIES" && mode !== "LOADING") &&
+					{(mode !== "CATEGORIES" && mode !== "LOADING" && mode != "ERROR") &&
 						<Button className = "survey__actions-button" variant="contained" color="primary" onClick={next}>
 							Next <ArrowForwardIosIcon style={{fontSize:'small'}}/>
       			</Button> 
 					} 
-					{(mode === "CATEGORIES" && mode === "ERROR") &&
+					{(mode === "CATEGORIES") &&
 						<Button className = "survey__actions-button" variant="contained" disabled>
 							Next <ArrowForwardIosIcon style={{fontSize:'small'}}/>
       			</Button> 

@@ -95,7 +95,7 @@ export default function useApplicationData () {
         // })
         console.log("GOT BACK A MESSAGE")
         console.log(res)
-        return resolve();
+        return resolve(res);
       })
       .catch((err) => {
         return reject(console.log(err.message))

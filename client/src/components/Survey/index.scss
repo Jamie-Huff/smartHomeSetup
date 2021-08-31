@@ -32,20 +32,17 @@
       margin-bottom: 22px;
     }
 
+    &-error {
+      margin-top: 90px;
+      display:flex;
+      justify-content: center;
+    }
+
     &--create {
       background-color: $dark-background;
       display: flex;
     }
-
-
-
-    &--error {
-      @include border-card($error-color);
-
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+    
   }
 
   &:last-of-type &__add,
