@@ -15,11 +15,32 @@ const setupCategories = (categories, quantities) => {
   return categoryObj
 }
 
-
-const changeToArray = (rooms) => {
+const setUpRooms = (rooms) => {
   const roomKeys = Object.keys(rooms);
+  const roomVars = roomKeys.filter(x => (rooms[x] === true));
 
-  return roomKeys.filter(x => (rooms[x] === true));
+  let newRooms = []
+
+  for (let roomVar of roomVars) {
+    roomVar.toLowerCase()
+
+    if (roomVar === "livingRoom" || roomVar === "laundryRoom" || roomVar === "entryWay") {
+      if (roomVar === "livingRoom") {
+        newRooms.push('common area');
+      } 
+  
+      if (roomVar === "laundryRoom") {
+        newRooms.push('laundry room');
+      } 
+  
+      if (roomVar === "entryWay") {
+        newRooms.push('entrance way')
+      } 
+    } else {
+      newRooms.push(roomVar)
+    }   
+  }
+  return newRooms;
 }
 
 const checkForUser = () => {
@@ -40,7 +61,7 @@ const formDataForApi = (budget, provider, categories, rooms, user) => {
 
 module.exports = {
   setupCategories,
-  changeToArray,
+  setUpRooms,
   formDataForApi,
   checkForUser
 }
