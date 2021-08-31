@@ -1,3 +1,21 @@
+require('dotenv').config()
+const { Pool } = require('pg');
+const dbParams = require('../lib/db');
+const db = new Pool(dbParams);
+db.connect()
+  .catch(err => {
+    console.error(err)
+  })
+
+
+let users = ''
+// because this function is async it wont give us our data back properly need to have it all in a callback
+const userListGenerator = (db) => {
+  db.query('SELECT * FROM USERS;')
+    .then(data => {
+      users = data.rows
+    })
+}
 
 const data = {
   budget: 500,
@@ -118,4 +136,4 @@ const reccomendedProductByPrice = function(products, budget, categories, room) {
   console.log(products)
 }
 //console.log(generateProductsInCategory(filteredProducts, data.categories))
-console.log(reccomendedProductByPrice(generateProductsInCategory(filteredProducts, data.categories)))
+// console.log(reccomendedProductByPrice(generateProductsInCategory(filteredProducts, data.categories)))

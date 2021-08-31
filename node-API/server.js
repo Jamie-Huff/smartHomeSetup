@@ -25,35 +25,16 @@ app.use(express.json())
 const signup = require('./routes/signup');
 const login = require('./routes/login')
 const surveyData = require('./routes/surveyData')
-// db.query(`SELECT * FROM USERS;`)
-//   .then(data => {
-//     console.log(data)
-//   })
-
-// db1 = {
-//     '1': {
-//         id: 1,
-//         name: "moe",
-//         email: "moe@email.com",
-//         password: "hashed"
-//     },
-//     "2":{
-//         id: "2",
-//         name: "jamie",
-//         email:"jamie@email.com",
-//         password: "hashed"
-//     },
-//     "3": {
-//         id: 3,
-//         name: "David",
-//         email: "David@email.com",
-//         password: "hashed"
-//     }
-// }
+const sendProducts = require('./routes/products')
+const sendRooms = require('./routes/rooms')
+const sendUsers = require('./routes/users')
 
 app.use("/signup", signup(db));
 app.use("/login", login(db))
 app.use("/surveyData", surveyData(db))
+app.use("/products", sendProducts(db))
+app.use("/rooms", sendRooms(db))
+app.use("/users", sendUsers(db)) // security issue? lets talk about it
 
 
 // app.use("/signup", signup(db));
@@ -67,6 +48,8 @@ app.get('/', (req, res) => {
   })
   console.log('test string')
 })
+
+
 
 
 app.listen(PORT, () => console.log(`Server is listening on port ${PORT}`));
