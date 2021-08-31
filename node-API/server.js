@@ -58,15 +58,13 @@ app.use("/login", login(db))
 // app.use("/login", login(db))
 
 app.get('/', (req, res) => {
-  db.query(`SELECT * FROM USERS;`)
+  db.query(`SELECT * FROM PRODUCTS;`)
   .then(data => {
     console.log('#@#@', data.rows[0])
     res.send('unique string')
   })
   console.log('test string')
 })
-
-
 
 
 app.listen(PORT, () => console.log(`Server is listening on port ${PORT}`));

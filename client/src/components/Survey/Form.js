@@ -9,6 +9,7 @@ import Rooms from './Rooms';
 import Categories from './Categories';
 import Loading from './Loading';
 import Error from './Error';
+import dataOrganisers from '../../helpers/dataOrganisers'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -22,6 +23,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Form(props) {
   const classes = useStyles()
   const { save, mode } = props;
+  const { setupCategories, changeToArray, formDataForApi } = dataOrganisers
 
   //hooks for tracking the state of each survey question response
   const [budget, setBudget] = useState("");
@@ -52,15 +54,11 @@ export default function Form(props) {
   });
 
   const handleSubmit = (e) => {
-    console.log("Time to submit form")
-    console.log("Budget is", budget)
-    console.log("provider is", provider)
-    console.log("rooms are", rooms)
-    console.log("categories are", categories)
-    console.log("quantities are", quantities)
-    //VALIDATE
-    //save
-    save(budget, provider, rooms, categories, quantities)
+    const surveyCategories = setupCategories(categories, quantities);
+    const surveyRooms = changeToArray(rooms);
+    const surveyData = formDataForApi(budget, provider, surveyCategories, surveyRooms);
+    
+    save(surveyData);
   }
  
   return(

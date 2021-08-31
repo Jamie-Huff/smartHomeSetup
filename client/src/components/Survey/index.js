@@ -46,20 +46,19 @@ export default function Survey (props) {
 		back();
 	}
 	//Send survery results to the backend
-	const save = (budget, provider, rooms, category) => {	
-		transition(LOADING);
-		setTimeout(() => {
-			transition(ERROR);
-		}, 2000);
+	const save = (surveyData) => {	
+		transition(LOADING);		
 
-		// submitSurvey(budget, provider, rooms, category)
-		// 	.then((res) => {
-		// 		console.log("Sucessfully saved")
-		// 	})
-		// 	.catch((err) =>{
-		// 		console.log(err);
-		// 		transition(ERROR, true);
-		// 	})
+		setTimeout(() => {
+		submitSurvey(surveyData)
+			// .then((res) => {
+			// 	console.log("Sucessfully saved")
+			// })
+			// .catch((err) =>{
+				// console.log(err);
+				transition(ERROR, true);
+			// })
+		}, 2000);
 	}			
 	return (
 		<div  className={classes.paper} style ={{marginLeft:'20px'}}>

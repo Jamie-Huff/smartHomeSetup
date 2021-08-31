@@ -5,7 +5,7 @@ export default function ProductListItem (props) {
 
 
 	return (
-		<div>
+		<div style={{display:'flex', justifyContent:'center', width:'100%'}}>
 			<h1> SMART PRODUCTS</h1>		
 		</div>
 	

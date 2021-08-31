@@ -23,13 +23,12 @@ import Login from "./Login";
 const useStyles = makeStyles((theme) => ({
   '@global':{
     main:{
-      backgroundColor:"black",
+      backgroundColor:"#001029",
       color:'#f5f5f5'
     }
   },
   appBar: {
-    backgroundColor: 'black',
-    borderBottom: '1px solid purple'
+    backgroundColor: '#001029',
   },
   paper: {
     position: "absolute",
@@ -48,7 +47,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Application(props) {
   const classes = useStyles();
-  //material ui theme
+
+  // material ui theme
   const theme = createTheme({
     palette: {
       background: {
@@ -56,6 +56,12 @@ export default function Application(props) {
       },
     }
   });
+
+  // const theme = createTheme({
+  //   palette: {
+  //     type: 'dark'
+  //   }
+  // });
 
   const [open, setOpen] = React.useState(false);
 
@@ -75,7 +81,6 @@ export default function Application(props) {
     editRecommendations,
     switchSurvey
   } = useApplicationData();
-
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />

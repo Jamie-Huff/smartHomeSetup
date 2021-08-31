@@ -79,12 +79,13 @@ export default function useApplicationData () {
     });
   }, [])
 
-  const submitSurvey = (budget, rooms, categories, provider) => {
+  const submitSurvey = (surveyData) => {
 
-    console.log("IN SUBMIT SURVEY")
+    console.log("IN SUBMIT SURVEY", surveyData)
+
     //update db, with appointment, then state of app
     // return new Promise((resolve, reject) => {
-    //   axios.put()
+    //   axios.post()
     //   .then((res) => {
     //     const survey = {
     //     }

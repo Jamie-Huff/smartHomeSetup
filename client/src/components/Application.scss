@@ -6,8 +6,9 @@
   display: flex;
   flex-direction: column;
   bottom:0;
-  border-radius: 0 15px 15px 15px;
-  min-width: 18rem;
+  border-radius: 5px 5px 0px 0px;
+  margin-left: 26px;
+  min-width: 17rem;
   &--nao {
     align-self: center;
     height: 250px;
