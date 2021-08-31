@@ -8,14 +8,39 @@ db.connect()
   })
 
 
-let users = ''
+// let users = ''
 // because this function is async it wont give us our data back properly need to have it all in a callback
 const userListGenerator = (db) => {
-  db.query('SELECT * FROM USERS;')
+  return db.query('SELECT * FROM PRODUCTS;')
     .then(data => {
-      users = data.rows
+      const users = data.rows
+      return users
     })
 }
+
+
+
+
+
+
+// const logUser = async () => {
+//   return userListGenerator(db)
+//     .then(result => {
+//       // console.log('@@@', result)
+//       const sorted = sortCategory(result)
+//       return sorted
+//     })
+// }
+
+// const log2 = async () => {
+//   try {
+//     const result = await db.query('SELECT * FROM USERS WHERE id = 1;')
+//     // console.log('#####', result.rows)
+//     return result.rows
+//   } catch (error) {
+//     console.log('err@@', error)
+//   }
+// }
 
 const data = {
   budget: 500,
