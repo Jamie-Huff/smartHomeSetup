@@ -24,7 +24,7 @@ app.use(express.json())
 // import functions
 const signup = require('./routes/signup');
 const login = require('./routes/login')
-
+const surveyData = require('./routes/surveyData')
 // db.query(`SELECT * FROM USERS;`)
 //   .then(data => {
 //     console.log(data)
@@ -53,6 +53,8 @@ const login = require('./routes/login')
 
 app.use("/signup", signup(db));
 app.use("/login", login(db))
+app.use("/surveyData", surveyData(db))
+
 
 // app.use("/signup", signup(db));
 // app.use("/login", login(db))

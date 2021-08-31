@@ -83,22 +83,24 @@ export default function useApplicationData () {
 
     console.log("IN SUBMIT SURVEY", surveyData)
 
-    //update db, with appointment, then state of app
-    // return new Promise((resolve, reject) => {
-    //   axios.post()
-    //   .then((res) => {
-    //     const survey = {
-    //     }
-    //     setState({
-    //       // ...state,
-    //       // survey
-    //     })
-    //     return resolve();
-    //   })
-    //   .catch((err) => {
-    //     return reject(console.log(err.message))
-    //   })   
-    // })  
+    // send data to the backend
+    return new Promise((resolve, reject) => {
+      axios.post("http://localhost:3002/surveyData", surveyData)
+      .then((res) => {
+        // const survey = {
+        // }
+        // setState({
+        //   // ...state,
+        //   // survey
+        // })
+        console.log("GOT BACK A MESSAGE")
+        console.log(res)
+        return resolve();
+      })
+      .catch((err) => {
+        return reject(console.log(err.message))
+      })   
+    })  
   }
 
   //Delete the appointment from the db, then update the state of the app
