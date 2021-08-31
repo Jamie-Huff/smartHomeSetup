@@ -50,19 +50,20 @@ export default function Survey (props) {
 		transition(LOADING);		
 
 		setTimeout(() => {
-		submitSurvey(surveyData)
-			// .then((res) => {
-			// 	console.log("Sucessfully saved")
-			// })
-			// .catch((err) =>{
-				// console.log(err);
-				transition(ERROR, true);
-			// })
-		}, 2000);
+			submitSurvey(surveyData)
+				.then((res) => {
+					console.log(res)
+				})
+				.catch((err) =>{
+					console.log(err);
+					transition(ERROR, true);
+				})
+			}, 1000);
 	}			
 	return (
 		<div  className={classes.paper} style ={{marginLeft:'20px'}}>
       <div className="survey__card survey__card--create">
+				{/* Dont load nao top pic ic its loading or displaying an error message */}
 				{ (mode!== "LOADING" && mode!= "ERROR") && 
 					<section className="survey__card-nao_ask">
 						<img src="images/nao_ask.png" alt="nao" className="survey__card-img"/>
@@ -77,7 +78,7 @@ export default function Survey (props) {
 							<ArrowBackIosIcon style={{fontSize:'small'}}/> Back 
       			</Button> 
 					}
-					{(mode === "BUDGET") &&
+					{(mode === "BUDGET" && mode === "ERROR") &&
 						<Button className = "survey__actions-button" variant="contained" disabled>
 							<ArrowBackIosIcon style={{fontSize:'small'}}/> Back 
       			</Button> 
@@ -87,7 +88,7 @@ export default function Survey (props) {
 							Next <ArrowForwardIosIcon style={{fontSize:'small'}}/>
       			</Button> 
 					} 
-					{(mode === "CATEGORIES") &&
+					{(mode === "CATEGORIES" && mode === "ERROR") &&
 						<Button className = "survey__actions-button" variant="contained" disabled>
 							Next <ArrowForwardIosIcon style={{fontSize:'small'}}/>
       			</Button> 
