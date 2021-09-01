@@ -18,6 +18,7 @@ import SmartVille from "./SmartVille";
 import Survey from "./Survey/index";
 import Signup from "./Signup";
 import Login from "./Login";
+import ProductList from "./ProductList"
 
 //Declare material ui styling here
 const useStyles = makeStyles((theme) => ({
@@ -40,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
   button: {
-    color:"#dcdcdc"  
+    color:"#dcdcdc"
   }
 }));
 
@@ -85,10 +86,10 @@ export default function Application(props) {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <AppBar position="static" className={classes.appBar} style={{display:'flex', alignItems:"flex-end"}}>
-        <Toolbar > 
+        <Toolbar >
             <Button className={classes.button} variant="outlined" color="primary" onClick={handleSurveyOpen}>
               TAKE SURVEY
-            </Button>     
+            </Button>
             <Avatar src="images/alpac.jpg" alt="Lit"/>
             <Modal open={open} onClose={handleSurveyClose} style={{display:'flex',marginTop:'140px', justifyContent:'center'}}>
               <Survey submitSurvey={submitSurvey}/>
@@ -105,7 +106,7 @@ export default function Application(props) {
         <Switch>
           <Route exact path='/'>
             <div>
-              <ProductListItem/>
+              <ProductList products={products}/>
             </div>
           </Route>
           <Route path='/login'>

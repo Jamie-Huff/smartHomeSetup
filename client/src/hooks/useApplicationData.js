@@ -69,13 +69,14 @@ export default function useApplicationData () {
   useEffect(() => {
     //Load all the data from the database when the page loads
     Promise.all([
-      axios.get('/products'),
-      axios.get('/rooms'),
-      axios.get('/survey')
+      axios.get('http://localhost:3002/products'),
+      axios.get('http://localhost:3002/rooms'),
+      // axios.get('/survey')
     ]).then((all) => {
-      setProducts(all[0].data); 
-      setRooms(all[1].data); 
-      setSurveys(all[2].data); 
+      setProducts(all[0].data);
+      console.log("this is form useapp",products)
+      setRooms(all[1].data);
+      // setSurveys(all[2].data);
     });
   },[])
 
@@ -99,13 +100,13 @@ export default function useApplicationData () {
       })
       .catch((err) => {
         return reject(console.log(err.message))
-      })   
-    })  
+      })
+    })
   }
 
   //Delete the appointment from the db, then update the state of the app
-  const editRecommendations = (id) => { 
-    console.log("IN EDIT RECOMMENDATIONS")  
+  const editRecommendations = (id) => {
+    console.log("IN EDIT RECOMMENDATIONS")
     // return new Promise((resolve, reject) => {
     //   axios.post()
     //   .then((res) => {
@@ -114,18 +115,18 @@ export default function useApplicationData () {
     //     setState({
     //       ...state,
     //       recommendations
-    //     })      
+    //     })
     //     return resolve(console.log(res));
     //   })
     //   .catch((err) => {
     //     return reject(console.log(err.message));
-    //   })  
-    // })     
-  } 
+    //   })
+    // })
+  }
 
-  const switchSurvey = (id) => { 
-      console.log("IN SWITCH SURVEY")  
-  
+  const switchSurvey = (id) => {
+      console.log("IN SWITCH SURVEY")
+
     // return new Promise((resolve, reject) => {
     //   axios.post()
     //   .then((res) => {
@@ -134,14 +135,14 @@ export default function useApplicationData () {
     //     setState({
     //       ...state,
     //       survey
-    //     })      
+    //     })
     //     return resolve(console.log(res));
     //   })
     //   .catch((err) => {
     //     return reject(console.log(err.message));
-    //   })  
-    // })     
-  } 
+    //   })
+    // })
+  }
 
   return {
     products,
