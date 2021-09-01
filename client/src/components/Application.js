@@ -18,6 +18,8 @@ import SmartVille from "./SmartVille";
 import Survey from "./Survey/index";
 import Signup from "./Signup";
 import Login from "./Login";
+import RecListItem from "./Recommendations/RecListItem";
+
 
 //Declare material ui styling here
 const useStyles = makeStyles((theme) => ({
@@ -113,6 +115,11 @@ export default function Application(props) {
           </Route>
           <Route path='/signup'>
             <Signup />
+          </Route>
+          <Route path='/profile'>
+            <div> 
+              <RecListItem />
+            </div>      
           </Route>
           <Route path='/smartville'>
             <SmartVille/>

@@ -30,8 +30,8 @@ export default function ProductListItem (props) {
       <CardActionArea>
         <CardMedia
           className={classes.media}
-          image="/static/images/cards/contemplative-reptile.jpg"
-          title="Contemplative Reptile"
+          image="images/nao_peace.png"
+          title="nao_peace"
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2" className={classes.test}>
