@@ -19,14 +19,16 @@ const signup = (db) => {
     const phone_number = req.body.phone_number
     // hashing the password in the DB
     const password = bcryp.hashSync(req.body.password, 10);
-
+console.log(name, email, phone_number, password)
 
     db.query(`SELECT * FROM users WHERE email = $1`, [email]).then((data) => {
         // console.log(data)
         console.log("this is data: ",data.rows)
+
         if (data.rows[0] && data.rows[0].email) {
         return res.status(401).json({ error: "Email already in use" });
       } else {
+
         db.query(
           `INSERT INTO users (name, email, password, phone_number) VALUES($1, $2, $3, $4) RETURNING *`,
           [name, email, password, phone_number]

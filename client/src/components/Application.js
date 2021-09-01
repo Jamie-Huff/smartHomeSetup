@@ -6,7 +6,7 @@ import { alpha, makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import { createTheme , createMuiTheme, ThemeProvider, BottomNavigation } from "@material-ui/core";
+import { createTheme , createMuiTheme, ThemeProvider } from "@material-ui/core";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Modal from "@material-ui/core/Modal";
 import Button from '@material-ui/core/Button';
@@ -18,6 +18,10 @@ import SmartVille from "./SmartVille";
 import Survey from "./Survey/index";
 import Signup from "./Signup";
 import Login from "./Login";
+import RecListItem from "./Recommendations/RecListItem";
+import RoomCard from "./Recommendations/RoomCard";
+
+import ProductList from "./ProductList"
 
 //Declare material ui styling here
 const useStyles = makeStyles((theme) => ({
@@ -40,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
   button: {
-    color:"#dcdcdc"  
+    color:"#dcdcdc"
   }
 }));
 
@@ -85,10 +89,10 @@ export default function Application(props) {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <AppBar position="static" className={classes.appBar} style={{display:'flex', alignItems:"flex-end"}}>
-        <Toolbar > 
+        <Toolbar >
             <Button className={classes.button} variant="outlined" color="primary" onClick={handleSurveyOpen}>
               TAKE SURVEY
-            </Button>     
+            </Button>
             <Avatar src="images/alpac.jpg" alt="Lit"/>
             <Modal open={open} onClose={handleSurveyClose} style={{display:'flex',marginTop:'140px', justifyContent:'center'}}>
               <Survey submitSurvey={submitSurvey}/>
@@ -105,7 +109,7 @@ export default function Application(props) {
         <Switch>
           <Route exact path='/'>
             <div>
-              <ProductListItem/>
+              <ProductList products={products}/>
             </div>
           </Route>
           <Route path='/login'>
@@ -113,6 +117,17 @@ export default function Application(props) {
           </Route>
           <Route path='/signup'>
             <Signup />
+          </Route>
+          <Route path='/profile'>
+            <div> 
+              <RecListItem />
+            </div>      
+          </Route>
+          <Route path='/room'>
+            <div className="rooms"> 
+              <RoomCard />
+              <RoomCard />
+            </div>      
           </Route>
           <Route path='/smartville'>
             <SmartVille/>

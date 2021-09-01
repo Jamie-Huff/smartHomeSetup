@@ -35,10 +35,12 @@ export default function Form(props) {
       <FormControl component="fieldset" className={classes.formControl}>
         <FormLabel style={{color:"white", fontSize:'0.3em'}}component="legend">Rooms</FormLabel>
         <FormGroup >
-          <FormControlLabel
-            control={<Checkbox checked={livingRoom} onChange={handleChange} name="livingRoom" />}
-            label="Living Room"
-          />
+          <div style={{display:"flex"}}>
+            <FormControlLabel
+              control={<Checkbox checked={livingRoom} onChange={handleChange} name="livingRoom" />}
+              label="Living Room"
+            />
+          </div>
           <FormControlLabel
             control={<Checkbox checked={kitchen} onChange={handleChange} name="kitchen" />}
             label="Kitchen"
