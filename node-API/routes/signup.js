@@ -15,6 +15,7 @@ const signup = (db) => {
       console.log("this is req.body",req.body)
     const name = req.body.name;
     const email = req.body.email;
+    console.log('email = ', email)
     const phone_number = req.body.phone_number
     // hashing the password in the DB
     const password = bcryp.hashSync(req.body.password, 10);
