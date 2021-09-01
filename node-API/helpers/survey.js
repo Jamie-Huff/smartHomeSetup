@@ -1,4 +1,5 @@
 const categoryFinder = (query) => {
+  let categories = []
   for (const category in query.categories) {
     if (category === 'lights') {
       categories.push(
@@ -40,6 +41,7 @@ const categoryFinder = (query) => {
         {quantity: query.categories[category].quantity, name: 'garage door opener', id: 18})
     } 
   }
+  return categories
 }
 
 module.exports = categoryFinder
