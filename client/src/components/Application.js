@@ -6,7 +6,7 @@ import { alpha, makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import { createTheme , createMuiTheme, ThemeProvider, BottomNavigation } from "@material-ui/core";
+import { createTheme , createMuiTheme, ThemeProvider } from "@material-ui/core";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Modal from "@material-ui/core/Modal";
 import Button from '@material-ui/core/Button';
@@ -19,6 +19,7 @@ import Survey from "./Survey/index";
 import Signup from "./Signup";
 import Login from "./Login";
 import RecListItem from "./Recommendations/RecListItem";
+import RoomCard from "./Recommendations/RoomCard";
 
 
 //Declare material ui styling here
@@ -119,6 +120,12 @@ export default function Application(props) {
           <Route path='/profile'>
             <div> 
               <RecListItem />
+            </div>      
+          </Route>
+          <Route path='/room'>
+            <div className="rooms"> 
+              <RoomCard />
+              <RoomCard />
             </div>      
           </Route>
           <Route path='/smartville'>
