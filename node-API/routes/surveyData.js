@@ -51,20 +51,39 @@ const surveyData = (db) => {
     // console.log(productsRoomAndCategories)
     // console.log(productsRoomOrCategories)
 
-   
+    const generateRecommendations = (roomAndCategory, roomOrCategory, inspecifics, budget) => {
+      // take a look at all of our values,
+      // loop over all of our values, add 1 product from each category
+      let includedCategorys = []
+      let recommendations = []
+      let balanceRemaining = budget
+      // adds the cheapest product from each category, to the recommendations
+      for (const product of roomAndCategory) {
+        if (!includedCategorys.includes(product.category_id)) {
+          if (balanceRemaining - (product.price / 100) >= 0) {
+          includedCategorys.push(product.category_id)
+          recommendations.push(product)
+          balanceRemaining -= (product.price / 100)
+          }
+        }
+      }
+      
+      console.log(recommendations)
+      console.log(balanceRemaining)
+    }
 
-    console.log(inspecificProducts)
+    console.log(generateRecommendations(productsRoomAndCategories, productsRoomOrCategories, inspecificProducts, query.budget))
+
+    // console.log(inspecificProducts)
     res.json(filteredProducts)
     })
 
-
-    let data = 'dogs'
     // let users = (await db.query(`SELECT * FROM users;`)).rows
     // await keyword essentially stops the code and completes the line before continuning one
     // data = await db.query(`SELECT * FROM users;`)
     // let users = data.rows
 
-return router;
+  return router;
 }
 
 
