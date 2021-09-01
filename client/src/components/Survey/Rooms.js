@@ -40,7 +40,6 @@ export default function Form(props) {
               control={<Checkbox checked={livingRoom} onChange={handleChange} name="livingRoom" />}
               label="Living Room"
             />
-            <div>🛋️ </div> 
           </div>
           <FormControlLabel
             control={<Checkbox checked={kitchen} onChange={handleChange} name="kitchen" />}

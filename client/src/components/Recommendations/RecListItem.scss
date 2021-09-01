@@ -38,6 +38,7 @@
 
       &:hover {
         @include button-active--opacity;
+        color:red
       }
     }
 
