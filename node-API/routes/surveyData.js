@@ -20,9 +20,10 @@ const surveyData = (db) => {
     for (const category in categories) {
       categoryQuery.push(`categories.name = '${categories[category].name}'`)
     }
-    
+    let productsRoomOrCategories = []
+    let filteredProducts = []
     // get all products that match the room or category requested
-    let filteredProducts = (await db.query(`SELECT products.* 
+    let productsRoomAndCategories = (await db.query(`SELECT products.* 
                     FROM products 
                     WHERE products.room_id 
                     IN (SELECT DISTINCT rooms.id FROM rooms WHERE ${roomQuery.join(' OR ')}) 
@@ -30,8 +31,9 @@ const surveyData = (db) => {
                     IN (SELECT DISTINCT categories.id FROM categories WHERE ${categoryQuery.join(' OR ')})
                     ORDER BY products.price`
       )).rows
-    if (filteredProducts <= 4) {
-      filteredProducts = (await db.query(`SELECT products.* 
+      filteredProducts = productsRoomAndCategories
+    if (productsRoomAndCategories <= 4) {
+      productsRoomOrCategories = (await db.query(`SELECT products.* 
                     FROM products 
                     WHERE products.room_id 
                     IN (SELECT DISTINCT rooms.id FROM rooms WHERE ${roomQuery.join(' OR ')}) 
@@ -39,10 +41,22 @@ const surveyData = (db) => {
                     IN (SELECT DISTINCT categories.id FROM categories WHERE ${categoryQuery.join(' OR ')})
                     ORDER BY products.price`
         )).rows
+        filteredProducts = productsRoomOrCategories
       }
-    console.log(filteredProducts)
-    res.send(filteredProducts)
+    let inspecificProducts = (await db.query(`
+                    SELECT * 
+                    FROM products
+                    WHERE room_id = 1`
+        )).rows
+    // console.log(productsRoomAndCategories)
+    // console.log(productsRoomOrCategories)
+
+   
+
+    console.log(inspecificProducts)
+    res.json(filteredProducts)
     })
+
 
     let data = 'dogs'
     // let users = (await db.query(`SELECT * FROM users;`)).rows
