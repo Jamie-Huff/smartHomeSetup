@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
+
 import { makeStyles } from '@material-ui/styles';
 import Button from '@material-ui/core/Button';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
@@ -27,8 +29,10 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Survey (props) {
 	const { submitSurvey } = props;
+
 	const classes = useStyles();
-	
+	let history = useHistory();
+
 	//call custom hook for controlling form rendering
 	const { mode, transition, back } = useVisualMode(BUDGET)
 
@@ -57,6 +61,7 @@ export default function Survey (props) {
 			submitSurvey(surveyData)
 				.then((res) => {
 					console.log("WITHIN INDEX FRONT END",res)
+					history.push("/");
 				})
 				.catch((err) =>{
 					console.log(err);

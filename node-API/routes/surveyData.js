@@ -55,6 +55,7 @@ const surveyData = (db) => {
 
     console.log(inspecificProducts)
     res.json(filteredProducts)
+    // res.redirect(url, "/profile")
     })
 
 

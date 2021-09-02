@@ -1,6 +1,7 @@
 import {useState, useEffect} from "react";
 import axios from 'axios';
 
+
 const products = [
   {
     id: 1,
@@ -41,9 +42,8 @@ const surveys = {
   "1": {
     id: 1,
     user_id: 2,
-    rooms: ["kitchen", "Bathroom"],
-    products: ["selection camera", "sonos one"],
-    budget: 1500
+    rooms: [{name: "kitchen", cost: 29909}, {name: "laundry room", cost: 400099}],
+    products: products,
   },
   "2": {
     id: 2,
@@ -64,7 +64,8 @@ const surveys = {
 export default function useApplicationData () {
   const [products, setProducts] = useState([]);
   const [rooms, setRooms] = useState({});
-  const [surveys, setSurveys] = useState({})
+  const [surveys, setSurveys] = useState({});
+
 
   useEffect(() => {
     //Load all the data from the database when the page loads
@@ -95,7 +96,7 @@ export default function useApplicationData () {
         //   // survey
         // })
         console.log("GOT BACK A MESSAGE")
-        console.log(res)
+        console.log("MESSAGE IS", res)
         return resolve(res);
       })
       .catch((err) => {

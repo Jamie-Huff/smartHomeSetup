@@ -40,34 +40,32 @@ const useStyles = makeStyles((theme) => ({
     marginTop:"2px"
   },
   price: {
-    marginLeft:"10px"
+    marginLeft:"10px",
+    fontWeight:600
   },
   content: {
     color:"white"
   },
 }));
 
-export default function RecListItem() {
+export default function RecListItem(props) {
+
+  const { title, image, price, info, desc, avatar, stores } = props
 
   const classes = useStyles();
-
-  const [checkedProduct, setState] = React.useState(false);
-  const handleChange = (event) => {
-    setState(!checkedProduct);
-  }
 
   return (
     <Card className={classes.root}>
       <CardHeader
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar}>
-            💡
+            {avatar}
           </Avatar>
         }
         action={
-            <Checkbox/>
+          <Checkbox/>
         }
-        title="Shrimp and Chorizo Paella"
+        title={title}
         classes={{
           title: classes.cardHeader,
           action: classes.checkBox,
@@ -75,19 +73,21 @@ export default function RecListItem() {
       />
       <CardMedia
         className={classes.media}
-        image="images/nao_welcome.png"
-        title="Phillips"
+        image={image}
+        title={title}
         
       />
       <CardContent>
         <Typography variant="body2" color="textPrimary" component="p" className={classes.content}>
-          This impressive paella is a perfect party dish and a fun meal to cook together with your
-          guests. Add 1 cup of frozen peas along with the mussels, if you like.<span style = {{fontWeight:"bold"}}> Purchase at x, y</span>
+          {
+            desc
+          }
+          
         </Typography>
       </CardContent>
       <CardActions className="rec__actions">
           <div>
-            <div className={classes.price}>$1000</div>
+            <div className={classes.price}>${price}</div>
           </div>
           <div>
             <IconButton>
