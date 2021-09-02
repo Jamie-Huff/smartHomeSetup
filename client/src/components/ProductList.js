@@ -1,19 +1,16 @@
 import React from "react";
+import './ProductList.scss';
 import ProductListItem from "./ProductListItem";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
   root: {
-    margin: "30px",
+    margin: "10px",
     fontSize: "40px",
   },
-  section: {
-    border: "red solid 2px",
-    width: "100%",
-  },
-  secondDiv: {
-    border: "pink solid 3px",
+  productsDiv: {
     display: "flex",
+    flexWrap: "wrap",
   },
 });
 
@@ -38,25 +35,25 @@ const ProductList = (props) => {
   };
 
   return (
-    <div>
-      <section>
-        {categoryArray.map((category) => (
+    <section>
+      {categoryArray.map((category) => (
+        <div>
           <div>
             <h1 className={classes.root}>{category.name}</h1>
+          </div>
+          <div className={classes.productsDiv}>
             {getCategoryProduct(category.idArray).map((product) => (
-              <div>
-                <ProductListItem
-                  product_image={product.image}
-                  product_decription={product.description}
-                  product_name={product.name}
-                  product_price={product.price}
-                />
-              </div>
+              <ProductListItem
+                product_image={product.image}
+                product_decription={product.description}
+                product_name={product.name}
+                product_price={product.price}
+              />
             ))}
           </div>
-        ))}
-      </section>
-    </div>
+        </div>
+      ))}
+    </section>
   );
 };
 
