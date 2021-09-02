@@ -52,7 +52,7 @@ const products = [
   {
     id: 1,
     room_id: 3,
-    category: "interior lights",
+    category_id: 2,
     name: "phillips hue",
     description: "Amazing product Get A Copywriter. Native English speakers. Unlimited revisions. 100% money-back guarantee. Order now! 100% unique content by copywriters with local knowledge. Reviewed by senior editors. 100% money-back guarantee. Reliable delivery. Fast turnaround.",
     price: 20099,
@@ -63,7 +63,7 @@ const products = [
   {
     id: 2,
     room_id: 2,
-    category: "speakers",
+    category_id: 16,
     name: "sonos one",
     description: "Super Amazing product",
     price: 27599,
@@ -73,7 +73,7 @@ const products = [
   {
     id: 3,
     room_id: 2,
-    category: "exterior camera",
+    category_id: 4,
     name: "Selection camera",
     description: "Beyond Amazing product",
     price: 50099,
@@ -83,7 +83,7 @@ const products = [
   {
     id: 4,
     room_id: 3,
-    category: "security device",
+    category_id: 6,
     name: "door bell",
     description: "Super Amayzung",
     price: 22099,
@@ -93,7 +93,7 @@ const products = [
   {
     id: 5,
     room_id: 4,
-    category: "Appliance",
+    category_id: 8,
     name: "Fridge",
     description: "Super Amayzliung",
     price: 22199,
