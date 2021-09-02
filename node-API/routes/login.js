@@ -20,7 +20,7 @@ const login = (db) => {
         db.query("SELECT * FROM users WHERE email = $1", [email])
         .then(data => {
             // check if the user exist or not if it's not the length of rows will be 0
-            console.log("this is data.rows: ",data)
+            const userName = data.rows[0].name;
             if (data.rows.length < 1) {
                 return res.status(401).json({error: "User Does Not Exist"})
             }
@@ -29,7 +29,7 @@ const login = (db) => {
                 // create a token for that user
                 const token = jwt.sign({email}, process.env.TOKEN)
                 // send the token to the front-end
-                return res.json({ token })
+                return res.json({ token, user: userName })
             } else {
                 console.log("this is else: ")
                 return res.status(401).json({error: "Password is incorrect"})

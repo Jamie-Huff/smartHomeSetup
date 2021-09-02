@@ -18,6 +18,7 @@ const signupSchema = yup.object().shape({
 });
 
 export default function Signup(props) {
+  const { setUser } = props
   const [data, setData] = useState({
     name: "",
     email: "",
@@ -60,6 +61,7 @@ export default function Signup(props) {
       setFormErrors({});
 
       const signupPost = await axios.post("http://localhost:3002/signup", data)
+      setUser(data.name)
       localStorage.setItem("user_token", JSON.stringify({token: signupPost.data.token}))
 	    setSignedup(true);
 

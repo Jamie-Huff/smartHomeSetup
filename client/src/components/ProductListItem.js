@@ -16,7 +16,10 @@ const useStyles = makeStyles({
     flexDirection: "column",
     justifyContent: "space-between",
     width: 350,
-    margin: "10px 5px 10px 15px"
+    margin: "10px 5px 10px 18px",
+    borderRadius: "10px",
+    boxShadow: "-15px -15px 15px rgba(255, 255, 255, 0), 15px 15px 15px rgba(255,255,255,0.3)",
+    // backgroundColor: "gray"
 
   },
   media: {
@@ -38,6 +41,11 @@ export default function ProductListItem(props) {
     product_decription,
     product_image,
   } = props;
+  const toggleShow = () => {
+    if (product_decription.length > 125) {
+      setShow(prev => !prev)
+    }
+  }
   function truncate(str, n) {
     return str?.length > n ? str.substr(0, n - 1) + " ...Show More" : str;
   }
@@ -65,7 +73,8 @@ export default function ProductListItem(props) {
               variant="body2"
               color="textSecondary"
               component="p"
-              onClick={() => setShow(show ? false : true)}
+              onClick={toggleShow}
+
             >
               {show ? truncate(product_decription, 125) : `${product_decription} ...Show Less`}
             </Typography>

@@ -20,8 +20,9 @@ const useStyles = makeStyles((theme) => ({
     color: 'white'
   },
   avatar: {
-    backgroundColor: '#323949',
-    marginBottom:"3px"
+    backgroundColor: '#292F3D',
+    marginBottom:"3px",
+    fontSize:"1.4em"
   },
   cardHeader: {
     fontSize:'18px',
@@ -57,16 +58,17 @@ export default function RoomCard(props) {
     <Card className={classes.root}>
       <div className="rec__card-top"> 
         <CardHeader
-          avatar={
-            <Avatar aria-label="recipe" className={classes.avatar}>
-              {avatar}
-            </Avatar>
-          }
+          
           title={name}
           classes={{
             title: classes.cardHeader,
             avatar: classes.avatar,
           }} 
+          avatar={
+            <Avatar aria-label="recipe" className={classes.avatar}>
+              {avatar}
+            </Avatar>
+          }
         />
         <div className="rec__card-priceText">
           ${cost}

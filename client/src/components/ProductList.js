@@ -1,11 +1,11 @@
 import React from "react";
-import './ProductList.scss';
+import "./ProductList.scss";
 import ProductListItem from "./ProductListItem";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
   root: {
-    margin: "5px 5px 5px 15px",
+    margin: "5px 5px 5px 18px",
     fontSize: "40px",
   },
   productsDiv: {
@@ -44,6 +44,7 @@ const ProductList = (props) => {
           <div className={classes.productsDiv}>
             {getCategoryProduct(category.idArray).map((product) => (
               <ProductListItem
+                product_id={product.id}
                 product_image={product.image}
                 product_decription={product.description}
                 product_name={product.name}

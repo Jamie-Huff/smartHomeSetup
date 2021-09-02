@@ -62,7 +62,7 @@ const avatarForRoom = (room) => {
     }
 
     if(room.id === 3){
-      return '🍳'
+      return '🍲'
     }
 
     if(room.id === 2){
