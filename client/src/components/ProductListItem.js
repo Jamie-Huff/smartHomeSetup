@@ -12,12 +12,18 @@ import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 345,
-    margin: "30px",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+    width: 350,
+    margin: "10px"
+
   },
   media: {
-    height: 140,
+    backgroundSize: "contain",
+    height: 220,
   },
+
 });
 
 export default function ProductListItem(props) {
@@ -26,12 +32,11 @@ export default function ProductListItem(props) {
   const {
     product_name,
     product_price,
-    product_id,
     product_decription,
     product_image,
   } = props;
   function truncate(str, n) {
-    return str?.length > n ? str.substr(0, n - 1) + " ...Show more" : str;
+    return str?.length > n ? str.substr(0, n - 1) + " ...Show More" : str;
   }
   return (
     <>
@@ -40,6 +45,7 @@ export default function ProductListItem(props) {
           <CardMedia
             className={classes.media}
             image={product_image}
+            alt="product image"
             title="Contemplative Reptile"
           />
           <CardContent>
@@ -57,11 +63,11 @@ export default function ProductListItem(props) {
               component="p"
               onClick={() => setShow(show ? false : true)}
             >
-              {show ? truncate(product_decription, 120) : product_decription}
+              {show ? truncate(product_decription, 125) : `${product_decription} ...Show Less`}
             </Typography>
           </CardContent>
         </CardActionArea>
-        <CardActions>
+        <CardActions >
           <Button size="small" color="primary">
             {`$${product_price / 100}`}
           </Button>
