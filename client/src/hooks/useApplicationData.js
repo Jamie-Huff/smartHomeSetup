@@ -65,7 +65,7 @@ export default function useApplicationData () {
   const [products, setProducts] = useState([]);
   const [rooms, setRooms] = useState({});
   const [surveys, setSurveys] = useState({});
-  // const [username, setUsername] = useState("");
+  const [username, setUsername] = useState("");
   const [recommendations, setRec] = useState([]);
 
   useEffect(() => {
@@ -151,8 +151,8 @@ export default function useApplicationData () {
     products,
     rooms,
     surveys,
-    // username,
-    // setUsername,
+    username,
+    setUsername,
     recommendations,
     submitSurvey,
     editRecommendations,

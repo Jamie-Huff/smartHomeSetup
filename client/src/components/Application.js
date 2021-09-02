@@ -139,8 +139,8 @@ export default function Application(props) {
     products,
     rooms,
     surveys,
-    // username,
-    // setUsername,
+    username,
+    setUsername,
     submitSurvey,
     recommendations,
     editRecommendations,
@@ -155,9 +155,9 @@ export default function Application(props) {
               <Button className={classes.button} variant="outlined" color="primary" onClick={handleSurveyOpen}>
                 TAKE SURVEY
               </Button>
-                {/* <div>
-                  { username }
-                </div> */}
+                <div>
+                  <h3>{ username }</h3>
+                </div>
               <Avatar src="images/alpac.jpg" alt="Lit"/>
               <Modal open={open} onClose={handleSurveyClose} style={{display:'flex',marginTop:'140px', justifyContent:'center'}}>
                 <Survey submitSurvey={submitSurvey} handleSurveyClose={handleSurveyClose} />
@@ -176,17 +176,16 @@ export default function Application(props) {
               </div>
             </Route>
             <Route path='/login'>
-              {/* <Login setUser={setUsername}/> */}
-              <Login/>
+              <Login setUser={setUsername}/>
+
             </Route>
             <Route path='/signup'>
-              <Signup/>
-              {/* <Signup setUser={setUsername}/> */}
+              <Signup setUser={setUsername}/>
             </Route>
             <Route path='/profile'>
-              <div className="rooms"> 
+              <div className="rooms">
                 <RoomCardList survey ={survey}/>
-              </div>      
+              </div>
             </Route>
             <Route path='/smartville'>
               <SmartVille/>
