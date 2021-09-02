@@ -27,7 +27,7 @@ const login = (db) => {
             // check if the password matches with the existing password
             if (bcryp.compareSync(password, data.rows[0].password)) {
                 // create a token for that user
-                const token = jwt.sign({password}, process.env.TOKEN)
+                const token = jwt.sign({email}, process.env.TOKEN);
                 // send the token to the front-end
                 return res.json({ token })
             } else {
