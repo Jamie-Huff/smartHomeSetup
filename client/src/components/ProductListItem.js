@@ -24,7 +24,7 @@ const useStyles = makeStyles({
     height: 220,
   },
   noneVisible: {
-    visibility: "hidden"
+    visibility: "hidden",
   }
 
 });
