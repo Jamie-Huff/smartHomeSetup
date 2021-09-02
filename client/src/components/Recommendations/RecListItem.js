@@ -52,6 +52,8 @@ export default function RecListItem(props) {
 
   const { title, image, price, info, desc, avatar, stores } = props
 
+  console.log("AVATAR IN RECLIST ITEM IS", avatar)
+
   const classes = useStyles();
 
   return (

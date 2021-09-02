@@ -66,6 +66,7 @@ export default function useApplicationData () {
   const [rooms, setRooms] = useState({});
   const [surveys, setSurveys] = useState({});
 
+  const [recommendations, setRec] = useState([]);
 
   useEffect(() => {
     //Load all the data from the database when the page loads
@@ -97,6 +98,7 @@ export default function useApplicationData () {
         // })
         console.log("GOT BACK A MESSAGE")
         console.log("MESSAGE IS", res)
+        setRec(res.data);
         return resolve(res);
       })
       .catch((err) => {
@@ -149,6 +151,7 @@ export default function useApplicationData () {
     products,
     rooms,
     surveys,
+    recommendations,
     submitSurvey,
     editRecommendations,
     switchSurvey

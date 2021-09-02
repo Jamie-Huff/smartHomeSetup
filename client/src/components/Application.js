@@ -47,6 +47,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+//fakeData
 const products = [
   {
     id: 1,
@@ -102,12 +103,12 @@ const products = [
 ]
 
 const survey = [
-   {
-    id: 1,
-    user_id: 2,
-    rooms: [{id:3, name: "kitchen", cost: 29909}, {id: 2, name: "bedroom", cost: 400099}, {id: 4, name: "common area", cost: 170000}],
-    products: products,
-  }
+  {
+   id: 1,
+   user_id: 2,
+   rooms: [{id:3, name: "kitchen", cost: 29909}, {id: 2, name: "bedroom", cost: 400099}, {id: 4, name: "common area", cost: 170000}],
+   products: products,
+ }
 ]
 
 
@@ -124,12 +125,6 @@ export default function Application(props) {
     }
   });
 
-  // const theme = createTheme({
-  //   palette: {
-  //     type: 'dark'
-  //   }
-  // });
-
   const [open, setOpen] = React.useState(false);
 
   const handleSurveyOpen = () => {
@@ -145,53 +140,53 @@ export default function Application(props) {
     rooms,
     surveys,
     submitSurvey,
+    recommendations,
     editRecommendations,
     switchSurvey
   } = useApplicationData();
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <AppBar position="static" className={classes.appBar} style={{display:'flex', alignItems:"flex-end"}}>
-        <Toolbar >
-            <Button className={classes.button} variant="outlined" color="primary" onClick={handleSurveyOpen}>
-              TAKE SURVEY
-            </Button>
-            <Avatar src="images/alpac.jpg" alt="Lit"/>
-            <Modal open={open} onClose={handleSurveyClose} style={{display:'flex',marginTop:'140px', justifyContent:'center'}}>
-              <Survey submitSurvey={submitSurvey}/>
-            </Modal>
-        </Toolbar>
-      </AppBar>
+    <Router>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <AppBar position="static" className={classes.appBar} style={{display:'flex', alignItems:"flex-end"}}>
+          <Toolbar >
+              <Button className={classes.button} variant="outlined" color="primary" onClick={handleSurveyOpen}>
+                TAKE SURVEY
+              </Button>
+              <Avatar src="images/alpac.jpg" alt="Lit"/>
+              <Modal open={open} onClose={handleSurveyClose} style={{display:'flex',marginTop:'140px', justifyContent:'center'}}>
+                <Survey submitSurvey={submitSurvey} handleSurveyClose={handleSurveyClose} />
+              </Modal>
+          </Toolbar>
+        </AppBar>
 
-      <main className="layout">
-
-      <section className="sidebar">
-          <img className="sidebar--nao" src="images/nao_welcome.png" alt="Nao Chilling"/>
-      </section>
-      <Router>
-        <Switch>
-          <Route exact path='/'>
-            <div>
-              <ProductList products={products}/>
-            </div>
-          </Route>
-          <Route path='/login'>
-            <Login />
-          </Route>
-          <Route path='/signup'>
-            <Signup />
-          </Route>
-          <Route path='/profile'>
-            <div className="rooms"> 
-              <RoomCardList survey={survey}/>
-            </div>      
-          </Route>
-          <Route path='/smartville'>
-            <SmartVille/>
-          </Route>
-        </Switch>
-      </Router>
-    </main>
-  </ThemeProvider>
+        <main className="layout">
+          <section className="sidebar">
+            <img className="sidebar--nao" src="images/nao_welcome.png" alt="Nao Chilling"/>
+          </section>
+          <Switch>
+            <Route exact path='/'>
+              <div>
+                <ProductList products={products}/>
+              </div>
+            </Route>
+            <Route path='/login'>
+              <Login />
+            </Route>
+            <Route path='/signup'>
+              <Signup />
+            </Route>
+            <Route path='/profile'>
+              <div className="rooms"> 
+                <RoomCardList survey ={survey}/>
+              </div>      
+            </Route>
+            <Route path='/smartville'>
+              <SmartVille/>
+            </Route>
+          </Switch>
+        </main>
+      </ThemeProvider>
+    </Router>
   );
 }

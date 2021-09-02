@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 
+
 import { makeStyles } from '@material-ui/styles';
 import Button from '@material-ui/core/Button';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
@@ -28,10 +29,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Survey (props) {
-	const { submitSurvey } = props;
+	const { submitSurvey, handleSurveyClose } = props;
 
 	const classes = useStyles();
 	let history = useHistory();
+
+	// state for navigation to profile
+	// const [profile, setProfile] = useState(false);
 
 	//call custom hook for controlling form rendering
 	const { mode, transition, back } = useVisualMode(BUDGET)
@@ -61,14 +65,16 @@ export default function Survey (props) {
 			submitSurvey(surveyData)
 				.then((res) => {
 					console.log("WITHIN INDEX FRONT END",res)
-					history.push("/");
+					handleSurveyClose();
+					history.push("/profile");
 				})
 				.catch((err) =>{
 					console.log(err);
 					transition(ERROR, true);
 				})
 			}, 1000);
-	}			
+	}		
+
 	return (
 		<div  className={classes.paper} style ={{marginLeft:'20px'}}>
       <div className="survey__card survey__card--create">

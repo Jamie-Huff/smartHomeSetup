@@ -91,7 +91,7 @@ const avatarForRoom = (room) => {
 }
 
 const avatarForProduct = (product) => {
-  
+  console.log("PRODUCT CATEGORY ID IS***", product.category_id)
     if(product.category_id === 2 || product.category_id === 3){
       return '💡'
     }
