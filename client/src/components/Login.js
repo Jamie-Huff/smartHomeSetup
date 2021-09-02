@@ -54,7 +54,8 @@ export default function Login(props) {
 
       const signupPost = await axios.post("http://localhost:3002/login", data)
       console.log("======", signupPost);
-	  localStorage.setItem("user_token", JSON.stringify({token: signupPost.data.token}))
+      // setUser()
+	    localStorage.setItem("user_token", JSON.stringify({token: signupPost.data.token}))
       setSignedup(true);
 
     } catch (err) {
