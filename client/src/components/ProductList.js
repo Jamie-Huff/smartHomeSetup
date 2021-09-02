@@ -5,7 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
   root: {
-    margin: "10px",
+    margin: "5px 5px 5px 15px",
     fontSize: "40px",
   },
   productsDiv: {

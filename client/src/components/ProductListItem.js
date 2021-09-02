@@ -16,13 +16,16 @@ const useStyles = makeStyles({
     flexDirection: "column",
     justifyContent: "space-between",
     width: 350,
-    margin: "10px"
+    margin: "10px 5px 10px 15px"
 
   },
   media: {
     backgroundSize: "contain",
     height: 220,
   },
+  noneVisible: {
+    visibility: "hidden"
+  }
 
 });
 
@@ -42,6 +45,7 @@ export default function ProductListItem(props) {
     <>
       <Card className={classes.root}>
         <CardActionArea>
+          <div className={classes.noneVisible}>displaynone</div>
           <CardMedia
             className={classes.media}
             image={product_image}
