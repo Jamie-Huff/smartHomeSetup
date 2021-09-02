@@ -6,7 +6,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
     "local": "npx nodemon server.js",
-    "db": "node bin/resetdb.js"
+    "db:reset": "node bin/resetdb.js"
   },
   "author": "",
   "license": "ISC",

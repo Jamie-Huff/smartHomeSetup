@@ -1,0 +1,9 @@
+DROP TABLE IF EXISTS recommendations CASCADE;
+
+--USERS
+CREATE TABLE recommendations (
+  id SERIAL PRIMARY KEY NOT NULL,
+  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  survey_id INTEGER REFERENCES survey_results(id) ON DELETE CASCADE,
+  product_id INTEGER REFERENCES products(id) ON DELETE CASCADE
+);
