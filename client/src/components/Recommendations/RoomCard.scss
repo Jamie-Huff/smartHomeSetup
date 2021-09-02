@@ -6,7 +6,23 @@
 .rec {
 
   &__card {
-   
+
+    &-top {
+      display:flex;
+      justify-content:space-between
+    }
+
+    &-priceText {
+      font-size:18px;
+      margin: 26px 30px 0px 0px;
+      font-weight:600;
+      font-family:'cursive'
+    }
+
+    &-roomCard {
+      display:flex
+    }
+    
   }
 
 }

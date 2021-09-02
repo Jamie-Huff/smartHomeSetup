@@ -2,26 +2,43 @@ const express = require('express');
 const { db } = require('../server');
 const router = express.Router();
 const categoryFinder = require('../helpers/survey')
+const jwt = require("jsonwebtoken");
+const generateRecommendations = require("../helpers/productRecommendations")
 
 
 const surveyData = (db) => {
 
   router.post("/", async (req, res) => {
-    //console.log("IN POST SURVEY", (req.body))
     let query = req.body
     let roomQuery = []
     let categoryQuery = []
-    let categories = []
+    let categories = categoryFinder(query)
+    let finalRecommendations = []
+    let finalObj = { 
+      id: null,
+      user_id: null,
+      rooms: query.rooms,
+      products: [],
+      totalPrice: query.budget
+    }
+    let finalArray = []
+
+    jwt.verify(query.user.token, process.env.TOKEN, function(error, decoded) {
+      finalObj.user_id = decoded.email
+    })
+
+    let userId = (await db.query(`SELECT * FROM users WHERE email = '${finalObj.user_id}'`
+    )).rows[0].id
+    finalObj.user_id = userId
+
     for (const room of query.rooms) {
       roomQuery.push(`rooms.name = '${room}'`)
     }
-    categories = categoryFinder(query)
 
     for (const category in categories) {
       categoryQuery.push(`categories.name = '${categories[category].name}'`)
     }
-    let productsRoomOrCategories = []
-    let filteredProducts = []
+
     // get all products that match the room or category requested
     let productsRoomAndCategories = (await db.query(`SELECT products.* 
                     FROM products 
@@ -31,9 +48,8 @@ const surveyData = (db) => {
                     IN (SELECT DISTINCT categories.id FROM categories WHERE ${categoryQuery.join(' OR ')})
                     ORDER BY products.price`
       )).rows
-      filteredProducts = productsRoomAndCategories
-    if (productsRoomAndCategories <= 4) {
-      productsRoomOrCategories = (await db.query(`SELECT products.* 
+
+    let productsRoomOrCategories = (await db.query(`SELECT products.* 
                     FROM products 
                     WHERE products.room_id 
                     IN (SELECT DISTINCT rooms.id FROM rooms WHERE ${roomQuery.join(' OR ')}) 
@@ -41,30 +57,40 @@ const surveyData = (db) => {
                     IN (SELECT DISTINCT categories.id FROM categories WHERE ${categoryQuery.join(' OR ')})
                     ORDER BY products.price`
         )).rows
-        filteredProducts = productsRoomOrCategories
-      }
     let inspecificProducts = (await db.query(`
                     SELECT * 
                     FROM products
                     WHERE room_id = 1`
         )).rows
-    // console.log(productsRoomAndCategories)
-    // console.log(productsRoomOrCategories)
 
-   
+    finalRecommendations = await generateRecommendations(productsRoomAndCategories, productsRoomOrCategories, inspecificProducts, query.budget, db)
+    console.log('!@#@!#!@', finalRecommendations)
 
-    console.log(inspecificProducts)
-    res.json(filteredProducts)
+    finalObj.products = finalRecommendations
+
+
+
+    const addSurvey = (await db.query(
+      `INSERT INTO survey_results (user_id, budget) VALUES($1, $2) RETURNING *`,
+      [finalObj.user_id, query.budget]
+      )).rows[0]
+    surveyValues = addSurvey
+    finalObj.id = surveyValues.id
+    console.log('final', finalObj)
+    finalArray.push(finalObj)
+    res.json(finalArray)
     })
 
+    // add returning to get back a specific value
+    // RETURNING *
 
-    let data = 'dogs'
+
     // let users = (await db.query(`SELECT * FROM users;`)).rows
     // await keyword essentially stops the code and completes the line before continuning one
     // data = await db.query(`SELECT * FROM users;`)
     // let users = data.rows
 
-return router;
+  return router;
 }
 
 
