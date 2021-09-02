@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+
 import { makeStyles } from '@material-ui/core/styles';
 
 import Button from '@material-ui/core/Button';
@@ -10,6 +11,7 @@ import Categories from './Categories';
 import Loading from './Loading';
 import Error from './Error';
 import dataOrganisers from '../../helpers/dataOrganisers'
+
 import transitions from '@material-ui/core/styles/transitions';
 
 
@@ -27,7 +29,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Form(props) {
-  const classes = useStyles()
+  const classes = useStyles();
+  
   const { save, mode, backToStart } = props;
   const { setupCategories, setUpRooms, formDataForApi, checkForUser } = dataOrganisers
 
