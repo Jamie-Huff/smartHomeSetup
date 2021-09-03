@@ -1,4 +1,4 @@
-const organiseSurvey = (survey) => {
+const organiseSurvey = (survey, hasProductInStore) => {
   const surveyRooms = []
 
   for (let room of survey[0].rooms) {
@@ -9,6 +9,7 @@ const organiseSurvey = (survey) => {
 
     for (let product of survey[0].products) {
       if (product.room_id === room.id) {
+        product.stores = findStoresForProduct(product, hasProductInStore)
         roomProducts.push(product);
       }
     }
@@ -122,7 +123,42 @@ const avatarForProduct = (product) => {
   
 }
 
+const findStoresForProduct = (product, hasProductStore) => {
+  const storesForProduct = []
+
+  for(let findProduct of hasProductStore ) {
+
+    if(findProduct.product_id > product.id) {
+      return storesForProduct
+    }
+    const theStore = {}
+    if(product.id === findProduct.product_id){
+      theStore.name = nameForStore(findProduct)
+      theStore.productLink = findProduct.link_to_product
+    }
+    if(Object.keys(theStore).length !== 0) {
+      storesForProduct.push(theStore);
+    }
+  }
+
+  return storesForProduct;
+}
+
+const nameForStore = (findProduct) =>{
+  if(findProduct.store_id === 1){
+    return "Walmart"
+  }
+
+  if(findProduct.store_id === 2) {
+    return "Bestbuy"
+  }
+
+  if(findProduct.store_id === 3){
+    return "Amazon"
+  }
+}
+
 module.exports = {
-  avatarForProduct,
-  organiseSurvey
+  organiseSurvey,
+  avatarForProduct
 }

@@ -12,6 +12,8 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import InfoIcon from '@material-ui/icons/Info';
 import DeleteIcon from '@material-ui/icons/Delete';
+import Link from '@material-ui/core/Link';
+
 import "./RecListItem.scss";
 
 const useStyles = makeStyles((theme) => ({
@@ -20,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#323949',
     margin:'20px',
     color:"white",
-    borderRadius:"5px"
+    borderRadius:"8px"
   },
   media: {
     height: 0,
@@ -55,12 +57,13 @@ const useStyles = makeStyles((theme) => ({
     color:"yellow", 
     marginLeft:"10px"
   },
-  stores: {
+  store: {
     margin:"10px 0px 0px 20px",
-    width:'100%', 
-    display:"flex", 
-    justifyContent:"flex-start",
     color:"#b2ec5d"
+  },
+  stores: { 
+    display:"flex", 
+    justifyContent:"flex-start"
   }
 }));
 
@@ -86,7 +89,15 @@ export default function RecListItem(props) {
           action: classes.checkBox,
         }} 
       />
-      <div className={classes.stores}>Amazon Walmart</div>
+      <div className={classes.stores}>
+        { 
+          stores.map((store) =>{
+            return <a href={store.productLink} className={classes.store}>
+              {store.name}
+            </a>
+          })
+        }
+      </div>
       <CardMedia
         className={classes.media}
         image={image}

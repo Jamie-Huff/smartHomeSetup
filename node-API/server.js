@@ -28,6 +28,8 @@ const surveyData = require('./routes/surveyData')
 const sendProducts = require('./routes/products')
 const sendRooms = require('./routes/rooms')
 const sendUsers = require('./routes/users')
+const sendProductInStore = require('./routes/productInStore')
+
 
 app.use("/signup", signup(db));
 app.use("/login", login(db))
@@ -35,6 +37,7 @@ app.use("/surveyData", surveyData(db))
 app.use("/products", sendProducts(db))
 app.use("/rooms", sendRooms(db))
 app.use("/users", sendUsers(db)) // security issue? lets talk about it
+app.use("/productInStore", sendProductInStore(db)) 
 
 
 

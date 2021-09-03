@@ -71,6 +71,7 @@ export default function RoomCard(props) {
               avatar={avatarForProduct(product)}
               desc={product.description}
               quantity={product.quantity}
+              stores={product.stores}
             />
           })
         }
