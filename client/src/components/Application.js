@@ -19,6 +19,7 @@ import Survey from "./Survey/index";
 import Signup from "./Signup";
 import Login from "./Login";
 import RoomCardList from "./Recommendations/RoomCardList";
+import Logout from './Logout'
 
 import ProductList from "./ProductList"
 
@@ -144,7 +145,9 @@ export default function Application(props) {
     submitSurvey,
     recommendations,
     editRecommendations,
-    switchSurvey
+    switchSurvey,
+    isloggedin,
+    setloggedin
   } = useApplicationData();
   return (
     <Router>
@@ -155,9 +158,7 @@ export default function Application(props) {
               <Button className={classes.button} variant="outlined" color="primary" onClick={handleSurveyOpen}>
                 TAKE SURVEY
               </Button>
-                <div>
-                  <h3>{ username }</h3>
-                </div>
+                <Logout userName={username} isloggedin={isloggedin} setIsloggedin={setloggedin} />
               <Avatar src="images/alpac.jpg" alt="Lit"/>
               <Modal open={open} onClose={handleSurveyClose} style={{display:'flex',marginTop:'140px', justifyContent:'center'}}>
                 <Survey submitSurvey={submitSurvey} handleSurveyClose={handleSurveyClose} />
@@ -176,11 +177,11 @@ export default function Application(props) {
               </div>
             </Route>
             <Route path='/login'>
-              <Login setUser={setUsername}/>
+              <Login setUser={setUsername} setIsloggedin={setloggedin} />
 
             </Route>
             <Route path='/signup'>
-              <Signup setUser={setUsername}/>
+              <Signup setUser={setUsername} setIsloggedin={setloggedin} />
             </Route>
             <Route path='/profile'>
               <div className="rooms">

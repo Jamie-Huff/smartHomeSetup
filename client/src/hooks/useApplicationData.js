@@ -67,6 +67,7 @@ export default function useApplicationData () {
   const [surveys, setSurveys] = useState({});
   const [username, setUsername] = useState("");
   const [recommendations, setRec] = useState([]);
+  const [isloggedin, setloggedin] = useState(null);
 
   useEffect(() => {
     //Load all the data from the database when the page loads
@@ -156,6 +157,8 @@ export default function useApplicationData () {
     recommendations,
     submitSurvey,
     editRecommendations,
-    switchSurvey
+    switchSurvey,
+    isloggedin,
+    setloggedin
   }
 }
