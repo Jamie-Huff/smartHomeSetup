@@ -18,7 +18,7 @@ const signupSchema = yup.object().shape({
 });
 
 export default function Signup(props) {
-  const { setUser } = props
+  const { setUser, setIsloggedin } = props
   const [data, setData] = useState({
     name: "",
     email: "",
@@ -64,6 +64,7 @@ export default function Signup(props) {
       setUser(data.name)
       localStorage.setItem("user_token", JSON.stringify({token: signupPost.data.token}))
 	    setSignedup(true);
+      setIsloggedin(true);
 
     } catch (err) {
       console.log(err.response);

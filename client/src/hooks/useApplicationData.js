@@ -64,20 +64,24 @@ const surveys = {
 export default function useApplicationData () {
   const [products, setProducts] = useState([]);
   const [rooms, setRooms] = useState({});
+  const [hasProductStore, setProductStore] = useState([]);
   const [surveys, setSurveys] = useState({});
   const [username, setUsername] = useState("");
   const [recommendations, setRec] = useState([]);
+  const [isloggedin, setloggedin] = useState(null);
 
   useEffect(() => {
     //Load all the data from the database when the page loads
     Promise.all([
       axios.get('http://localhost:3002/products'),
       axios.get('http://localhost:3002/rooms'),
+      axios.get('http://localhost:3002/productInStore')
       // axios.get('/survey')
     ]).then((all) => {
       setProducts(all[0].data);
       console.log("this is form useapp",products)
       setRooms(all[1].data);
+      setProductStore(all[2].data)
       // setSurveys(all[2].data);
     });
   },[])
@@ -152,10 +156,13 @@ export default function useApplicationData () {
     rooms,
     surveys,
     username,
+    hasProductStore,
     setUsername,
     recommendations,
     submitSurvey,
     editRecommendations,
-    switchSurvey
+    switchSurvey,
+    isloggedin,
+    setloggedin
   }
 }
