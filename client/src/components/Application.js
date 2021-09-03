@@ -86,7 +86,7 @@ const products = [
     category_id: 6,
     name: "door bell",
     description: "Super Amayzung",
-    price: 22099,
+    price: 10000,
     image:"Lit Eyy Image",
     quantity:1
   },
@@ -106,15 +106,15 @@ const survey = [
   {
    id: 1,
    user_id: 2,
-   rooms: [{id:3, name: "kitchen", cost: 29909}, {id: 2, name: "bedroom", cost: 400099}, {id: 4, name: "common area", cost: 170000}],
+   rooms: [{id:3, name: "kitchen", cost: 20000 }, {id: 2, name: "bedroom", cost: 400099}, {id: 4, name: "common area", cost: 170000}],
    products: products,
  }
 ]
 
 
-
 export default function Application(props) {
   const classes = useStyles();
+  console.log("IN APP, SURVEY IS", survey)
 
   // material ui theme
   const theme = createTheme({

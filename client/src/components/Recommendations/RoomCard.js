@@ -41,19 +41,6 @@ export default function RoomCard(props) {
   const classes = useStyles();
   console.log("IN ROOMCARD, PROPS ARE++", name, avatar, cost)
 
-  const Recommendations = products.map((product) => {  
-    console.log("AVATAR FOR PRODUCT IS+++", avatarForProduct(product))
-    return <RecListItem 
-      key={product.id}
-      title={product.title} 
-      image={product.image}  
-      price={product.price} 
-      avatar={avatarForProduct(product)}
-      desc={product.description}
-      quantity={product.quantity}
-    />
-  })
-
   return (
     <Card className={classes.root}>
       <div className="rec__card-top"> 

@@ -9,7 +9,7 @@ const products = [
     category: "interior lights",
     name: "phillips hue",
     description: "Amazing product",
-    price: 200,
+    price: 20099,
     img:"Lit Image"
   },
   {
@@ -18,7 +18,7 @@ const products = [
     category: "speakers",
     name: "sonos one",
     description: "Super Amazing product",
-    price: 275,
+    price: 27599,
     img: "Another Lit Image"
   },
   {
@@ -27,7 +27,7 @@ const products = [
     category: "exterior camera",
     name: "Selection camera",
     description: "Beyond Amazing product",
-    price: 500,
+    price: 50099,
     img: "Just the very best image"
   },
 ]
