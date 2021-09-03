@@ -8,8 +8,8 @@ import { organiseSurvey } from "../../helpers/selectors";
 
 export default function RoomCardList(props) {
   const { survey } = props;
+
   const organisedSurvey = organiseSurvey(survey)
-  console.log("IN ROOMCARDLIST, ORGANISED SURVEY IS+++", organisedSurvey)
 
   const surveyRooms = organisedSurvey.map((room) => {
     return <RoomCard className="rooms" key={room.id} products={room.products} name={room.name} avatar={room.avatar} cost={room.cost}/>

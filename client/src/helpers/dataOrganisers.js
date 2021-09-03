@@ -22,22 +22,22 @@ const setUpRooms = (rooms) => {
   let newRooms = []
 
   for (let roomVar of roomVars) {
-    roomVar.toLowerCase()
-
-    if (roomVar === "livingRoom" || roomVar === "laundryRoom" || roomVar === "entryWay") {
-      if (roomVar === "livingRoom") {
-        newRooms.push('common area');
+    const newRoomVar = roomVar.toLowerCase()
+    console.log("ROOMVAR IS+++", roomVar)
+    if (newRoomVar === "livingRoom" || roomVar === "laundryRoom" || roomVar === "entryWay") {
+      if (newRoomVar === "livingRoom") {
+        newRoomVar.push('common area');
       } 
   
-      if (roomVar === "laundryRoom") {
+      if (newRoomVar === "laundryRoom") {
         newRooms.push('laundry room');
       } 
   
-      if (roomVar === "entryWay") {
+      if (newRoomVar === "entryWay") {
         newRooms.push('entrance way')
       } 
     } else {
-      newRooms.push(roomVar)
+      newRooms.push(newRoomVar)
     }   
   }
   return newRooms;

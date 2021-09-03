@@ -19,11 +19,14 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: 345,
     backgroundColor: '#323949',
     margin:'20px',
-    color:"white"
+    color:"white",
+    borderRadius:"5px"
   },
   media: {
     height: 0,
     paddingTop: '56.25%', // 16:9
+    margin: "5px 20px 20px 20px",
+    borderRadius:"2px"
   },
   avatar: {
     backgroundColor: '#535e79',
@@ -44,16 +47,26 @@ const useStyles = makeStyles((theme) => ({
     fontWeight:600
   },
   content: {
-    color:"white"
+    color:"white",
+    fontWeight:500,
+    fontFamily: "Arial"
   },
+  quantity: {
+    color:"yellow", 
+    marginLeft:"10px"
+  },
+  stores: {
+    margin:"10px 0px 0px 20px",
+    width:'100%', 
+    display:"flex", 
+    justifyContent:"flex-start",
+    color:"#b2ec5d"
+  }
 }));
 
 export default function RecListItem(props) {
 
-  const { title, image, price, info, desc, avatar, stores } = props
-
-  console.log("AVATAR IN RECLIST ITEM IS", avatar)
-
+  const { title, image, price, info, desc, avatar, stores, quantity } = props
   const classes = useStyles();
 
   return (
@@ -73,6 +86,7 @@ export default function RecListItem(props) {
           action: classes.checkBox,
         }} 
       />
+      <div className={classes.stores}>Amazon Walmart</div>
       <CardMedia
         className={classes.media}
         image={image}
@@ -89,7 +103,12 @@ export default function RecListItem(props) {
       </CardContent>
       <CardActions className="rec__actions">
           <div>
-            <div className={classes.price}>${price}</div>
+            <div className={classes.price}>
+              ${price/100}
+              {(quantity > 1) &&
+                <span className={classes.quantity}>x{quantity}</span>
+              } 
+            </div>
           </div>
           <div>
             <IconButton>

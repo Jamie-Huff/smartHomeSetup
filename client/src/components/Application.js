@@ -54,10 +54,10 @@ const products = [
     id: 1,
     room_id: 3,
     category_id: 2,
-    name: "phillips hue",
+    name: "Phillips Hue of Life",
     description: "Amazing product Get A Copywriter. Native English speakers. Unlimited revisions. 100% money-back guarantee. Order now! 100% unique content by copywriters with local knowledge. Reviewed by senior editors. 100% money-back guarantee. Reliable delivery. Fast turnaround.",
     price: 20099,
-    image:"Lit Image",
+    image:"images/hue.jpeg",
     quantity:2
 
   },
@@ -65,7 +65,7 @@ const products = [
     id: 2,
     room_id: 2,
     category_id: 16,
-    name: "sonos one",
+    name: "Sonos One",
     description: "Super Amazing product",
     price: 27599,
     image: "Another Lit Image",
@@ -75,7 +75,7 @@ const products = [
     id: 3,
     room_id: 2,
     category_id: 4,
-    name: "Selection camera",
+    name: "Selection Camera",
     description: "Beyond Amazing product",
     price: 50099,
     image: "Just the very best image",
@@ -85,9 +85,9 @@ const products = [
     id: 4,
     room_id: 3,
     category_id: 6,
-    name: "door bell",
+    name: "Door Bell",
     description: "Super Amayzung",
-    price: 22099,
+    price: 10000,
     image:"Lit Eyy Image",
     quantity:1
   },
@@ -107,11 +107,10 @@ const survey = [
   {
    id: 1,
    user_id: 2,
-   rooms: [{id:3, name: "kitchen", cost: 29909}, {id: 2, name: "bedroom", cost: 400099}, {id: 4, name: "common area", cost: 170000}],
+   rooms: [{id:3, name: "kitchen", cost: 20000 }, {id: 2, name: "bedroom", cost: 400099}, {id: 4, name: "common area", cost: 170000}],
    products: products,
  }
 ]
-
 
 
 export default function Application(props) {
