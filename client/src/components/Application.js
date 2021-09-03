@@ -158,7 +158,7 @@ export default function Application(props) {
                 TAKE SURVEY
               </Button>
                 <Logout userName={username} isloggedin={isloggedin} setIsloggedin={setloggedin} />
-              <Avatar src="images/alpac.jpg" alt="Lit"/>
+              {isloggedin? <Avatar src="images/alpac.jpg" alt="Lit"/>: null}
               <Modal open={open} onClose={handleSurveyClose} style={{display:'flex',marginTop:'140px', justifyContent:'center'}}>
                 <Survey submitSurvey={submitSurvey} handleSurveyClose={handleSurveyClose} />
               </Modal>
@@ -170,7 +170,10 @@ export default function Application(props) {
             <img className="sidebar--nao" src="images/nao_welcome.png" alt="Nao Chilling"/>
           </section>
           <Switch>
-            <Route exact path='/'>
+          <Route exact path='/'>
+              <SmartVille/>
+            </Route>
+            <Route path='/products'>
               <div>
                 <ProductList products={products}/>
               </div>
@@ -187,9 +190,7 @@ export default function Application(props) {
                 <RoomCardList survey ={recommendations}/>
               </div>
             </Route>
-            <Route path='/smartville'>
-              <SmartVille/>
-            </Route>
+
           </Switch>
         </main>
       </ThemeProvider>
