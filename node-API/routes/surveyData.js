@@ -17,7 +17,7 @@ const surveyData = (db) => {
     let finalObj = { 
       id: null,
       user_id: null,
-      rooms: query.rooms,
+      rooms: [],
       products: [],
       totalPrice: query.budget
     }
@@ -64,43 +64,61 @@ const surveyData = (db) => {
         )).rows
 
     finalRecommendations = await generateRecommendations(productsRoomAndCategories, productsRoomOrCategories, inspecificProducts, query.budget, db)
-    console.log('!@#@!#!@', finalRecommendations)
 
     finalObj.products = finalRecommendations
 
+    const finalObjRooms = async (rooms, products) => {
+      // ERROR To fix : Dont send rooms with a product price of zero
 
+      const roomFinal = []
 
+      for (let room of rooms) {
+        // fix these asap
+        if (room === 'laundryroom') {
+          room = 'laundry room'
+        }
+        if (room === 'entryway') {
+          room = 'entrance way'
+        }
+        let roomObj = {name: room, id: null, cost: 0}
+        let roomDetails = (await db.query(`SELECT * FROM rooms WHERE name = $1`, [room])).rows[0]
+        roomObj.id = roomDetails.id
+        for (const product of products) {
+          if (product.room_id === roomObj.id) {
+             roomObj.cost += product.price
+          }
+        }
+        if (roomObj.cost > 0) {
+          roomFinal.push(roomObj)
+        }
+
+      }
+      return roomFinal
+    }
+
+    let roomsFinalArray = await finalObjRooms(query.rooms, finalRecommendations)
+    finalObj.rooms = roomsFinalArray
+
+  
     const addSurvey = (await db.query(
       `INSERT INTO survey_results (user_id, budget) VALUES($1, $2) RETURNING *`,
       [finalObj.user_id, query.budget]
       )).rows[0]
     surveyValues = addSurvey
+
+    for (const product of finalRecommendations) {
+      (await db.query(`INSERT INTO recommendations (user_id, survey_id, product_id) VALUES($1, $2, $3)`,
+      [finalObj.user_id, surveyValues.id, product.id]))
+    }
+
     finalObj.id = surveyValues.id
-    console.log('final', finalObj)
     finalArray.push(finalObj)
     res.json(finalArray)
     })
-    // to do
-      //[ {cost, name, id} ]
-      // finalobj.rooms to be an array of objects, which contains:\
-        // the cost for the room
-        // the room name
-        // room id
-      // finish the recommedations table
-
-
-
-    // add returning to get back a specific value
-    // RETURNING *
-
-
-    // let users = (await db.query(`SELECT * FROM users;`)).rows
-    // await keyword essentially stops the code and completes the line before continuning one
-    // data = await db.query(`SELECT * FROM users;`)
-    // let users = data.rows
-
   return router;
 }
+
+
 
 
 module.exports = surveyData

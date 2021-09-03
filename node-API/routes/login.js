@@ -19,8 +19,11 @@ const login = (db) => {
         // fetch all the data about the user through their email
         db.query("SELECT * FROM users WHERE email = $1", [email])
         .then(data => {
+           let userName;
+           if (data.rows[0]) {
+               userName = data.rows[0].name
+           }
             // check if the user exist or not if it's not the length of rows will be 0
-            const userName = data.rows[0].name;
             if (data.rows.length < 1) {
                 return res.status(401).json({error: "User Does Not Exist"})
             }

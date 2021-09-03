@@ -17,7 +17,7 @@ const loginSchema = yup.object().shape({
 });
 
 export default function Login(props) {
-  const { setUser } = props
+  const { setUser, setIsloggedin} = props
   // set the states for the compoenet
   const [data, setData] = useState({
     email: "",
@@ -58,6 +58,7 @@ export default function Login(props) {
       setUser(signupPost.data.user)
 	    localStorage.setItem("user_token", JSON.stringify({token: signupPost.data.token}))
       setSignedup(true);
+      setIsloggedin(true)
 
     } catch (err) {
 		// console.log("====In",err.response.data.error)
@@ -67,7 +68,7 @@ export default function Login(props) {
   };
 
   if (signedup) {
-	return <Redirect to="/" />
+    return <Redirect to="/" />
 }
   return (
     <div className="main-div">
