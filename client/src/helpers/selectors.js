@@ -9,15 +9,12 @@ const organiseSurvey = (survey) => {
 
     for (let product of survey[0].products) {
       if (product.room_id === room.id) {
-        const realPrice = product.price/100
-        product.price = realPrice
         roomProducts.push(product);
       }
     }
     room.products = roomProducts;
     surveyRooms.push(room);
   }
-
   return surveyRooms
 }
 
@@ -91,7 +88,6 @@ const avatarForRoom = (room) => {
 }
 
 const avatarForProduct = (product) => {
-  console.log("PRODUCT CATEGORY ID IS***", product.category_id)
     if(product.category_id === 2 || product.category_id === 3){
       return '💡'
     }
