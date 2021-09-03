@@ -4,5 +4,6 @@ DROP TABLE IF EXISTS has_product_home CASCADE;
 CREATE TABLE has_product_home (
   id SERIAL PRIMARY KEY NOT NULL,
   product_id INTEGER REFERENCES products(id) ON DELETE CASCADE,
-  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE
+  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  survey_id INTEGER REFERENCES survey_results(id) ON DELETE CASCADE
 );
