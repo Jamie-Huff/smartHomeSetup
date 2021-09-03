@@ -26,7 +26,7 @@ const setUpRooms = (rooms) => {
     console.log("ROOMVAR IS+++", roomVar)
     if (newRoomVar === "livingroom" || roomVar === "laundryroom" || roomVar === "entryway") {
       if (newRoomVar === "livingroom") {
-        newRoomVar.push('common area');
+        newRooms.push('common area');
       } 
   
       if (newRoomVar === "laundryroom") {
