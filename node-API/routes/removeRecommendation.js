@@ -7,6 +7,7 @@ const generateRecommendations = require("../helpers/productRecommendations")
 
 const removeRecommendation = (db) => {
   router.post("/", async (req, res) => {
+
   })
 
   return router

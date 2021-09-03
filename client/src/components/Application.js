@@ -183,7 +183,7 @@ export default function Application(props) {
             </Route>
             <Route path='/profile'>
               <div className="rooms">
-                <RoomCardList survey ={survey}/>
+                <RoomCardList survey ={recommendations}/>
               </div>
             </Route>
             <Route path='/smartville'>
