@@ -17,7 +17,7 @@ const surveyData = (db) => {
     let finalObj = { 
       id: null,
       user_id: null,
-      rooms: query.rooms,
+      rooms: [],
       products: [],
       totalPrice: query.budget
     }
@@ -64,28 +64,64 @@ const surveyData = (db) => {
         )).rows
 
     finalRecommendations = await generateRecommendations(productsRoomAndCategories, productsRoomOrCategories, inspecificProducts, query.budget, db)
-    console.log('!@#@!#!@', finalRecommendations)
 
     finalObj.products = finalRecommendations
 
+    const finalObjRooms = async (rooms, products) => {
+      const roomFinal = []
+      // currently rooms in an array of rooms
+      // we need too ->
+        // loop through the rooms, | done
+        // we need to use the products, to check their room id,
+          // then add up the price for all the products in the room
+        // finnaly send the array of objects to the front end inside the rooms of finalobj
+
+      for (const room of rooms) {
+        console.log('@@@', rooms)
+        // room is a string
+        let roomObj = {name: room, id: null, totalPrice: 0}
+        let roomDetails = (await db.query(`SELECT * FROM rooms WHERE name = $1`, [room])).rows[0]
+        roomObj.id = roomDetails.id
+        for (const product of products) {
+          if (product.room_id === roomObj.id) {
+             console.log('room match :o')
+             roomObj.totalPrice += product.price
+          }
+        }
+        roomFinal.push(roomObj)
+
+      }
+      console.log(roomFinal)
+      return roomFinal
+      
+    }
+
+    console.log('@@@@@', finalObjRooms(query.rooms, finalRecommendations))
+    // to do
+      // rooms [ {cost, name, id} ]
+      // finalobj.rooms to be an array of objects, which contains:\
+        // the cost for the room
+        // the room name
+        // room id
 
 
+  
     const addSurvey = (await db.query(
       `INSERT INTO survey_results (user_id, budget) VALUES($1, $2) RETURNING *`,
       [finalObj.user_id, query.budget]
       )).rows[0]
     surveyValues = addSurvey
+
+    for (const product of finalRecommendations) {
+      (await db.query(`INSERT INTO recommendations (user_id, survey_id, product_id) VALUES($1, $2, $3)`,
+      [finalObj.user_id, surveyValues.id, product.id]))
+    }
+
     finalObj.id = surveyValues.id
-    console.log('final', finalObj)
     finalArray.push(finalObj)
     res.json(finalArray)
     })
-    // to do
-      //[ {cost, name, id} ]
-      // finalobj.rooms to be an array of objects, which contains:\
-        // the cost for the room
-        // the room name
-        // room id
+
       // finish the recommedations table
 
 
