@@ -80,6 +80,15 @@ const surveyData = (db) => {
     finalArray.push(finalObj)
     res.json(finalArray)
     })
+    // to do
+      //[ {cost, name, id} ]
+      // finalobj.rooms to be an array of objects, which contains:\
+        // the cost for the room
+        // the room name
+        // room id
+      // finish the recommedations table
+
+
 
     // add returning to get back a specific value
     // RETURNING *
