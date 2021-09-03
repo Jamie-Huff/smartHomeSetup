@@ -4,17 +4,11 @@ const organiseSurvey = (survey) => {
   for (let room of survey[0].rooms) {
     room.avatar = avatarForRoom(room)
     room.name = nameForRoom(room)
-    console.log("IN SELECTORS, COST OF ROOM1 IS+++", room.cost)
-
-    room.cost = room.cost/100
-
-    console.log("IN SELECTORS, COST OF ROOM1 AFTER IS+++", room.cost)
 
     const roomProducts = [];
 
     for (let product of survey[0].products) {
       if (product.room_id === room.id) {
-        product.price = product.price/100
         roomProducts.push(product);
       }
     }
@@ -94,7 +88,6 @@ const avatarForRoom = (room) => {
 }
 
 const avatarForProduct = (product) => {
-  console.log("PRODUCT CATEGORY ID IS***", product.category_id)
     if(product.category_id === 2 || product.category_id === 3){
       return '💡'
     }

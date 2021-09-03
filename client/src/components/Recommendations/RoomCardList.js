@@ -8,7 +8,6 @@ import { organiseSurvey } from "../../helpers/selectors";
 
 export default function RoomCardList(props) {
   const { survey } = props;
-  console.log("IN ROOMCARDLIST, COST OF ROOM1 AS PROP IS+++", survey[0].rooms[0].cost, survey[0].rooms[0] )
 
   const organisedSurvey = organiseSurvey(survey)
 

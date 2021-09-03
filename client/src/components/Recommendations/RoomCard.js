@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     backgroundColor: '#292F3D',
     margin:'20px',
-    borderRadius:'4px',
+    borderRadius:'5px',
     color: 'white'
   },
   avatar: {
@@ -39,7 +39,6 @@ const useStyles = makeStyles((theme) => ({
 export default function RoomCard(props) {
   const { id, products, name, avatar, cost } = props;
   const classes = useStyles();
-  console.log("IN ROOMCARD, PROPS ARE++", name, avatar, cost)
 
   return (
     <Card className={classes.root}>
@@ -58,7 +57,7 @@ export default function RoomCard(props) {
           }
         />
         <div className="rec__card-priceText">
-          ${cost}
+          ${cost/100}
         </div>
       </div>
       <CardContent className={classes.displayRec}>
@@ -66,7 +65,7 @@ export default function RoomCard(props) {
           products.map((product) => {  
             return <RecListItem 
               key={product.id}
-              title={product.title} 
+              title={product.name} 
               image={product.image}  
               price={product.price} 
               avatar={avatarForProduct(product)}
