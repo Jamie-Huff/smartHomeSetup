@@ -13,11 +13,19 @@ export default function RoomCardList(props) {
     hasProductStore
   } = useApplicationData();
 
-  const organisedSurvey = organiseSurvey(survey, hasProductStore)
+  let surveyRooms;
+  console.log(survey)
 
-  const surveyRooms = organisedSurvey.map((room) => {
-    return <RoomCard className="rooms" key={room.id} products={room.products} name={room.name} avatar={room.avatar} cost={room.cost}/>
-  })
+  if (survey[0]) {
+    const organisedSurvey = organiseSurvey(survey, hasProductStore)
+
+    surveyRooms = organisedSurvey.map((room) => {
+      return <RoomCard className="rooms" key={room.id} products={room.products} name={room.name} avatar={room.avatar} cost={room.cost}/>
+    })
+
+  } else {
+    surveyRooms =  <h1>Wachu looking</h1>
+  }
 
   return (
       surveyRooms
