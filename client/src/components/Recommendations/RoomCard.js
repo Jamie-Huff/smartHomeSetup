@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import { makeStyles } from '@material-ui/styles';
 
 import Card from '@material-ui/core/Card';
@@ -39,11 +40,49 @@ const useStyles = makeStyles((theme) => ({
 export default function RoomCard(props) {
   const { id, products, name, avatar, cost } = props;
   const classes = useStyles();
-  console.log("**UNO**",products[0].id)
+
   const {
-    deleteRecommendation
+    deleteRecommendation,
+    removeProductHome,
+    gotProductHome
   } = useApplicationData();
 
+  const deleteRec = (removeRecObj) => {
+    
+    //do confirmation "ONCE YOU DELETE, ITS GONE FOREVER"
+    //transition to deleting
+
+    deleteRecommendation(removeRecObj)
+    .then((res) => {
+      console.log("INSIDE ROOM CARD, DEL REC")
+    })
+    .catch((err) =>{
+      console.log(err);
+    })
+
+  }
+
+  const deleteProductHome = (removeProdHomeObj) => {
+    
+    removeProductHome(removeProdHomeObj)
+    .then((res) => {
+      console.log("INSIDE ROOM CARD, REMOVE PROD HOME")
+    })
+    .catch((err) =>{
+      console.log(err);
+    })
+  }
+
+  const addProductHome = (addProdHomeObj) => {   
+
+    gotProductHome(addProdHomeObj)
+    .then((res) => {
+      console.log("INSIDE ROOM CARD,ADD PROD HOME")
+    })
+    .catch((err) =>{
+      console.log(err);
+    })
+  }
 
   return (
     <Card className={classes.root}>
@@ -78,7 +117,9 @@ export default function RoomCard(props) {
               desc={product.description}
               quantity={product.quantity}
               stores={product.stores}
-              deleteRec={deleteRecommendation}
+              deleteRec={deleteRec}
+              deleteProductHome={deleteProductHome}
+              addProductHome={addProductHome}
             />
           })
         }

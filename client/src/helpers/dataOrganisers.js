@@ -47,7 +47,7 @@ const checkForUser = () => {
   return JSON.parse(localStorage.getItem("user_token"));
 }
 
-const formDataForApi = (budget, provider, categories, rooms, user) => {
+const formDataForSurvey = (budget, provider, categories, rooms, user) => {
   const apiObj = {}
 
   apiObj.budget = Number(budget);
@@ -59,7 +59,7 @@ const formDataForApi = (budget, provider, categories, rooms, user) => {
   return apiObj;
 }
 
-const formDataForRemoveRec = (product_id, user) => {
+const formDataForHome = (product_id, user) => {
   const apiObj = {};
 
   apiObj.user = user;
@@ -71,8 +71,8 @@ const formDataForRemoveRec = (product_id, user) => {
 module.exports = {
   setupCategories,
   setUpRooms,
-  formDataForApi,
-  formDataForRemoveRec,
+  formDataForSurvey,
+  formDataForHome,
   checkForUser
 }
 

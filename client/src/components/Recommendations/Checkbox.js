@@ -12,11 +12,11 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 export default function CheckBox(props) {
+  const { handleProdHome, checkedProduct } = props
   const classes = useStyles();
-  const [checkedProduct, setState] = React.useState(false);
 
   const handleChange = (event) => {
-    setState(!checkedProduct);
+    handleProdHome(!checkedProduct);
   }
   
   return (

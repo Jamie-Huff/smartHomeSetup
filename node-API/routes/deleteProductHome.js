@@ -7,26 +7,28 @@ const generateRecommendations = require("../helpers/productRecommendations")
 
 const deleteProductHome = (db) => {
   router.post("/", async (req, res) => {
-    let query = req.body
-    let email = ''
 
-    jwt.verify(query.user.token, process.env.TOKEN, function(error, decoded) {
-      email = decoded.email
-    })
-    // find the user by their email
-    let userId = (await db.query(`SELECT * FROM users WHERE email = $1`, [email]
-    )).rows[0].id
-    // remove a row from the has_product_home table 
-      // this means that a user removed that product from their home
+    console.log("I GOT THE MESSAGE TO DELETE PROD FROM HOME", req.body)
+    // let query = req.body
+    // let email = ''
 
-    let findSurvey = (await db.query(`SELECT * FROM survey_results WHERE user_id = $1`, [userId])).rows
+    // jwt.verify(query.user.token, process.env.TOKEN, function(error, decoded) {
+    //   email = decoded.email
+    // })
+    // // find the user by their email
+    // let userId = (await db.query(`SELECT * FROM users WHERE email = $1`, [email]
+    // )).rows[0].id
+    // // remove a row from the has_product_home table 
+    //   // this means that a user removed that product from their home
 
-      // need the last survey in the database for that user, should be the most recent
+    // let findSurvey = (await db.query(`SELECT * FROM survey_results WHERE user_id = $1`, [userId])).rows
 
-    let mostRecentSurvey = await findSurvey[findSurvey.length - 1]
+    //   // need the last survey in the database for that user, should be the most recent
 
-    (await db.query(`DELETE FROM has_product_home WHERE user_id = $2 AND product_id = $1 AND survey_id = $3`,
-      [query.product_id, userId, mostRecentSurvey.id]))
+    // let mostRecentSurvey = await findSurvey[findSurvey.length - 1]
+
+    // (await db.query(`DELETE FROM has_product_home WHERE user_id = $2 AND product_id = $1 AND survey_id = $3`,
+    //   [query.product_id, userId, mostRecentSurvey.id]))
 
       res.json('Product sucessfully remove from home')
   })

@@ -108,7 +108,7 @@ export default function useApplicationData () {
         //   // ...state,
         //   // survey
         // })
-        console.log("GOT BACK A MESSAGE")
+        console.log("GOT BACK A MESSAGE SUBMIT SURVEY")
         console.log("MESSAGE IS", res)
         setRec(res.data);
         return resolve(res);
@@ -120,46 +120,38 @@ export default function useApplicationData () {
   }
 
   //Delete the appointment from the db, then update the state of the app
-  const gotProductHome = () => {
+  const gotProductHome = (addProdData) => {
     console.log("IN GET PRODUCT HOME")
-    // return new Promise((resolve, reject) => {
-    //   axios.post()
-    //   .then((res) => {
-    //     const recommendations = {
-    //     }
-    //     setState({
-    //       ...state,
-    //       recommendations
-    //     })
-    //     return resolve(console.log(res));
-    //   })
-    //   .catch((err) => {
-    //     return reject(console.log(err.message));
-    //   })
-    // })
+    return new Promise((resolve, reject) => {
+      axios.post("http://localhost:3002/addProductHome", addProdData)
+      .then((res) => {
+        console.log("GOT BACK A MESSAGE GOT PROD IN HOME")
+        return resolve(console.log(res));
+      })
+      .catch((err) => {
+        return reject(console.log(err.message));
+      })
+    })
   }
 
-  const removeProductHome = () => {
+  const removeProductHome = (removeProdData) => {
     console.log("IN REMOVE PRODUCT HOME")
-    // return new Promise((resolve, reject) => {
-    //   axios.post()
-    //   .then((res) => {
-    //     const recommendations = {
-    //     }
-    //     setState({
-    //       ...state,
-    //       recommendations
-    //     })
-    //     return resolve(console.log(res));
-    //   })
-    //   .catch((err) => {
-    //     return reject(console.log(err.message));
-    //   })
-    // })
+
+    return new Promise((resolve, reject) => {
+      axios.post("http://localhost:3002/deleteProductHome", removeProdData)
+      .then((res) => {
+        console.log("GOT BACK A MESSAGE REMOVE PROD FROM HOME")
+        return resolve(console.log(res));
+      })
+      .catch((err) => {
+        return reject(console.log(err.message));
+      })
+    })
   }
 
   const deleteRecommendation = (removeRecData) => {
-    console.log("IN DELETE RECOMMENDATION", removeRecData)
+
+    console.log("IN DELETE RECOMMENDATION, CHANGE REC IS", changeRec)
     return new Promise((resolve, reject) => {
       axios.post("http://localhost:3002/removeRecommendation", removeRecData)
       .then((res) => {
@@ -200,6 +192,7 @@ export default function useApplicationData () {
     username,
     hasProductStore,
     setUsername,
+    changeRec,
     recommendations,
     submitSurvey,
     gotProductHome,
