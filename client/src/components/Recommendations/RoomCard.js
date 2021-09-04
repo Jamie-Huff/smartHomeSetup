@@ -17,7 +17,11 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#292F3D',
     margin:'20px',
     borderRadius:'5px',
-    color: 'white'
+    color: 'white',
+    // border: "red solid 2px",
+    display: "flex",
+    flexDirection: "column",
+    flexWrap: "wrap",
   },
   avatar: {
     backgroundColor: '#292F3D',
@@ -42,14 +46,14 @@ export default function RoomCard(props) {
 
   return (
     <Card className={classes.root}>
-      <div className="rec__card-top"> 
+      <div className="rec__card-top">
         <CardHeader
-          
+
           title={name}
           classes={{
             title: classes.cardHeader,
             avatar: classes.avatar,
-          }} 
+          }}
           avatar={
             <Avatar aria-label="recipe" className={classes.avatar}>
               {avatar}
@@ -62,12 +66,12 @@ export default function RoomCard(props) {
       </div>
       <CardContent className={classes.displayRec}>
         {
-          products.map((product) => {  
-            return <RecListItem 
+          products.map((product) => {
+            return <RecListItem
               key={product.id}
-              title={product.name} 
-              image={product.image}  
-              price={product.price} 
+              title={product.name}
+              image={product.image}
+              price={product.price}
               avatar={avatarForProduct(product)}
               desc={product.description}
               quantity={product.quantity}

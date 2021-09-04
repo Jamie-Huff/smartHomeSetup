@@ -94,7 +94,7 @@ export default function Application(props) {
               <Button className={classes.button} variant="outlined" color="primary" onClick={handleSurveyOpen}>
                 TAKE SURVEY
               </Button>
-                <Logout userName={username} isloggedin={isloggedin} setIsloggedin={setloggedin} />
+                <Logout setuserName={setUsername} userName={username} isloggedin={isloggedin} setIsloggedin={setloggedin} />
               {isloggedin? <Avatar src="images/alpac.jpg" alt="Lit"/>: null}
               <Modal open={open} onClose={handleSurveyClose} style={{display:'flex',marginTop:'140px', justifyContent:'center'}}>
                 <Survey submitSurvey={submitSurvey} handleSurveyClose={handleSurveyClose} />
@@ -123,7 +123,7 @@ export default function Application(props) {
               <Signup setUser={setUsername} setIsloggedin={setloggedin} />
             </Route>
             <Route path='/profile'>
-              <div className="rooms">    
+              <div className="rooms">
                 <RoomCardList survey ={recommendations}/>
               </div>
             </Route>

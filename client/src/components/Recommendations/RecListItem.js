@@ -19,16 +19,21 @@ import "./RecListItem.scss";
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 345,
+    width: 350,
     backgroundColor: '#323949',
     margin:'20px',
     color:"white",
-    borderRadius:"8px"
+    borderRadius:"8px",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between"
   },
   media: {
-    height: 0,
-    paddingTop: '56.25%', // 16:9
+    height: 220,
     margin: "5px 20px 20px 20px",
-    borderRadius:"2px"
+    borderRadius:"2px",
+    backgroundSize: "contain",
+    backgroundColor: "#fff",
   },
   avatar: {
     backgroundColor: '#535e79',
@@ -38,8 +43,8 @@ const useStyles = makeStyles((theme) => ({
     color:"white"
   },
   cardHeader: {
-    fontSize:"16px",
-    fontWeight:'bold',
+    fontSize:"1em",
+    fontWeight:'bold'
   },
   checkBox: {
     marginTop:"2px"
@@ -54,18 +59,27 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: "Arial"
   },
   quantity: {
-    color:"yellow", 
+    color:"yellow",
     marginLeft:"10px"
   },
   store: {
     margin:"10px 0px 0px 20px",
     color:"#b2ec5d"
   },
-  stores: { 
-    display:"flex", 
+  stores: {
+    display:"flex",
     justifyContent:"flex-start"
+  },
+  none: {
+    backgroundColor: "#fff",
+    borderRadius: "2px",
+    margin: "0px 16px"
   }
 }));
+
+function truncate(str, n) {
+  return str?.length > n ? str.substr(0, n - 1) : str;
+}
 
 export default function RecListItem(props) {
 
@@ -83,14 +97,14 @@ export default function RecListItem(props) {
         action={
           <Checkbox/>
         }
-        title={title}
+        title={truncate(title, 57)}
         classes={{
           title: classes.cardHeader,
           action: classes.checkBox,
-        }} 
+        }}
       />
       <div className={classes.stores}>
-        { 
+        {
           stores.map((store) =>{
             return <a href={store.productLink} className={classes.store}>
               {store.name}
@@ -98,18 +112,20 @@ export default function RecListItem(props) {
           })
         }
       </div>
+      <div className={classes.none}>
       <CardMedia
         className={classes.media}
         image={image}
         title={title}
-        
+
       />
+      </div>
       <CardContent>
         <Typography variant="body2" color="textPrimary" component="p" className={classes.content}>
           {
             desc
           }
-          
+
         </Typography>
       </CardContent>
       <CardActions className="rec__actions">
@@ -118,7 +134,7 @@ export default function RecListItem(props) {
               ${price/100}
               {(quantity > 1) &&
                 <span className={classes.quantity}>x{quantity}</span>
-              } 
+              }
             </div>
           </div>
           <div>
@@ -127,9 +143,9 @@ export default function RecListItem(props) {
             </IconButton>
             <IconButton >
               <DeleteIcon className={classes.infoIcon}/>
-            </IconButton>   
+            </IconButton>
           </div>
-          
+
       </CardActions>
     </Card>
   );

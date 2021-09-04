@@ -19,7 +19,6 @@ const useStyles = makeStyles({
     margin: "10px 5px 10px 18px",
     borderRadius: "10px",
     boxShadow: "-15px -15px 15px rgba(255, 255, 255, 0), 15px 15px 15px rgba(255,255,255,0.3)",
-    // backgroundColor: "gray"
 
   },
   media: {
