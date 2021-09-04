@@ -6,8 +6,8 @@ const jwt = require("jsonwebtoken");
 const generateRecommendations = require("../helpers/productRecommendations")
 
 const grabResults = (db) => {
-  router.get("/", async (req, res) => {
-    // let query = query.body
+  router.post("/", async (req, res) => {
+
     let email = ''
     let survey = [
       {
@@ -19,7 +19,8 @@ const grabResults = (db) => {
     ]
 
     let query = req.body
-    jwt.verify(query.user.token, process.env.TOKEN, function(error, decoded) {
+    console.log(req.body.token)
+    jwt.verify(query.token, process.env.TOKEN, function(error, decoded) {
       email = decoded.email
     })
     // find the user by their email
