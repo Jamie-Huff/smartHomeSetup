@@ -75,14 +75,15 @@ export default function useApplicationData () {
     Promise.all([
       axios.get('http://localhost:3002/products'),
       axios.get('http://localhost:3002/rooms'),
-      axios.get('http://localhost:3002/productInStore')
-      // axios.get('/survey')
+      axios.get('http://localhost:3002/productInStore'),
+      axios.get('http://localhost:3002/grabResults')
     ]).then((all) => {
       setProducts(all[0].data);
       console.log("this is form useapp",products)
       setRooms(all[1].data);
-      setProductStore(all[2].data)
-      // setSurveys(all[2].data);
+      setProductStore(all[2].data);
+      console.log("GRABBING RESULTS YO", all[3].data)
+      setRec(all[3].data);
     });
   },[])
 
@@ -112,8 +113,46 @@ export default function useApplicationData () {
   }
 
   //Delete the appointment from the db, then update the state of the app
-  const editRecommendations = (id) => {
-    console.log("IN EDIT RECOMMENDATIONS")
+  const gotProductHome = () => {
+    console.log("IN GET PRODUCT HOME")
+    // return new Promise((resolve, reject) => {
+    //   axios.post()
+    //   .then((res) => {
+    //     const recommendations = {
+    //     }
+    //     setState({
+    //       ...state,
+    //       recommendations
+    //     })
+    //     return resolve(console.log(res));
+    //   })
+    //   .catch((err) => {
+    //     return reject(console.log(err.message));
+    //   })
+    // })
+  }
+
+  const removeProductHome = () => {
+    console.log("IN REMOVE PRODUCT HOME")
+    // return new Promise((resolve, reject) => {
+    //   axios.post()
+    //   .then((res) => {
+    //     const recommendations = {
+    //     }
+    //     setState({
+    //       ...state,
+    //       recommendations
+    //     })
+    //     return resolve(console.log(res));
+    //   })
+    //   .catch((err) => {
+    //     return reject(console.log(err.message));
+    //   })
+    // })
+  }
+
+  const deleteRecommendation = () => {
+    console.log("IN DELETE RECOMMENDATION")
     // return new Promise((resolve, reject) => {
     //   axios.post()
     //   .then((res) => {
@@ -160,7 +199,9 @@ export default function useApplicationData () {
     setUsername,
     recommendations,
     submitSurvey,
-    editRecommendations,
+    gotProductHome,
+    removeProductHome,
+    deleteRecommendation,
     switchSurvey,
     isloggedin,
     setloggedin

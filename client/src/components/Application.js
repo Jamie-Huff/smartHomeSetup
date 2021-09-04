@@ -48,71 +48,6 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-//fakeData
-const products = [
-  {
-    id: 1,
-    room_id: 3,
-    category_id: 2,
-    name: "Phillips Hue of Life",
-    description: "Amazing product Get A Copywriter. Native English speakers. Unlimited revisions. 100% money-back guarantee. Order now! 100% unique content by copywriters with local knowledge. Reviewed by senior editors. 100% money-back guarantee. Reliable delivery. Fast turnaround.",
-    price: 20099,
-    image:"images/hue.jpeg",
-    quantity:2
-
-  },
-  {
-    id: 2,
-    room_id: 2,
-    category_id: 16,
-    name: "Sonos One",
-    description: "Super Amazing product",
-    price: 27599,
-    image: "Another Lit Image",
-    quantity:3
-  },
-  {
-    id: 3,
-    room_id: 2,
-    category_id: 4,
-    name: "Selection Camera",
-    description: "Beyond Amazing product",
-    price: 50099,
-    image: "Just the very best image",
-    quantity:1
-  },
-  {
-    id: 4,
-    room_id: 3,
-    category_id: 6,
-    name: "Door Bell",
-    description: "Super Amayzung",
-    price: 10000,
-    image:"Lit Eyy Image",
-    quantity:1
-  },
-  {
-    id: 5,
-    room_id: 4,
-    category_id: 8,
-    name: "Fridge",
-    description: "Super Amayzliung",
-    price: 22199,
-    image:"Lit sheswut Image",
-    quantity:1
-  },
-]
-
-const survey = [
-  {
-   id: 1,
-   user_id: 2,
-   rooms: [{id:3, name: "kitchen", cost: 20000 }, {id: 2, name: "bedroom", cost: 400099}, {id: 4, name: "common area", cost: 170000}],
-   products: products,
- }
-]
-
-
 export default function Application(props) {
   const classes = useStyles();
 
@@ -143,7 +78,9 @@ export default function Application(props) {
     setUsername,
     submitSurvey,
     recommendations,
-    editRecommendations,
+    removeProductHome,
+    addProductHome,
+    deleteRecommendation,
     switchSurvey,
     isloggedin,
     setloggedin
@@ -158,7 +95,7 @@ export default function Application(props) {
                 TAKE SURVEY
               </Button>
                 <Logout userName={username} isloggedin={isloggedin} setIsloggedin={setloggedin} />
-              <Avatar src="images/alpac.jpg" alt="Lit"/>
+              {isloggedin? <Avatar src="images/alpac.jpg" alt="Lit"/>: null}
               <Modal open={open} onClose={handleSurveyClose} style={{display:'flex',marginTop:'140px', justifyContent:'center'}}>
                 <Survey submitSurvey={submitSurvey} handleSurveyClose={handleSurveyClose} />
               </Modal>
@@ -170,7 +107,10 @@ export default function Application(props) {
             <img className="sidebar--nao" src="images/nao_welcome.png" alt="Nao Chilling"/>
           </section>
           <Switch>
-            <Route exact path='/'>
+          <Route exact path='/'>
+              <SmartVille/>
+            </Route>
+            <Route path='/products'>
               <div>
                 <ProductList products={products}/>
               </div>
@@ -183,13 +123,11 @@ export default function Application(props) {
               <Signup setUser={setUsername} setIsloggedin={setloggedin} />
             </Route>
             <Route path='/profile'>
-              <div className="rooms">
+              <div className="rooms">    
                 <RoomCardList survey ={recommendations}/>
               </div>
             </Route>
-            <Route path='/smartville'>
-              <SmartVille/>
-            </Route>
+
           </Switch>
         </main>
       </ThemeProvider>
