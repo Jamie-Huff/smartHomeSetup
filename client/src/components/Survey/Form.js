@@ -32,7 +32,7 @@ export default function Form(props) {
   const classes = useStyles();
   
   const { save, mode, backToStart } = props;
-  const { setupCategories, setUpRooms, formDataForApi, checkForUser } = dataOrganisers
+  const { setupCategories, setUpRooms, formDataForSurvey, checkForUser } = dataOrganisers
 
   //hooks for tracking the state of each survey question response
   const [budget, setBudget] = useState("");
@@ -66,7 +66,7 @@ export default function Form(props) {
     const surveyCategories = setupCategories(categories, quantities);
     const surveyRooms = setUpRooms(rooms);
     const surveyUser = checkForUser();
-    const surveyData = formDataForApi(budget, provider, surveyCategories, surveyRooms, surveyUser);
+    const surveyData = formDataForSurvey(budget, provider, surveyCategories, surveyRooms, surveyUser);
     
     save(surveyData);
   }

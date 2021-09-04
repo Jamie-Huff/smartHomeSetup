@@ -17,17 +17,14 @@ const grabResults = (db) => {
         products: null,
       }
     ]
-        // DELETE ME 
-    let userId = 1
 
-                // UNCOMMENT ME 
-    // let query = req.body
-    // jwt.verify(query.user.token, process.env.TOKEN, function(error, decoded) {
-    //   email = decoded.email
-    // })
-    // // find the user by their email
-    // let userId = (await db.query(`SELECT * FROM users WHERE email = $1`, [email]
-    // )).rows[0].id
+    let query = req.body
+    jwt.verify(query.user.token, process.env.TOKEN, function(error, decoded) {
+      email = decoded.email
+    })
+    // find the user by their email
+    let userId = (await db.query(`SELECT * FROM users WHERE email = $1`, [email]
+    )).rows[0].id
 
     survey[0].user_id = await userId
 
@@ -80,6 +77,8 @@ const grabResults = (db) => {
     
     let roomsFinal = await roomObjMaker(roomIds, productList)
     survey[0].rooms = roomsFinal
+
+    console.log("SURVEY IS NOW***", survey)
     res.json(survey)
 
   })

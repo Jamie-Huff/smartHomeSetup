@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { makeStyles } from '@material-ui/styles';
 
-import { checkForUser } from "../../helpers/dataOrganisers"
+import { checkForUser, formDataForHome } from "../../helpers/dataOrganisers"
 
 import Checkbox from './Checkbox'
 import Card from '@material-ui/core/Card';
@@ -15,8 +15,6 @@ import Typography from '@material-ui/core/Typography';
 import InfoIcon from '@material-ui/icons/Info';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Link from '@material-ui/core/Link';
-
-import { formDataForRemoveRec } from "../../helpers/dataOrganisers";
 
 import "./RecListItem.scss";
 
@@ -87,13 +85,29 @@ function truncate(str, n) {
 
 export default function RecListItem(props) {
 
-  const { id, title, image, price, info, desc, avatar, stores, quantity, deleteRec } = props
-  // console.log("PRODUCT ID in RECLISTITEM", key)
-  const classes = useStyles();
+  const { id, title, image, price, info, desc, avatar, stores, 
+          quantity, deleteRec, deleteProductHome, addProductHome } = props
 
-  const handleDelete = () => {
-    const removeRecObj = formDataForRemoveRec(id, checkForUser());
+  const classes = useStyles();
+  const [checkedProduct, setCheckedProduct] = useState(false);
+
+  
+
+  const handleDeleteRec = () => {
+    const removeRecObj = formDataForHome(id, checkForUser());
     deleteRec(removeRecObj);
+  }
+
+  const handleProdHome = (checkedStatus) => { 
+    const prodHomeObj = formDataForHome(id, checkForUser());
+
+    if(!checkedProduct){
+      addProductHome(prodHomeObj)
+    } else {
+      deleteProductHome(prodHomeObj)
+    }
+
+    setCheckedProduct(checkedStatus)
   }
 
   return (
@@ -105,7 +119,7 @@ export default function RecListItem(props) {
           </Avatar>
         }
         action={
-          <Checkbox/>
+          <Checkbox handleProdHome={handleProdHome} checkedProduct={checkedProduct}/>
         }
         title={truncate(title, 57)}
         classes={{
@@ -126,16 +140,14 @@ export default function RecListItem(props) {
       <CardMedia
         className={classes.media}
         image={image}
-        title={title}
-
+        title={title}     
       />
       </div>
       <CardContent>
         <Typography variant="body2" color="textPrimary" component="p" className={classes.content}>
           {
             desc
-          }
-
+          }     
         </Typography>
       </CardContent>
       <CardActions className="rec__actions">
@@ -152,10 +164,14 @@ export default function RecListItem(props) {
               <InfoIcon className={classes.infoIcon}/>
             </IconButton>
             <IconButton >
+<<<<<<< HEAD
               <DeleteIcon onClick={handleDelete} className={classes.infoIcon}/>
             </IconButton>
+=======
+              <DeleteIcon onClick={handleDeleteRec} className={classes.infoIcon}/>
+            </IconButton> 
+>>>>>>> master
           </div>
-
       </CardActions>
     </Card>
   );
