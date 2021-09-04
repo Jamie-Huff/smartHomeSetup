@@ -5,92 +5,81 @@ const categoryFinder = require('../helpers/survey')
 const jwt = require("jsonwebtoken");
 const generateRecommendations = require("../helpers/productRecommendations")
 
-const grabResults =  (db) => {
+const grabResults = (db) => {
   router.get("/", async (req, res) => {
+    // let query = query.body
+    let email = ''
+    let survey = [
+      {
+        id: null,
+        user_id: null,
+        rooms: [],
+        products: null,
+      }
+    ]
+        // DELETE ME 
+    let userId = 1
 
-    // get the user token
+                // UNCOMMENT ME 
+    // let query = req.body
     // jwt.verify(query.user.token, process.env.TOKEN, function(error, decoded) {
-    //   finalObj.user_id = decoded.email
+    //   email = decoded.email
     // })
     // // find the user by their email
-    // let userId = (await db.query(`SELECT * FROM users WHERE email = '${finalObj.user_id}'`
+    // let userId = (await db.query(`SELECT * FROM users WHERE email = $1`, [email]
     // )).rows[0].id
-    // finalObj.user_id = userId
 
-    // using the user id, look through survey results for that user
+    survey[0].user_id = await userId
 
+    let findSurvey = (await db.query(`SELECT * FROM survey_results WHERE user_id = $1`, [userId])).rows
+
+    let mostRecentSurvey = await findSurvey[findSurvey.length - 1]
+    survey[0].id = mostRecentSurvey.id
+
+    let findProducts = (await db.query(`SELECT * FROM recommendations WHERE user_id = $1 AND survey_id = $2`, [userId, mostRecentSurvey.id])).rows
+    let productIds = findProducts
+
+    let productList = []
+    for (const product of productIds) {
+      let productQuery = (await db.query(`SELECT * FROM products WHERE id = $1`, [product.product_id])).rows[0]
+      productList.push(productQuery)
+    }
+    survey[0].products = productList
     
+    //------------------------------------------- Find rooms
+    // i need to find the room that the product belongs in, just based off of the id, first I need to generate the rooms array
+    const roomArrayFinder = (products) => {
+      let roomIdArray = []
+      for (let product of products) {
+        if (!roomIdArray.includes(product.room_id)) {
+          roomIdArray.push(product.room_id)
+        }
+      }
+      return roomIdArray
+    }
 
-    // select the survey with the most recent date
+    // roomIds contain the id of every room
+    let roomIds = roomArrayFinder(productList)
 
+    const roomObjMaker = async (rooms, products) => {
+      let roomsArray = []
+      for (const room of rooms) {
+        let roomObj = {name: null, id: room, cost: 0}
+        let roomDetails = (await db.query(`SELECT * FROM rooms WHERE id = $1`, [room])).rows[0]
+        roomObj.name = await roomDetails.name
 
-
-    // render the same format to the front end
-
-    //**DUMMY DATA FOR TEST**
-    const products = [
-      {
-        id: 1,
-        room_id: 3,
-        category_id: 2,
-        name: "Phillips Hue of Life",
-        description: "Amazing product Get A Copywriter. Native English speakers. Unlimited revisions. 100% money-back guarantee. Order now! 100% unique content by copywriters with local knowledge. Reviewed by senior editors. 100% money-back guarantee. Reliable delivery. Fast turnaround.",
-        price: 20099,
-        image:"images/hue.jpeg",
-        quantity:2
+        for (const product of products) {
+          if (product.room_id === room) {
+            roomObj.cost += product.price
+          }
+        }
+        roomsArray.push(roomObj)
+      }
+      return roomsArray
+    }
     
-      },
-      {
-        id: 2,
-        room_id: 2,
-        category_id: 16,
-        name: "Sonos One",
-        description: "Super Amazing product",
-        price: 27599,
-        image: "Another Lit Image",
-        quantity:3
-      },
-      {
-        id: 3,
-        room_id: 2,
-        category_id: 4,
-        name: "Selection Camera",
-        description: "Beyond Amazing product",
-        price: 50099,
-        image: "Just the very best image",
-        quantity:1
-      },
-      {
-        id: 4,
-        room_id: 3,
-        category_id: 6,
-        name: "Door Bell",
-        description: "Super Amayzung",
-        price: 10000,
-        image:"Lit Eyy Image",
-        quantity:1
-      },
-      {
-        id: 5,
-        room_id: 4,
-        category_id: 8,
-        name: "Fridge",
-        description: "Super Amayzliung",
-        price: 22199,
-        image:"Lit sheswut Image",
-        quantity:1
-      },
-    ]
-    
-    const survey = [
-      {
-       id: 1,
-       user_id: 2,
-       rooms: [{id:3, name: "kitchen", cost: 20000 }, {id: 2, name: "bedroom", cost: 400099}, {id: 4, name: "common area", cost: 170000}],
-       products: products,
-     }
-    ]
-
+    let roomsFinal = await roomObjMaker(roomIds, productList)
+    survey[0].rooms = roomsFinal
     res.json(survey)
 
   })
