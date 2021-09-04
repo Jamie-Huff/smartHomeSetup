@@ -6,7 +6,8 @@ const jwt = require("jsonwebtoken");
 const generateRecommendations = require("../helpers/productRecommendations")
 
 const grabResults =  (db) => {
-  router.get("/", async (req, res) => {
+  router.post("/", async (req, res) => {
+    console.log("REQBODY", req.body)
 
     // get the user token
     // jwt.verify(query.user.token, process.env.TOKEN, function(error, decoded) {
@@ -28,6 +29,7 @@ const grabResults =  (db) => {
     // render the same format to the front end
 
     //**DUMMY DATA FOR TEST**
+
     const products = [
       {
         id: 1,
@@ -90,7 +92,6 @@ const grabResults =  (db) => {
        products: products,
      }
     ]
-
     res.json(survey)
 
   })

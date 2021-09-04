@@ -54,6 +54,8 @@ export default function RoomCard(props) {
 
     deleteRecommendation(removeRecObj)
     .then((res) => {
+      //loop through my own state and remove product
+      //setRec(new Version)
       console.log("INSIDE ROOM CARD, DEL REC")
     })
     .catch((err) =>{
