@@ -7,10 +7,6 @@ const generateRecommendations = require("../helpers/productRecommendations")
 
 const removeRecommendation = (db) => {
   router.post("/", async (req, res) => {
-<<<<<<< HEAD
-    console.log("**IN POST FOR DELETE REC**", req.body)
-    res.send("REMOVED")
-=======
     let query = req.body
     let email = ''
 
@@ -31,7 +27,6 @@ const removeRecommendation = (db) => {
       [query.product_id, userId, mostRecentSurvey.id]))
 
       res.json('Product sucessfully remove from recommendations')
->>>>>>> master
   })
 
   return router
