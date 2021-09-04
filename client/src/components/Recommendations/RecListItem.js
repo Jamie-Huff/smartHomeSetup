@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { makeStyles } from '@material-ui/styles';
 
+import { checkForUser } from "../../helpers/dataOrganisers"
+
 import Checkbox from './Checkbox'
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -13,6 +15,8 @@ import Typography from '@material-ui/core/Typography';
 import InfoIcon from '@material-ui/icons/Info';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Link from '@material-ui/core/Link';
+
+import { formDataForRemoveRec } from "../../helpers/dataOrganisers";
 
 import "./RecListItem.scss";
 
@@ -83,8 +87,14 @@ function truncate(str, n) {
 
 export default function RecListItem(props) {
 
-  const { title, image, price, info, desc, avatar, stores, quantity } = props
+  const { id, title, image, price, info, desc, avatar, stores, quantity, deleteRec } = props
+  // console.log("PRODUCT ID in RECLISTITEM", key)
   const classes = useStyles();
+
+  const handleDelete = () => {
+    const removeRecObj = formDataForRemoveRec(id, checkForUser());
+    deleteRec(removeRecObj);
+  }
 
   return (
     <Card className={classes.root}>
@@ -142,8 +152,13 @@ export default function RecListItem(props) {
               <InfoIcon className={classes.infoIcon}/>
             </IconButton>
             <IconButton >
+<<<<<<< HEAD
               <DeleteIcon className={classes.infoIcon}/>
             </IconButton>
+=======
+              <DeleteIcon onClick={handleDelete} className={classes.infoIcon}/>
+            </IconButton>   
+>>>>>>> master
           </div>
 
       </CardActions>

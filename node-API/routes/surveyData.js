@@ -68,7 +68,6 @@ const surveyData = (db) => {
     finalObj.products = finalRecommendations
 
     const finalObjRooms = async (rooms, products) => {
-      console.log('rooms', rooms)
       rooms.push ('inspecific')
       // ERROR To fix : Dont send rooms with a product price of zero
 
@@ -83,12 +82,9 @@ const surveyData = (db) => {
           room = 'entrance way'
         }
         let roomObj = {name: room, id: null, cost: 0}
-        console.log('room obj', roomObj)
         let roomDetails = (await db.query(`SELECT * FROM rooms WHERE name = $1`, [room])).rows[0]
-        console.log('details @@', roomDetails)
         roomObj.id = roomDetails.id
         for (const product of products) {
-          console.log('product id', product.id)
           if (product.room_id === roomObj.id) {
              roomObj.cost += product.price
           }
@@ -98,7 +94,6 @@ const surveyData = (db) => {
         }
 
       }
-      console.log(roomFinal)
       return roomFinal
     }
 

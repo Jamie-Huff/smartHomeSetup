@@ -69,23 +69,30 @@ export default function useApplicationData () {
   const [username, setUsername] = useState("");
   const [recommendations, setRec] = useState([]);
   const [isloggedin, setloggedin] = useState(null);
+  const [changeRec, setChangeRec] = useState(false)
 
   useEffect(() => {
     //Load all the data from the database when the page loads
     Promise.all([
       axios.get('http://localhost:3002/products'),
       axios.get('http://localhost:3002/rooms'),
-      axios.get('http://localhost:3002/productInStore'),
-      axios.get('http://localhost:3002/grabResults')
+      axios.get('http://localhost:3002/productInStore')
     ]).then((all) => {
       setProducts(all[0].data);
       console.log("this is form useapp",products)
       setRooms(all[1].data);
       setProductStore(all[2].data);
-      console.log("GRABBING RESULTS YO", all[3].data)
-      setRec(all[3].data);
     });
   },[])
+
+  useEffect(() => {
+    //Load Recommendations
+    axios.get('http://localhost:3002/grabResults')
+      .then((res) => {
+        console.log("GRABBING RESULTS YO", res)
+        setRec(res.data);
+      })
+  },[changeRec])
 
   const submitSurvey = (surveyData) => {
 
@@ -151,23 +158,19 @@ export default function useApplicationData () {
     // })
   }
 
-  const deleteRecommendation = () => {
-    console.log("IN DELETE RECOMMENDATION")
-    // return new Promise((resolve, reject) => {
-    //   axios.post()
-    //   .then((res) => {
-    //     const recommendations = {
-    //     }
-    //     setState({
-    //       ...state,
-    //       recommendations
-    //     })
-    //     return resolve(console.log(res));
-    //   })
-    //   .catch((err) => {
-    //     return reject(console.log(err.message));
-    //   })
-    // })
+  const deleteRecommendation = (removeRecData) => {
+    console.log("IN DELETE RECOMMENDATION", removeRecData)
+    return new Promise((resolve, reject) => {
+      axios.post("http://localhost:3002/removeRecommendation", removeRecData)
+      .then((res) => {
+        console.log("SUCCESSFUL DELETE")
+        setChangeRec(!changeRec)
+        return resolve(console.log(res.data));
+      })
+      .catch((err) => {
+        return reject(console.log(err.message));
+      })
+    })
   }
 
   const switchSurvey = (id) => {

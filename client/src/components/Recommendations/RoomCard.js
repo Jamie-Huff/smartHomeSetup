@@ -6,8 +6,8 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import Avatar from '@material-ui/core/Avatar';
 
+import useApplicationData from "../../hooks/useApplicationData";
 import RecListItem from "./RecListItem";
-
 import "./RoomCard.scss";
 import { avatarForProduct } from "../../helpers/selectors";
 
@@ -43,6 +43,11 @@ const useStyles = makeStyles((theme) => ({
 export default function RoomCard(props) {
   const { id, products, name, avatar, cost } = props;
   const classes = useStyles();
+  console.log("**UNO**",products[0].id)
+  const {
+    deleteRecommendation
+  } = useApplicationData();
+
 
   return (
     <Card className={classes.root}>
@@ -69,13 +74,21 @@ export default function RoomCard(props) {
           products.map((product) => {
             return <RecListItem
               key={product.id}
+<<<<<<< HEAD
               title={product.name}
               image={product.image}
               price={product.price}
+=======
+              id = {product.id}
+              title={product.name} 
+              image={product.image}  
+              price={product.price} 
+>>>>>>> master
               avatar={avatarForProduct(product)}
               desc={product.description}
               quantity={product.quantity}
               stores={product.stores}
+              deleteRec={deleteRecommendation}
             />
           })
         }

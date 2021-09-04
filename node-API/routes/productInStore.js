@@ -11,7 +11,6 @@ const sendProductInStore = (db) => {
   })
   return router
 
-  // add post request for new users?
 }
 
 
