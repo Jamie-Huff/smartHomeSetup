@@ -19,7 +19,6 @@ const grabResults = (db) => {
     ]
 
     let query = req.body
-    console.log(req.body.token)
     jwt.verify(query.token, process.env.TOKEN, function(error, decoded) {
       email = decoded.email
     })
