@@ -23,7 +23,7 @@ const deleteProductHome = (db) => {
 
       // need the last survey in the database for that user, should be the most recent
 
-    let mostRecentSurvey = findSurvey[findSurvey.length - 1]
+    let mostRecentSurvey = await findSurvey[findSurvey.length - 1]
 
     (await db.query(`DELETE FROM has_product_home WHERE user_id = $2 AND product_id = $1 AND survey_id = $3`,
       [query.product_id, userId, mostRecentSurvey.id]))

@@ -26,7 +26,7 @@ const addProductHome = (db) => {
 
     // need the last survey in the database for that user, should be the most recent
 
-    let mostRecentSurvey = findSurvey[findSurvey.length - 1]
+    let mostRecentSurvey = await findSurvey[findSurvey.length - 1]
 
     //Inside of the has_product_home table
     //Add a row for the current product in the users home
