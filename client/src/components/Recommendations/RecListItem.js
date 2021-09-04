@@ -85,20 +85,20 @@ function truncate(str, n) {
 
 export default function RecListItem(props) {
 
-  const { id, title, image, price, info, desc, avatar, stores, 
+  const { id, title, image, price, info, desc, avatar, stores,
           quantity, deleteRec, deleteProductHome, addProductHome } = props
 
   const classes = useStyles();
   const [checkedProduct, setCheckedProduct] = useState(false);
 
-  
+
 
   const handleDeleteRec = () => {
     const removeRecObj = formDataForHome(id, checkForUser());
     deleteRec(removeRecObj);
   }
 
-  const handleProdHome = (checkedStatus) => { 
+  const handleProdHome = (checkedStatus) => {
     const prodHomeObj = formDataForHome(id, checkForUser());
 
     if(!checkedProduct){
@@ -140,14 +140,14 @@ export default function RecListItem(props) {
       <CardMedia
         className={classes.media}
         image={image}
-        title={title}     
+        title={title}
       />
       </div>
       <CardContent>
         <Typography variant="body2" color="textPrimary" component="p" className={classes.content}>
           {
             desc
-          }     
+          }
         </Typography>
       </CardContent>
       <CardActions className="rec__actions">
@@ -164,13 +164,8 @@ export default function RecListItem(props) {
               <InfoIcon className={classes.infoIcon}/>
             </IconButton>
             <IconButton >
-<<<<<<< HEAD
-              <DeleteIcon onClick={handleDelete} className={classes.infoIcon}/>
-            </IconButton>
-=======
               <DeleteIcon onClick={handleDeleteRec} className={classes.infoIcon}/>
-            </IconButton> 
->>>>>>> master
+            </IconButton>
           </div>
       </CardActions>
     </Card>
