@@ -85,6 +85,7 @@ export default function Application(props) {
     isloggedin,
     setloggedin
   } = useApplicationData();
+  console.log("RECOMMENDATIONS IS NOW---", recommendations)
   return (
     <Router>
       <ThemeProvider theme={theme}>

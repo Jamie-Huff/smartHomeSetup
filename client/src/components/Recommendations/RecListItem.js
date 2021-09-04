@@ -16,6 +16,8 @@ import InfoIcon from '@material-ui/icons/Info';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Link from '@material-ui/core/Link';
 
+import { formDataForRemoveRec } from "../../helpers/dataOrganisers";
+
 import "./RecListItem.scss";
 
 const useStyles = makeStyles((theme) => ({
@@ -76,8 +78,8 @@ export default function RecListItem(props) {
   const classes = useStyles();
 
   const handleDelete = () => {
-
-    deleteRec(id, checkForUser());
+    const removeRecObj = formDataForRemoveRec(id, checkForUser());
+    deleteRec(removeRecObj);
   }
 
   return (

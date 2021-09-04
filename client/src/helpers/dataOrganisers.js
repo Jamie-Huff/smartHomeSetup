@@ -59,10 +59,20 @@ const formDataForApi = (budget, provider, categories, rooms, user) => {
   return apiObj;
 }
 
+const formDataForRemoveRec = (product_id, user) => {
+  const apiObj = {};
+
+  apiObj.user = user;
+  apiObj.product_id = product_id;
+
+  return apiObj;
+}
+
 module.exports = {
   setupCategories,
   setUpRooms,
   formDataForApi,
+  formDataForRemoveRec,
   checkForUser
 }
 
