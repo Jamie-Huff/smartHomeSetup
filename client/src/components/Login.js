@@ -55,8 +55,8 @@ export default function Login(props) {
 
       const signupPost = await axios.post("http://localhost:3002/login", data)
       console.log("======", signupPost.data.user);
-      setUser(signupPost.data.user)
 	    localStorage.setItem("user_token", JSON.stringify({token: signupPost.data.token}))
+      localStorage.setItem("user_name", signupPost.data.user);
       setSignedup(true);
       setIsloggedin(true)
 
@@ -66,6 +66,7 @@ export default function Login(props) {
     }
 
   };
+
 
   if (signedup) {
     return <Redirect to="/" />
