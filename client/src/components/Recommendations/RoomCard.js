@@ -74,16 +74,10 @@ export default function RoomCard(props) {
           products.map((product) => {
             return <RecListItem
               key={product.id}
-<<<<<<< HEAD
+              id = {product.id}
               title={product.name}
               image={product.image}
               price={product.price}
-=======
-              id = {product.id}
-              title={product.name} 
-              image={product.image}  
-              price={product.price} 
->>>>>>> master
               avatar={avatarForProduct(product)}
               desc={product.description}
               quantity={product.quantity}

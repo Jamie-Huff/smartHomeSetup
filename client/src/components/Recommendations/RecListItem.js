@@ -152,13 +152,8 @@ export default function RecListItem(props) {
               <InfoIcon className={classes.infoIcon}/>
             </IconButton>
             <IconButton >
-<<<<<<< HEAD
-              <DeleteIcon className={classes.infoIcon}/>
-            </IconButton>
-=======
               <DeleteIcon onClick={handleDelete} className={classes.infoIcon}/>
-            </IconButton>   
->>>>>>> master
+            </IconButton>
           </div>
 
       </CardActions>
