@@ -7,10 +7,6 @@ const generateRecommendations = require("../helpers/productRecommendations")
 
 const removeRecommendation = (db) => {
   router.post("/", async (req, res) => {
-<<<<<<< HEAD
-    console.log("**IN POST FOR DELETE REC**", req.body)
-    res.send("REMOVED")
-=======
     let query = req.body
     let email = ''
 
@@ -24,14 +20,13 @@ const removeRecommendation = (db) => {
     let findSurvey = (await db.query(`SELECT * FROM survey_results WHERE user_id = $1`, [userId])).rows
 
       // need the last survey in the database for that user, should be the most recent
+    console.log('@@@', findSurvey.length)
+    let mostRecentSurvey = await findSurvey[findSurvey.length - 1]
 
-    let mostRecentSurvey = findSurvey[findSurvey.length - 1]
-
-    (await db.query(`DELETE FROM recommendations WHERE user_id = $2 AND product_id = $1 AND survey_id = $3`,
-      [query.product_id, userId, mostRecentSurvey.id]))
+    await db.query(`DELETE FROM recommendations WHERE user_id = $2 AND product_id = $1 AND survey_id = $3`,
+      [query.product_id, userId, mostRecentSurvey.id])
 
       res.json('Product sucessfully remove from recommendations')
->>>>>>> master
   })
 
   return router
