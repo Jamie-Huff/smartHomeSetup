@@ -22,9 +22,8 @@ export default function RoomCardList(props) {
     surveyRooms = organisedSurvey.map((room) => {
       return <RoomCard className="rooms" key={room.id} products={room.products} name={room.name} avatar={room.avatar} cost={room.cost}/>
     })
-
   } else {
-    surveyRooms =  <h1>Wachu looking</h1>
+    return <h1>Loading....</h1>
   }
 
   return (

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { makeStyles } from '@material-ui/styles';
 
+import { checkForUser } from "../../helpers/dataOrganisers"
+
 import Checkbox from './Checkbox'
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -69,8 +71,14 @@ const useStyles = makeStyles((theme) => ({
 
 export default function RecListItem(props) {
 
-  const { title, image, price, info, desc, avatar, stores, quantity } = props
+  const { id, title, image, price, info, desc, avatar, stores, quantity, deleteRec } = props
+  // console.log("PRODUCT ID in RECLISTITEM", key)
   const classes = useStyles();
+
+  const handleDelete = () => {
+
+    deleteRec(id, checkForUser());
+  }
 
   return (
     <Card className={classes.root}>
@@ -126,7 +134,7 @@ export default function RecListItem(props) {
               <InfoIcon className={classes.infoIcon}/>
             </IconButton>
             <IconButton >
-              <DeleteIcon className={classes.infoIcon}/>
+              <DeleteIcon onClick={handleDelete} className={classes.infoIcon}/>
             </IconButton>   
           </div>
           

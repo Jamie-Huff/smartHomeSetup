@@ -151,8 +151,8 @@ export default function useApplicationData () {
     // })
   }
 
-  const deleteRecommendation = () => {
-    console.log("IN DELETE RECOMMENDATION")
+  const deleteRecommendation = (product_id, user) => {
+    console.log("IN DELETE RECOMMENDATION", product_id, user)
     // return new Promise((resolve, reject) => {
     //   axios.post()
     //   .then((res) => {
