@@ -27,6 +27,8 @@ const removeRecommendation = (db) => {
     await db.query(`DELETE FROM recommendations WHERE user_id = $2 AND product_id = $1 AND survey_id = $3`,
       [query.product_id, userId, mostRecentSurvey.id])
 
+    
+
       res.json('Product sucessfully remove from recommendations')
   })
 

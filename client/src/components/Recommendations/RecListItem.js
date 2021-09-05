@@ -30,6 +30,9 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     justifyContent: "space-between"
   },
+  deleted: {
+    display: "none"
+  },
   media: {
     height: 220,
     margin: "5px 20px 20px 20px",
@@ -72,7 +75,7 @@ const useStyles = makeStyles((theme) => ({
     display:"flex",
     justifyContent:"flex-start"
   },
-  none: {
+  special: {
     backgroundColor: "#fff",
     borderRadius: "2px",
     margin: "0px 16px"
@@ -85,16 +88,19 @@ function truncate(str, n) {
 
 export default function RecListItem(props) {
 
-  const { id, title, image, price, info, desc, avatar, stores, 
+  const { id, title, image, price, info, desc, avatar, stores, productTodelete, 
           quantity, deleteRec, deleteProductHome, addProductHome } = props
 
   const classes = useStyles();
   const [checkedProduct, setCheckedProduct] = useState(false);
+  const [deleted, setDeleted] = useState(false);
+
 
   
 
   const handleDeleteRec = () => {
     const removeRecObj = formDataForHome(id, checkForUser());
+    setDeleted(true);
     deleteRec(removeRecObj);
   }
 
@@ -111,7 +117,7 @@ export default function RecListItem(props) {
   }
 
   return (
-    <Card className={classes.root}>
+    <Card className={ deleted ? classes.deleted : classes.root}>
       <CardHeader
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar}>
@@ -136,7 +142,7 @@ export default function RecListItem(props) {
           })
         }
       </div>
-      <div className={classes.none}>
+      <div className={classes.special}>
       <CardMedia
         className={classes.media}
         image={image}
