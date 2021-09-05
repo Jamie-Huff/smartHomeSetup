@@ -59,8 +59,6 @@ const surveyData = (db) => {
 
     finalRecommendations = await generateRecommendations(productsRoomAndCategories, productsRoomOrCategories, inspecificProducts, query.budget, db)
 
-    finalObj.products = finalRecommendations
-
     const finalObjRooms = async (rooms, products) => {
       rooms.push ('inspecific')
       const roomFinal = []
@@ -99,13 +97,37 @@ const surveyData = (db) => {
 
     surveyValues = addSurvey
 
+    
+    let arrayNameHold = [] 
+    let productsNoDupes = []
+      // loop through all the products
+    for (let product of finalRecommendations) {
+      product.quantity = 1
+      product.in_home = false
+
+      if (!arrayNameHold.includes(product.name)) {
+        arrayNameHold.push(product.name)
+        productsNoDupes.push(product)
+
+      } else {
+        for (let product2 of productsNoDupes) {
+
+          if (product.name === product2.name) {
+            product2.quantity += 1
+          }
+        }
+      }
+    }
+    finalRecommendations = productsNoDupes
+
     for (const product of finalRecommendations) {
       (await db.query(`INSERT INTO recommendations (user_id, survey_id, product_id) VALUES($1, $2, $3)`, [finalObj.user_id, surveyValues.id, product.id]))
     }
 
+
+    finalObj.products = finalRecommendations
     finalObj.id = surveyValues.id
     finalArray.push(finalObj)
-
     // ensure that inspecific, if it exists, is always the first one in the array
     for (let i = 0; i < finalArray[0].rooms.length; i++) {
       if (finalArray[0].rooms[i].name === 'inspecific') {
@@ -114,8 +136,11 @@ const surveyData = (db) => {
         break
       }
     }
-    res.json(finalArray)
 
+    
+
+    
+    res.json(finalArray)
     })
   return router;
 }
