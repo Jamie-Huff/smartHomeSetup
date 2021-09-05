@@ -1,0 +1,54 @@
+@import "../../styles/variables.scss";
+@import "../../styles/variables.scss";
+@import "../../styles/mixins.scss";
+@import "../../styles/animations.scss";
+
+.rec {
+
+  &__card {
+   
+
+    &-nao_ask {
+      display:flex;
+      width:100%;
+      justify-content: center;
+      margin-bottom: 30px;
+    }
+
+    &--create {
+      // background-color: $dark-background;
+      // display: flex;
+    }
+    &-cardHeader {
+      display:flex;
+      flex-direction: column;      
+    }
+    &-cardPrice {
+      display:flex;
+      justify-content: center;      
+    }
+
+    &-warning{
+      color:#CB525A;
+      margin:20px 20px 20px 20px;
+      display: flex;
+      justify-content: space-between;
+      flex-direction: column;
+    }
+
+    &-warningRewind {
+      display:flex;
+      color:#c2c8d6;
+      font-weight: bold;
+      font-size: 28px;
+      margin-left: 280px;
+    }
+
+    &-warningText {
+      color:#CB525A;
+      margin:140px 20px 90px 20px
+    }
+  }
+}
+
+

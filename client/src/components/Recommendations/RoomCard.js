@@ -8,11 +8,12 @@ import CardContent from '@material-ui/core/CardContent';
 import Avatar from '@material-ui/core/Avatar';
 
 import useApplicationData from "../../hooks/useApplicationData";
+
 import RecListItem from "./RecListItem";
 import "./RoomCard.scss";
 import { avatarForProduct } from "../../helpers/selectors";
-import { deleteProduct } from "../../helpers/stateChangers";
 
+//modes for deletion of recitem
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -54,6 +55,7 @@ export default function RoomCard(props) {
     gotProductHome,
     setRec
   } = useApplicationData();
+
 
   const deleteRec = (removeRecObj) => {
 
