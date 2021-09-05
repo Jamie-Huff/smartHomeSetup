@@ -21,7 +21,6 @@ const useStyles = makeStyles((theme) => ({
     margin:'20px',
     borderRadius:'5px',
     color: 'white',
-    // border: "red solid 2px",
     display: "flex",
     flexDirection: "column",
     flexWrap: "wrap",
@@ -39,7 +38,8 @@ const useStyles = makeStyles((theme) => ({
   },
   displayRec:{
     margin:"-18px 0px 0px -18px",
-    display:"flex"
+    display:"flex",
+    flexWrap: "wrap"
   }
 }));
 
@@ -61,7 +61,7 @@ export default function RoomCard(props) {
     //transition to deleting
 
     deleteRecommendation(removeRecObj)
-    .then((res) => { 
+    .then((res) => {
       console.log("INSIDE ROOM CARD, DEL REC")
     })
     .catch((err) =>{

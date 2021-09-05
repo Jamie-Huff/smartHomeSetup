@@ -29,11 +29,13 @@ export default function useApplicationData () {
 
   useEffect(() => {
     //Load Recommendations
-    axios.post('http://localhost:3002/grabResults', checkForUser())
-      .then((res) => {
-        console.log("GRABBING RESULTS YO", res)
-        setRec(res.data)
-      })
+    if (checkForUser()) {
+      axios.post('http://localhost:3002/grabResults', checkForUser())
+        .then((res) => {
+          console.log("GRABBING RESULTS YO", res)
+          setRec(res.data)
+        })
+      }
   },[])
 
   const submitSurvey = (surveyData) => {

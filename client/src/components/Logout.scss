@@ -1,11 +1,33 @@
-// .btn {
-//   margin: 5px;
-//   padding: 6px;
-//   color: #dcdcdc;
-//   border: solid rgba(63, 81, 181, 0.5) 1px;
-//   cursor: pointer;
-// }
+.container {
+  //   border: red solid 2px;
+  display: flex;
+  width: 240px;
+  margin: 7px;
+}
+.container2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 150px;
+}
+.username {
+  font-size: 20px;
+  margin: 7px;
+}
 
-// .btn-a {
-//   padding: 7px;
-// }
+.btn {
+  margin: 5px;
+  padding: 6px;
+  color: #dcdcdc;
+  border: 1px solid rgba(63, 81, 181, 0.5);
+  cursor: pointer;
+  background-color: #001029;
+  width: 100%;
+  height: 37px;
+  border-radius: 5px;
+}
+
+.btn-a {
+  text-decoration: none;
+  color: #dcdcdc;
+}
