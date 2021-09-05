@@ -98,9 +98,28 @@ const surveyData = (db) => {
     }
 
     let roomsFinalArray = await finalObjRooms(query.rooms, finalRecommendations)
+
+
+    function compare(a, b) {
+      // Use toUpperCase() to ignore character casing
+      const roomA = a.name.toUpperCase();
+      const roomB = b.name.toUpperCase();
+    
+      let comparison = 0;
+      if (roomA > roomB) {
+        comparison = 1;
+      } else if (roomA < roomB) {
+        comparison = -1;
+      }
+      return comparison;
+    }
+    
+    roomsFinalArray.sort(compare);
+
     finalObj.rooms = roomsFinalArray
 
-  
+
+
     const addSurvey = (await db.query(
       `INSERT INTO survey_results (user_id, budget) VALUES($1, $2) RETURNING *`,
       [finalObj.user_id, query.budget]
