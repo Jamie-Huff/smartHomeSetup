@@ -51,6 +51,10 @@ const nameForRoom = (room) => {
   if(room.id === 6){
     return 'Yard'
   }
+
+  if(room.id === 1){
+    return 'Anywhere in your Home'
+  }
 }
 
 const avatarForRoom = (room) => {
@@ -72,19 +76,23 @@ const avatarForRoom = (room) => {
     }
 
     if(room.id === 9){
-      return '9'
+      return '🧺'
     }
 
     if(room.id === 7){
-      return '🔊'
+      return '🚠'
     }
 
     if(room.id === 8){
-      return '📺'
+      return '​🚪​🚶‍♂️​'
     }
 
     if(room.id === 6){
-      return '🚠'
+      return '🌳🚪'
+    }
+
+    if(room.id === 1){
+      return '🏡'
     }
 }
 

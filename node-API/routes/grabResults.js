@@ -20,6 +20,10 @@ const grabResults = (db) => {
 
     let query = req.body
 
+    if (!query.token) {
+      return res.json('error')
+    }
+
     jwt.verify(query.token, process.env.TOKEN, function(error, decoded) {
       email = decoded.email
     })
@@ -77,6 +81,23 @@ const grabResults = (db) => {
     }
 
     let roomsFinal = await roomObjMaker(roomIds, productList)
+
+    function compare(a, b) {
+      // Use toUpperCase() to ignore character casing
+      const roomA = a.name.toUpperCase();
+      const roomB = b.name.toUpperCase();
+
+      let comparison = 0;
+      if (roomA > roomB) {
+        comparison = 1;
+      } else if (roomA < roomB) {
+        comparison = -1;
+      }
+      return comparison;
+    }
+
+    roomsFinal.sort(compare);
+
     survey[0].rooms = roomsFinal
 
     console.log("SURVEY IS NOW***", survey)
