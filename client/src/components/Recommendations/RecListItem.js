@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { makeStyles } from '@material-ui/styles';
+import clsx from 'clsx';
 
 import { checkForUser, formDataForHome } from "../../helpers/dataOrganisers"
 
@@ -30,6 +31,18 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     justifyContent: "space-between"
   },
+  rootInHome: {
+    maxWidth: 345,
+    width: 350,
+    backgroundColor: '#908e90',
+    margin:'20px',
+    color:"white",
+    borderRadius:"8px",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+    color:"black"
+  },
   deleted: {
     display: "none"
   },
@@ -47,6 +60,10 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: '-10px',
     color:"white"
   },
+  infoIconHome: {
+    marginLeft: '-10px',
+    color:"black"
+  },
   cardHeader: {
     fontSize:"1em",
     fontWeight:'bold'
@@ -60,6 +77,11 @@ const useStyles = makeStyles((theme) => ({
   },
   content: {
     color:"white",
+    fontWeight:500,
+    fontFamily: "Arial"
+  },
+  contentHome: {
+    color:"Black",
     fontWeight:500,
     fontFamily: "Arial"
   },
@@ -94,9 +116,8 @@ export default function RecListItem(props) {
   const classes = useStyles();
   const [checkedProduct, setCheckedProduct] = useState(false);
   const [deleted, setDeleted] = useState(false);
+  const [prodInHome, setProdInHome] = useState(false);
 
-
-  
 
   const handleDeleteRec = () => {
     const removeRecObj = formDataForHome(id, checkForUser());
@@ -109,53 +130,72 @@ export default function RecListItem(props) {
 
     if(!checkedProduct){
       addProductHome(prodHomeObj)
+      setProdInHome(!prodInHome)
     } else {
       deleteProductHome(prodHomeObj)
+      setProdInHome(!prodInHome)
     }
 
     setCheckedProduct(checkedStatus)
   }
 
   return (
-    <Card className={ deleted ? classes.deleted : classes.root}>
+    <Card className={ clsx(
+        classes.root,
+        // classes.black,
+        { [classes.deleted]: deleted, 
+          [classes.black]: prodInHome,
+          [classes.rootInHome]: prodInHome
+        }
+    )}>
+      <div>
       <CardHeader
-        avatar={
-          <Avatar aria-label="recipe" className={classes.avatar}>
-            {avatar}
-          </Avatar>
-        }
-        action={
-          <Checkbox handleProdHome={handleProdHome} checkedProduct={checkedProduct}/>
-        }
-        title={truncate(title, 57)}
-        classes={{
-          title: classes.cardHeader,
-          action: classes.checkBox,
-        }}
-      />
-      <div className={classes.stores}>
+      
+      avatar={
+        <Avatar aria-label="recipe" className={classes.avatar}>
+          {avatar}
+        </Avatar>
+      }
+      action={
+        <Checkbox handleProdHome={handleProdHome} checkedProduct={checkedProduct}/>
+      }
+      title={truncate(title, 57)}
+      classes={{
+        title: clsx(classes.cardHeader),
+        action: classes.checkBox
+      }}
+    />
+    <div className={classes.stores}>
+      {
+        stores.map((store) =>{
+          return <a href={store.productLink} className={classes.store}>
+            {store.name}
+          </a>
+        })
+      }
+    </div>
+    <div className={classes.special}>
+    <CardMedia
+      className={classes.media}
+      image={image}
+      title={title}     
+    />
+    </div>
+    <CardContent>
+      {/* <Typography variant="body2" color="textPrimary" component="p" 
+        className= {clsx(classes.content, { [classes.black]: prodInHome })}
+      > */}
+      <div className= { prodInHome ? classes.contentHome : classes.content }>
         {
-          stores.map((store) =>{
-            return <a href={store.productLink} className={classes.store}>
-              {store.name}
-            </a>
-          })
-        }
+          desc
+        }   
+      </div>  
+      {/* </Typography> */}
+    </CardContent>
+        
       </div>
-      <div className={classes.special}>
-      <CardMedia
-        className={classes.media}
-        image={image}
-        title={title}     
-      />
-      </div>
-      <CardContent>
-        <Typography variant="body2" color="textPrimary" component="p" className={classes.content}>
-          {
-            desc
-          }     
-        </Typography>
-      </CardContent>
+
+      <div>
       <CardActions className="rec__actions">
           <div>
             <div className={classes.price}>
@@ -167,13 +207,16 @@ export default function RecListItem(props) {
           </div>
           <div>
             <IconButton>
-              <InfoIcon className={classes.infoIcon}/>
+              <InfoIcon className={ prodInHome ? classes.infoIconHome : classes.infoIcon }/>
             </IconButton>
             <IconButton >
-              <DeleteIcon onClick={handleDeleteRec} className={classes.infoIcon}/>
+              <DeleteIcon onClick={handleDeleteRec} className={ prodInHome ? classes.infoIconHome : classes.infoIcon }/>
             </IconButton> 
           </div>
       </CardActions>
+      </div>
+      
+      
     </Card>
   );
 }
