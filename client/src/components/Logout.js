@@ -26,8 +26,8 @@ const clearStorage = (e) => {
             <button className="btn"><a className='btn-a' href="/signup">Signup</a></button>
             </div>
       ) : (
-          <div className="container">
-          <h4>{userName}</h4>
+          <div className="container2">
+          <h4 className="username">{userName}</h4>
         <button className="btn" onClick={clearStorage}>Logout</button>
         </div>
       )
