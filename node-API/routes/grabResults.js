@@ -8,6 +8,8 @@ const roomObjMaker = require("../helpers/roomObjMaker")
 const roomArrayFinder = require("../helpers/roomArrayFinder")
 const compare = require("../helpers/objSorter")
 const getUserFromToken = require('../helpers/getUserFromToken')
+const removeDuplicates = require('../helpers/removeDuplicates');
+const removeRecommendation = require('./removeRecommendation');
 
 const grabResults = (db) => {
   router.post("/", async (req, res) => {
@@ -31,6 +33,10 @@ const grabResults = (db) => {
       productList.push(productQuery)
     }
 
+    let filteredProducts = removeDuplicates(productList)
+
+
+
     let roomIds = roomArrayFinder(productList)
     let roomsFinal = await roomObjMaker(roomIds, productList, db)
 
@@ -48,7 +54,7 @@ const grabResults = (db) => {
     survey[0].rooms = roomsFinal
     survey[0].user_id = await userId
     survey[0].id = mostRecentSurvey.id
-    survey[0].products = productList
+    survey[0].products = filteredProducts
 
 
     res.json(survey)
