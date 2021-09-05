@@ -56,7 +56,7 @@ export default function RoomCard(props) {
   } = useApplicationData();
 
   const deleteRec = (removeRecObj) => {
-    
+
     //do confirmation "ONCE YOU DELETE, ITS GONE FOREVER"
     //transition to deleting
 
@@ -71,7 +71,7 @@ export default function RoomCard(props) {
   }
 
   const deleteProductHome = (removeProdHomeObj) => {
-    
+
     removeProductHome(removeProdHomeObj)
     .then((res) => {
       console.log("INSIDE ROOM CARD, REMOVE PROD HOME")
@@ -81,7 +81,7 @@ export default function RoomCard(props) {
     })
   }
 
-  const addProductHome = (addProdHomeObj) => {   
+  const addProductHome = (addProdHomeObj) => {
 
     gotProductHome(addProdHomeObj)
     .then((res) => {
@@ -118,9 +118,9 @@ export default function RoomCard(props) {
             return <RecListItem
               key={product.id}
               id = {product.id}
-              title={product.name} 
-              image={product.image}  
-              price={product.price} 
+              title={product.name}
+              image={product.image}
+              price={product.price}
               avatar={avatarForProduct(product)}
               desc={product.description}
               quantity={product.quantity}

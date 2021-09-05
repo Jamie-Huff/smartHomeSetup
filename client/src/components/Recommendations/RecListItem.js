@@ -29,7 +29,8 @@ const useStyles = makeStyles((theme) => ({
     borderRadius:"8px",
     display: "flex",
     flexDirection: "column",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+    // border: "red solid 1px"
   },
   rootInHome: {
     maxWidth: 345,
@@ -125,7 +126,7 @@ export default function RecListItem(props) {
     deleteRec(removeRecObj);
   }
 
-  const handleProdHome = (checkedStatus) => { 
+  const handleProdHome = (checkedStatus) => {
     const prodHomeObj = formDataForHome(id, checkForUser());
 
     if(!checkedProduct){
@@ -149,74 +150,66 @@ export default function RecListItem(props) {
         }
     )}>
       <div>
-      <CardHeader
+        <CardHeader
       
-      avatar={
-        <Avatar aria-label="recipe" className={classes.avatar}>
-          {avatar}
-        </Avatar>
-      }
-      action={
-        <Checkbox handleProdHome={handleProdHome} checkedProduct={checkedProduct}/>
-      }
-      title={truncate(title, 57)}
-      classes={{
-        title: clsx(classes.cardHeader),
-        action: classes.checkBox
-      }}
-    />
-    <div className={classes.stores}>
-      {
-        stores.map((store) =>{
-          return <a href={store.productLink} className={classes.store}>
-            {store.name}
-          </a>
-        })
-      }
+          avatar={
+            <Avatar aria-label="recipe" className={classes.avatar}>
+              {avatar}
+            </Avatar>
+          }
+          action={
+            <Checkbox handleProdHome={handleProdHome} checkedProduct={checkedProduct}/>
+          }
+          title={truncate(title, 57)}
+          classes={{
+            title: clsx(classes.cardHeader),
+            action: classes.checkBox
+          }}
+        />
+        <div className={classes.stores}>
+          {
+            stores.map((store) =>{
+              return <a href={store.productLink} className={classes.store}>
+                {store.name}
+              </a>
+            })
+          }
+        </div>
+        <div className={classes.special}>
+          <CardMedia
+            className={classes.media}
+            image={image}
+            title={title}     
+          />
+        </div>
+        <CardContent>
+          <div className= { prodInHome ? classes.contentHome : classes.content }>
+            {
+              desc
+            }   
+          </div>  
+        </CardContent>      
     </div>
-    <div className={classes.special}>
-    <CardMedia
-      className={classes.media}
-      image={image}
-      title={title}     
-    />
-    </div>
-    <CardContent>
-      {/* <Typography variant="body2" color="textPrimary" component="p" 
-        className= {clsx(classes.content, { [classes.black]: prodInHome })}
-      > */}
-      <div className= { prodInHome ? classes.contentHome : classes.content }>
-        {
-          desc
-        }   
-      </div>  
-      {/* </Typography> */}
-    </CardContent>
-        
-      </div>
-
-      <div>
+    <div>
       <CardActions className="rec__actions">
-          <div>
-            <div className={classes.price}>
-              ${price/100}
-              {(quantity > 1) &&
-                <span className={classes.quantity}>x{quantity}</span>
-              }
-            </div>
+        <div>
+          <div className={classes.price}>
+            ${price/100}
+            {(quantity > 1) &&
+              <span className={classes.quantity}>x{quantity}</span>
+            }
           </div>
-          <div>
-            <IconButton>
-              <InfoIcon className={ prodInHome ? classes.infoIconHome : classes.infoIcon }/>
-            </IconButton>
-            <IconButton >
-              <DeleteIcon onClick={handleDeleteRec} className={ prodInHome ? classes.infoIconHome : classes.infoIcon }/>
-            </IconButton> 
-          </div>
+        </div>
+        <div>
+          <IconButton>
+            <InfoIcon className={ prodInHome ? classes.infoIconHome : classes.infoIcon }/>
+          </IconButton>
+          <IconButton >
+            <DeleteIcon onClick={handleDeleteRec} className={ prodInHome ? classes.infoIconHome : classes.infoIcon }/>
+          </IconButton> 
+        </div>
       </CardActions>
-      </div>
-      
-      
+    </div>      
     </Card>
   );
 }

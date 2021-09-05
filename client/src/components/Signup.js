@@ -61,8 +61,8 @@ export default function Signup(props) {
       setFormErrors({});
 
       const signupPost = await axios.post("http://localhost:3002/signup", data)
-      setUser(data.name)
       localStorage.setItem("user_token", JSON.stringify({token: signupPost.data.token}))
+      localStorage.setItem("user_name", data.name)
 	    setSignedup(true);
       setIsloggedin(true);
 
