@@ -28,7 +28,8 @@ const useStyles = makeStyles((theme) => ({
     borderRadius:"8px",
     display: "flex",
     flexDirection: "column",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+    border: "red solid 1px"
   },
   media: {
     height: 220,
