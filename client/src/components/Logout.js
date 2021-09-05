@@ -22,8 +22,8 @@ const clearStorage = (e) => {
     <div>
       {(!isloggedin)? (
             <div className="container">
-            <button className="btn"><a className='btn-a' href="/login">Login</a></button>
-            <button className="btn"><a className='btn-a' href="/signup">Signup</a></button>
+            <a className='btn-a' href="/login"><button className="btn">Login</button></a>
+            <a className='btn-a' href="/signup"><button className="btn">Signup</button></a>
             </div>
       ) : (
           <div className="container2">

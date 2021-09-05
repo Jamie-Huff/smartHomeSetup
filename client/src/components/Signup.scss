@@ -13,16 +13,20 @@
   display: flex;
   justify-content: center;
   margin-top: 40px;
+  // border: red solid 2px;
 }
 .signup-div {
   width: 200px;
   height: 500px;
   display: flex;
   flex-direction: column;
+  border-radius: 15px;
+  box-shadow: -15px -15px 15px rgba(255, 255, 255, 0),
+    15px 15px 15px rgba(255, 255, 255, 0.3);
 }
 .input-signup {
   margin: 5px;
-  border-radius: 10px;
+  border-radius: 2px;
   outline: none;
   padding: 3px;
 }
