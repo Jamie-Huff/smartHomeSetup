@@ -6,18 +6,20 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles({
   root: {
     margin: "5px 5px 5px 18px",
-    fontSize: "40px",
+    fontSize: "30px",
+    fontStyle:"italic",
+    color: "#F5F5F5"
   },
   productsDiv: {
     display: "flex",
     flexWrap: "wrap",
-  },
+  }
 });
 
 const ProductList = (props) => {
   const { products } = props;
   const classes = useStyles();
-
+  
   const categoryArray = [
     { name: "Hubs", idArray: [1] },
     { name: "Lights", idArray: [2, 3] },
@@ -34,28 +36,32 @@ const ProductList = (props) => {
     return products.filter((product) => idArray.includes(product.category_id));
   };
 
-  return (
-    <section>
-      {categoryArray.map((category) => (
-        <div>
+  if (!products) {
+    return <h1>Loading....</h1>
+  } else {
+    return (
+      <section>
+        {categoryArray.map((category) => (
           <div>
-            <h1 className={classes.root}>{category.name}</h1>
+            <div>
+              <h1 className={classes.root}>{category.name}</h1>
+            </div>
+            <div className={classes.productsDiv}>
+              {getCategoryProduct(category.idArray).map((product) => (
+                <ProductListItem
+                  product_id={product.id}
+                  product_image={product.image}
+                  product_decription={product.description}
+                  product_name={product.name}
+                  product_price={product.price}
+                />
+              ))}
+            </div>
           </div>
-          <div className={classes.productsDiv}>
-            {getCategoryProduct(category.idArray).map((product) => (
-              <ProductListItem
-                product_id={product.id}
-                product_image={product.image}
-                product_decription={product.description}
-                product_name={product.name}
-                product_price={product.price}
-              />
-            ))}
-          </div>
-        </div>
-      ))}
-    </section>
-  );
+        ))}
+      </section>
+    );
+  }
 };
 
 export default ProductList;
