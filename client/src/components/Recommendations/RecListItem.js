@@ -115,7 +115,6 @@ function truncate(str, n) {
   return str?.length > n ? str.substr(0, n - 1) : str;
 }
 
-
 export default function RecListItem(props) {
 
   const { id, title, image, price, info, desc, avatar, stores, 
