@@ -96,7 +96,7 @@ const surveyData = (db) => {
     const addSurvey = (await db.query(
       `INSERT INTO survey_results (user_id, budget) VALUES($1, $2) RETURNING *`, [finalObj.user_id, query.budget]
       )).rows[0]
-      
+
     surveyValues = addSurvey
 
     for (const product of finalRecommendations) {
@@ -105,7 +105,17 @@ const surveyData = (db) => {
 
     finalObj.id = surveyValues.id
     finalArray.push(finalObj)
+
+    // ensure that inspecific, if it exists, is always the first one in the array
+    for (let i = 0; i < finalArray[0].rooms.length; i++) {
+      if (finalArray[0].rooms[i].name === 'inspecific') {
+        finalArray[0].rooms.unshift(finalArray[0].rooms[i])
+        finalArray[0].rooms.splice(i + 1, 1)
+        break
+      }
+    }
     res.json(finalArray)
+
     })
   return router;
 }

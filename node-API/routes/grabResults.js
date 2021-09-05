@@ -36,6 +36,15 @@ const grabResults = (db) => {
 
     roomsFinal.sort(compare);
 
+    // ensure that inspecific, if it exists, is always the first one in the array
+    for (let i = 0; i < roomsFinal.length; i++) {
+      if (roomsFinal[i].name === 'inspecific') {
+        roomsFinal.unshift(roomsFinal[i])
+        roomsFinal.splice(i + 1, 1)
+        break
+      }
+    }
+
     survey[0].rooms = roomsFinal
     survey[0].user_id = await userId
     survey[0].id = mostRecentSurvey.id
