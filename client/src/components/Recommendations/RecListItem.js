@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { makeStyles } from '@material-ui/styles';
+import clsx from 'clsx';
 
 import { checkForUser, formDataForHome } from "../../helpers/dataOrganisers"
 
@@ -28,7 +29,23 @@ const useStyles = makeStyles((theme) => ({
     borderRadius:"8px",
     display: "flex",
     flexDirection: "column",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+    // border: "red solid 1px"
+  },
+  rootInHome: {
+    maxWidth: 345,
+    width: 350,
+    backgroundColor: '#908e90',
+    margin:'20px',
+    color:"white",
+    borderRadius:"8px",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+    color:"black"
+  },
+  deleted: {
+    display: "none"
   },
   media: {
     height: 220,
@@ -43,6 +60,10 @@ const useStyles = makeStyles((theme) => ({
   infoIcon: {
     marginLeft: '-10px',
     color:"white"
+  },
+  infoIconHome: {
+    marginLeft: '-10px',
+    color:"black"
   },
   cardHeader: {
     fontSize:"1em",
@@ -60,6 +81,11 @@ const useStyles = makeStyles((theme) => ({
     fontWeight:500,
     fontFamily: "Arial"
   },
+  contentHome: {
+    color:"Black",
+    fontWeight:500,
+    fontFamily: "Arial"
+  },
   quantity: {
     color:"yellow",
     marginLeft:"10px"
@@ -72,7 +98,7 @@ const useStyles = makeStyles((theme) => ({
     display:"flex",
     justifyContent:"flex-start"
   },
-  none: {
+  special: {
     backgroundColor: "#fff",
     borderRadius: "2px",
     margin: "0px 16px"
@@ -85,89 +111,105 @@ function truncate(str, n) {
 
 export default function RecListItem(props) {
 
-  const { id, title, image, price, info, desc, avatar, stores, 
+  const { id, title, image, price, info, desc, avatar, stores, productTodelete, 
           quantity, deleteRec, deleteProductHome, addProductHome } = props
 
   const classes = useStyles();
   const [checkedProduct, setCheckedProduct] = useState(false);
+  const [deleted, setDeleted] = useState(false);
+  const [prodInHome, setProdInHome] = useState(false);
 
-  
 
   const handleDeleteRec = () => {
     const removeRecObj = formDataForHome(id, checkForUser());
+    setDeleted(true);
     deleteRec(removeRecObj);
   }
 
-  const handleProdHome = (checkedStatus) => { 
+  const handleProdHome = (checkedStatus) => {
     const prodHomeObj = formDataForHome(id, checkForUser());
 
     if(!checkedProduct){
       addProductHome(prodHomeObj)
+      setProdInHome(!prodInHome)
     } else {
       deleteProductHome(prodHomeObj)
+      setProdInHome(!prodInHome)
     }
 
     setCheckedProduct(checkedStatus)
   }
 
   return (
-    <Card className={classes.root}>
-      <CardHeader
-        avatar={
-          <Avatar aria-label="recipe" className={classes.avatar}>
-            {avatar}
-          </Avatar>
+    <Card className={ clsx(
+        classes.root,
+        // classes.black,
+        { [classes.deleted]: deleted, 
+          [classes.black]: prodInHome,
+          [classes.rootInHome]: prodInHome
         }
-        action={
-          <Checkbox handleProdHome={handleProdHome} checkedProduct={checkedProduct}/>
-        }
-        title={truncate(title, 57)}
-        classes={{
-          title: classes.cardHeader,
-          action: classes.checkBox,
-        }}
-      />
-      <div className={classes.stores}>
-        {
-          stores.map((store) =>{
-            return <a href={store.productLink} className={classes.store}>
-              {store.name}
-            </a>
-          })
-        }
-      </div>
-      <div className={classes.none}>
-      <CardMedia
-        className={classes.media}
-        image={image}
-        title={title}     
-      />
-      </div>
-      <CardContent>
-        <Typography variant="body2" color="textPrimary" component="p" className={classes.content}>
+    )}>
+      <div>
+        <CardHeader
+      
+          avatar={
+            <Avatar aria-label="recipe" className={classes.avatar}>
+              {avatar}
+            </Avatar>
+          }
+          action={
+            <Checkbox handleProdHome={handleProdHome} checkedProduct={checkedProduct}/>
+          }
+          title={truncate(title, 57)}
+          classes={{
+            title: clsx(classes.cardHeader),
+            action: classes.checkBox
+          }}
+        />
+        <div className={classes.stores}>
           {
-            desc
-          }     
-        </Typography>
-      </CardContent>
+            stores.map((store) =>{
+              return <a href={store.productLink} className={classes.store}>
+                {store.name}
+              </a>
+            })
+          }
+        </div>
+        <div className={classes.special}>
+          <CardMedia
+            className={classes.media}
+            image={image}
+            title={title}     
+          />
+        </div>
+        <CardContent>
+          <div className= { prodInHome ? classes.contentHome : classes.content }>
+            {
+              desc
+            }   
+          </div>  
+        </CardContent>      
+    </div>
+    <div>
       <CardActions className="rec__actions">
-          <div>
-            <div className={classes.price}>
-              ${price/100}
-              {(quantity > 1) &&
-                <span className={classes.quantity}>x{quantity}</span>
-              }
-            </div>
+        <div>
+          <div className={classes.price}>
+            ${price/100}
+            {(quantity > 1) &&
+              <span className={classes.quantity}>x{quantity}</span>
+            }
           </div>
-          <div>
-            <IconButton>
-              <InfoIcon className={classes.infoIcon}/>
-            </IconButton>
-            <IconButton >
-              <DeleteIcon onClick={handleDeleteRec} className={classes.infoIcon}/>
-            </IconButton> 
-          </div>
+        </div>
+        <div>
+          <IconButton>
+            <InfoIcon className={ prodInHome ? classes.infoIconHome : classes.infoIcon }/>
+          </IconButton>
+          <IconButton >
+            <DeleteIcon onClick={handleDeleteRec} className={ prodInHome ? classes.infoIconHome : classes.infoIcon }/>
+          </IconButton> 
+        </div>
       </CardActions>
+    </div>      
     </Card>
   );
 }

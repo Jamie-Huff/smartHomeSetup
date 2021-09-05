@@ -133,6 +133,7 @@ export default function useApplicationData () {
     username,
     hasProductStore,
     setUsername,
+    setRec,
     changeRec,
     recommendations,
     submitSurvey,

@@ -11,6 +11,8 @@ import useApplicationData from "../../hooks/useApplicationData";
 import RecListItem from "./RecListItem";
 import "./RoomCard.scss";
 import { avatarForProduct } from "../../helpers/selectors";
+import { deleteProduct } from "../../helpers/stateChangers";
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -47,19 +49,19 @@ export default function RoomCard(props) {
 
   const {
     deleteRecommendation,
+    recommendations,
     removeProductHome,
-    gotProductHome
+    gotProductHome,
+    setRec
   } = useApplicationData();
 
   const deleteRec = (removeRecObj) => {
-    
+
     //do confirmation "ONCE YOU DELETE, ITS GONE FOREVER"
     //transition to deleting
 
     deleteRecommendation(removeRecObj)
-    .then((res) => {
-      //loop through my own state and remove product
-      //setRec(new Version)
+    .then((res) => { 
       console.log("INSIDE ROOM CARD, DEL REC")
     })
     .catch((err) =>{
@@ -69,7 +71,7 @@ export default function RoomCard(props) {
   }
 
   const deleteProductHome = (removeProdHomeObj) => {
-    
+
     removeProductHome(removeProdHomeObj)
     .then((res) => {
       console.log("INSIDE ROOM CARD, REMOVE PROD HOME")
@@ -79,7 +81,7 @@ export default function RoomCard(props) {
     })
   }
 
-  const addProductHome = (addProdHomeObj) => {   
+  const addProductHome = (addProdHomeObj) => {
 
     gotProductHome(addProdHomeObj)
     .then((res) => {
@@ -116,9 +118,9 @@ export default function RoomCard(props) {
             return <RecListItem
               key={product.id}
               id = {product.id}
-              title={product.name} 
-              image={product.image}  
-              price={product.price} 
+              title={product.name}
+              image={product.image}
+              price={product.price}
               avatar={avatarForProduct(product)}
               desc={product.description}
               quantity={product.quantity}
