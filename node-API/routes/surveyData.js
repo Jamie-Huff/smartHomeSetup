@@ -6,6 +6,7 @@ const jwt = require("jsonwebtoken");
 const generateRecommendations = require("../helpers/productRecommendations")
 const compare = require("../helpers/objSorter")
 const getUserFromToken = require('../helpers/getUserFromToken')
+const removeDuplicates = require('../helpers/removeDuplicates')
 
 const surveyData = (db) => {
   router.post("/", async (req, res) => {
@@ -97,33 +98,11 @@ const surveyData = (db) => {
 
     surveyValues = addSurvey
 
-    
-    let arrayNameHold = [] 
-    let productsNoDupes = []
-      // loop through all the products
-    for (let product of finalRecommendations) {
-      product.quantity = 1
-      product.in_home = false
-
-      if (!arrayNameHold.includes(product.name)) {
-        arrayNameHold.push(product.name)
-        productsNoDupes.push(product)
-
-      } else {
-        for (let product2 of productsNoDupes) {
-
-          if (product.name === product2.name) {
-            product2.quantity += 1
-          }
-        }
-      }
-    }
-    finalRecommendations = productsNoDupes
-
     for (const product of finalRecommendations) {
       (await db.query(`INSERT INTO recommendations (user_id, survey_id, product_id) VALUES($1, $2, $3)`, [finalObj.user_id, surveyValues.id, product.id]))
     }
 
+    finalRecommendations = removeDuplicates(finalRecommendations)
 
     finalObj.products = finalRecommendations
     finalObj.id = surveyValues.id
@@ -137,9 +116,6 @@ const surveyData = (db) => {
       }
     }
 
-    
-
-    
     res.json(finalArray)
     })
   return router;
