@@ -19,6 +19,7 @@ const grabResults = (db) => {
     ]
 
     let query = req.body
+
     jwt.verify(query.token, process.env.TOKEN, function(error, decoded) {
       email = decoded.email
     })
@@ -42,7 +43,7 @@ const grabResults = (db) => {
       productList.push(productQuery)
     }
     survey[0].products = productList
-    
+
     //------------------------------------------- Find rooms
     // i need to find the room that the product belongs in, just based off of the id, first I need to generate the rooms array
     const roomArrayFinder = (products) => {
@@ -74,7 +75,7 @@ const grabResults = (db) => {
       }
       return roomsArray
     }
-    
+
     let roomsFinal = await roomObjMaker(roomIds, productList)
     survey[0].rooms = roomsFinal
 
