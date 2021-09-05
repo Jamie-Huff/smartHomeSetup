@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
-    border: "red solid 1px"
+    // border: "red solid 1px"
   },
   media: {
     height: 220,
