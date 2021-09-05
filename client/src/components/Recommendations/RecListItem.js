@@ -3,6 +3,9 @@ import { makeStyles } from '@material-ui/styles';
 import clsx from 'clsx';
 
 import { checkForUser, formDataForHome } from "../../helpers/dataOrganisers"
+import useVisualMode from "../../hooks/useVisualMode";
+import Warning from "./Warning";
+
 
 import Checkbox from './Checkbox'
 import Card from '@material-ui/core/Card';
@@ -18,6 +21,9 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import Link from '@material-ui/core/Link';
 
 import "./RecListItem.scss";
+
+const FLOW = "FLOW";
+const WARNING = "WARNING";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -111,19 +117,31 @@ function truncate(str, n) {
 
 export default function RecListItem(props) {
 
-  const { id, title, image, price, info, desc, avatar, stores, productTodelete, 
+  const { id, title, image, price, info, desc, avatar, stores, 
           quantity, deleteRec, deleteProductHome, addProductHome } = props
 
   const classes = useStyles();
   const [checkedProduct, setCheckedProduct] = useState(false);
   const [deleted, setDeleted] = useState(false);
   const [prodInHome, setProdInHome] = useState(false);
+  const { mode, transition, back } = useVisualMode(FLOW)
+
 
 
   const handleDeleteRec = () => {
+    
+    transition(WARNING);  
+  }
+
+  const handleDeleteConfirm = () => {
     const removeRecObj = formDataForHome(id, checkForUser());
-    setDeleted(true);
+
     deleteRec(removeRecObj);
+    setDeleted(true);
+  }
+
+  const handleDeleteRewind = () => {
+    back()
   }
 
   const handleProdHome = (checkedStatus) => {
@@ -149,67 +167,76 @@ export default function RecListItem(props) {
           [classes.rootInHome]: prodInHome
         }
     )}>
-      <div>
-        <CardHeader
-      
-          avatar={
-            <Avatar aria-label="recipe" className={classes.avatar}>
-              {avatar}
-            </Avatar>
-          }
-          action={
-            <Checkbox handleProdHome={handleProdHome} checkedProduct={checkedProduct}/>
-          }
-          title={truncate(title, 57)}
-          classes={{
-            title: clsx(classes.cardHeader),
-            action: classes.checkBox
-          }}
-        />
-        <div className={classes.stores}>
-          {
-            stores.map((store) =>{
-              return <a href={store.productLink} className={classes.store}>
-                {store.name}
-              </a>
-            })
-          }
-        </div>
-        <div className={classes.special}>
-          <CardMedia
-            className={classes.media}
-            image={image}
-            title={title}     
-          />
-        </div>
-        <CardContent>
-          <div className= { prodInHome ? classes.contentHome : classes.content }>
-            {
-              desc
-            }   
-          </div>  
-        </CardContent>      
-    </div>
-    <div>
-      <CardActions className="rec__actions">
+      { mode === FLOW &&
+        <React.Fragment>
         <div>
-          <div className={classes.price}>
-            ${price/100}
-            {(quantity > 1) &&
-              <span className={classes.quantity}>x{quantity}</span>
+          <CardHeader    
+            avatar = {
+              <Avatar aria-label="recipe" className={classes.avatar}>
+                {avatar}
+              </Avatar>
+            }
+            action={
+              <Checkbox handleProdHome={handleProdHome} checkedProduct={checkedProduct}/>
+            }
+            title={truncate(title, 57)}
+            classes={{
+              title: clsx(classes.cardHeader),
+              action: classes.checkBox
+            }}
+          />
+          <div className={classes.stores}>
+            {
+              stores.map((store) =>{
+                return <a href={store.productLink} className={classes.store}>
+                  {store.name}
+                </a>
+              })
             }
           </div>
+          <div className={classes.special}>
+            <CardMedia
+              className={classes.media}
+              image={image}
+              title={title}     
+            />
+          </div>
+          <CardContent>
+            <div className= { prodInHome ? classes.contentHome : classes.content }>
+              {
+                desc
+              }   
+            </div>  
+          </CardContent>      
         </div>
         <div>
-          <IconButton>
-            <InfoIcon className={ prodInHome ? classes.infoIconHome : classes.infoIcon }/>
-          </IconButton>
-          <IconButton >
-            <DeleteIcon onClick={handleDeleteRec} className={ prodInHome ? classes.infoIconHome : classes.infoIcon }/>
-          </IconButton> 
-        </div>
-      </CardActions>
-    </div>      
+          <CardActions className="rec__actions">
+            <div>
+              <div className={classes.price}>
+                ${price/100}
+                {(quantity > 1) &&
+                  <span className={classes.quantity}>x{quantity}</span>
+                }
+              </div>
+            </div>
+            <div>
+              <IconButton>
+                <InfoIcon className={ prodInHome ? classes.infoIconHome : classes.infoIcon }/>
+              </IconButton>
+              <IconButton>
+                <DeleteIcon onClick={handleDeleteRec} className={ prodInHome ? classes.infoIconHome : classes.infoIcon }/>
+              </IconButton> 
+            </div>
+          </CardActions>
+        </div> 
+
+
+        </React.Fragment>        
+      }
+
+      { mode === WARNING && 
+        <Warning deleteRewind={handleDeleteRewind} deleteConfirm={handleDeleteConfirm} />
+      }
     </Card>
   );
 }

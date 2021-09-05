@@ -99,8 +99,8 @@ export default function useApplicationData () {
     return new Promise((resolve, reject) => {
       axios.post("http://localhost:3002/removeRecommendation", removeRecData)
       .then((res) => {
-        console.log("SUCCESSFUL DELETE")
-        return resolve(console.log(res.data));
+        console.log("SUCCESSFUL DELETE")  
+        return resolve(res.data);
       })
       .catch((err) => {
         return reject(console.log(err.message));

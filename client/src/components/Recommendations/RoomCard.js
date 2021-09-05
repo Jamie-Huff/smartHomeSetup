@@ -8,11 +8,12 @@ import CardContent from '@material-ui/core/CardContent';
 import Avatar from '@material-ui/core/Avatar';
 
 import useApplicationData from "../../hooks/useApplicationData";
+
 import RecListItem from "./RecListItem";
 import "./RoomCard.scss";
-import { avatarForProduct } from "../../helpers/selectors";
-import { deleteProduct } from "../../helpers/stateChangers";
+import { avatarForProduct, checkRoomPresent } from "../../helpers/selectors";
 
+//modes for deletion of recitem
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,6 +25,9 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     flexWrap: "wrap",
+  },
+  notPresent: {
+    display:"none"
   },
   avatar: {
     backgroundColor: '#292F3D',
@@ -47,6 +51,9 @@ export default function RoomCard(props) {
   const { id, products, name, avatar, cost } = props;
   const classes = useStyles();
 
+  const [roomPresent, setRoomPresent] = useState(true);
+
+
   const {
     deleteRecommendation,
     recommendations,
@@ -55,6 +62,7 @@ export default function RoomCard(props) {
     setRec
   } = useApplicationData();
 
+
   const deleteRec = (removeRecObj) => {
 
     //do confirmation "ONCE YOU DELETE, ITS GONE FOREVER"
@@ -62,12 +70,18 @@ export default function RoomCard(props) {
 
     deleteRecommendation(removeRecObj)
     .then((res) => {
-      console.log("INSIDE ROOM CARD, DEL REC")
+      console.log("INSIDE ROOM CARD, DEL REC", res)
+      const newRooms = res;
+
+      checkRoomPresent(newRooms, id);
+
+      if (!checkRoomPresent(newRooms, id)){
+        setRoomPresent(false);
+      }
     })
     .catch((err) =>{
       console.log(err);
     })
-
   }
 
   const deleteProductHome = (removeProdHomeObj) => {
@@ -93,7 +107,7 @@ export default function RoomCard(props) {
   }
 
   return (
-    <Card className={classes.root}>
+    <Card className={ roomPresent ? classes.root : classes.notPresent }>
       <div className="rec__card-top">
         <CardHeader
 

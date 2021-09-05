@@ -4,10 +4,10 @@ const router = express.Router();
 const categoryFinder = require('../helpers/survey')
 const jwt = require("jsonwebtoken");
 const generateRecommendations = require("../helpers/productRecommendations")
-
+const compare = require("../helpers/objSorter")
+const getUserFromToken = require('../helpers/getUserFromToken')
 
 const surveyData = (db) => {
-
   router.post("/", async (req, res) => {
     let query = req.body
     let roomQuery = []
@@ -23,18 +23,12 @@ const surveyData = (db) => {
     }
     let finalArray = []
 
-    jwt.verify(query.user.token, process.env.TOKEN, function(error, decoded) {
-      finalObj.user_id = decoded.email
-    })
-
-    let userId = (await db.query(`SELECT * FROM users WHERE email = '${finalObj.user_id}'`
-    )).rows[0].id
+    let userId = await getUserFromToken(query.user, db)
     finalObj.user_id = userId
 
     for (const room of query.rooms) {
       roomQuery.push(`rooms.name = '${room}'`)
     }
-
     for (const category in categories) {
       categoryQuery.push(`categories.name = '${categories[category].name}'`)
     }
@@ -69,12 +63,9 @@ const surveyData = (db) => {
 
     const finalObjRooms = async (rooms, products) => {
       rooms.push ('inspecific')
-      // ERROR To fix : Dont send rooms with a product price of zero
-
       const roomFinal = []
 
       for (let room of rooms) {
-        // fix these asap
         if (room === 'laundryroom') {
           room = 'laundry room'
         }
@@ -92,48 +83,39 @@ const surveyData = (db) => {
         if (roomObj.cost > 0) {
           roomFinal.push(roomObj)
         }
-
       }
       return roomFinal
     }
 
     let roomsFinalArray = await finalObjRooms(query.rooms, finalRecommendations)
-
-
-    function compare(a, b) {
-      // Use toUpperCase() to ignore character casing
-      const roomA = a.name.toUpperCase();
-      const roomB = b.name.toUpperCase();
-    
-      let comparison = 0;
-      if (roomA > roomB) {
-        comparison = 1;
-      } else if (roomA < roomB) {
-        comparison = -1;
-      }
-      return comparison;
-    }
     
     roomsFinalArray.sort(compare);
 
     finalObj.rooms = roomsFinalArray
 
-
-
     const addSurvey = (await db.query(
-      `INSERT INTO survey_results (user_id, budget) VALUES($1, $2) RETURNING *`,
-      [finalObj.user_id, query.budget]
+      `INSERT INTO survey_results (user_id, budget) VALUES($1, $2) RETURNING *`, [finalObj.user_id, query.budget]
       )).rows[0]
+
     surveyValues = addSurvey
 
     for (const product of finalRecommendations) {
-      (await db.query(`INSERT INTO recommendations (user_id, survey_id, product_id) VALUES($1, $2, $3)`,
-      [finalObj.user_id, surveyValues.id, product.id]))
+      (await db.query(`INSERT INTO recommendations (user_id, survey_id, product_id) VALUES($1, $2, $3)`, [finalObj.user_id, surveyValues.id, product.id]))
     }
 
     finalObj.id = surveyValues.id
     finalArray.push(finalObj)
+
+    // ensure that inspecific, if it exists, is always the first one in the array
+    for (let i = 0; i < finalArray[0].rooms.length; i++) {
+      if (finalArray[0].rooms[i].name === 'inspecific') {
+        finalArray[0].rooms.unshift(finalArray[0].rooms[i])
+        finalArray[0].rooms.splice(i + 1, 1)
+        break
+      }
+    }
     res.json(finalArray)
+
     })
   return router;
 }

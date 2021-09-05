@@ -166,7 +166,16 @@ const nameForStore = (findProduct) =>{
   }
 }
 
+const checkRoomPresent = (rooms, id) => {
+
+  console.log("ROOMS, ID", rooms, id)
+  const roomPresent = rooms.filter(x => x.id === id); 
+  return roomPresent.length
+}
+
+
 module.exports = {
   organiseSurvey,
-  avatarForProduct
+  avatarForProduct,
+  checkRoomPresent
 }

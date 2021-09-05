@@ -4,34 +4,35 @@ const router = express.Router();
 const categoryFinder = require('../helpers/survey')
 const jwt = require("jsonwebtoken");
 const generateRecommendations = require("../helpers/productRecommendations")
+const roomObjMaker = require("../helpers/roomObjMaker")
+const roomArrayFinder = require("../helpers/roomArrayFinder")
+const compare = require("../helpers/objSorter")
+const getUserFromToken = require('../helpers/getUserFromToken')
 
 const removeRecommendation = (db) => {
   router.post("/", async (req, res) => {
     let query = req.body
-    console.log('@@@@', query)
-    let email = ''
-
-    jwt.verify(query.user.token, process.env.TOKEN, function(error, decoded) {
-      email = decoded.email
-    })
-    // find the user by their email
-    let userId = (await db.query(`SELECT * FROM users WHERE email = $1`, [email]
-    )).rows[0].id
-
+    let userId = await getUserFromToken(query.user, db)
     let findSurvey = (await db.query(`SELECT * FROM survey_results WHERE user_id = $1`, [userId])).rows
 
-      // need the last survey in the database for that user, should be the most recent
-    console.log('@@@', findSurvey.length)
     let mostRecentSurvey = await findSurvey[findSurvey.length - 1]
 
     await db.query(`DELETE FROM recommendations WHERE user_id = $2 AND product_id = $1 AND survey_id = $3`,
       [query.product_id, userId, mostRecentSurvey.id])
 
-    // when a user deletes a product
-      // return the rooms to the front end
-      // resend the rooms array with objects
+    let findProducts = (await db.query(`SELECT * FROM recommendations WHERE user_id = $1 AND survey_id = $2`, [userId, mostRecentSurvey.id])).rows
+    let productIds = findProducts
+    let productList = []
+    for (const product of productIds) {
+      let productQuery = (await db.query(`SELECT * FROM products WHERE id = $1`, [product.product_id])).rows[0]
+      productList.push(productQuery)
+    }
 
-      res.json('Product sucessfully remove from recommendations')
+    let roomsIds = roomArrayFinder(productList)
+    let roomsFinal = await roomObjMaker(roomsIds, productList, db)
+    
+    roomsFinal.sort(compare);
+    res.json(roomsFinal)
   })
 
   return router
