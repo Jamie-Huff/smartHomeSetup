@@ -24,7 +24,8 @@ const useStyles = makeStyles((theme) => ({
   buttonSurvey: {
     color:"#00b7eb",
     marginTop:"40px",
-    fontWeight:"bold"
+    fontWeight:"bold",
+    width: "300px"
   }
 }));
 
