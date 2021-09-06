@@ -1,0 +1,124 @@
+@import "../../styles/variables.scss";
+
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
+.naoBox {
+    
+  &__speaking {
+    width: 200px;
+    height: 80px;
+    margin: 20px 10px 30px -14px;
+    background: transparent;
+    padding: 10px 8px 8px 10px;
+    border: 1px solid grey;
+    border-radius: 4px;
+    text-align: left;
+    font-weight: 600;
+    color: #fff;
+    font-family: arial;
+    position: relative;
+
+    &-sb6:before {
+      content: "";
+      width: 0px;
+      height: 0px;
+      position: absolute;
+      border-left: 10px solid transparent;
+      border-right: 10px solid grey;
+      border-top: 10px solid grey;
+      border-bottom: 10px solid transparent;
+      left: -21px;
+      top: 6px;
+    }
+
+    &-sb6:after {
+      content: "";
+      width: 0px;
+      height: 0px;
+      position: absolute;
+      border-left: 7px solid transparent;
+      border-right: 7px solid rgba(255, 255, 255, 0.616);
+      border-top: 7px solid rgba(255, 255, 255, 0.712);
+      border-bottom: 7px solid transparent;
+      left: -11px;
+      top: 10px;
+    }
+  
+    &-sb7:before {
+      content: "";
+      width: 0px;
+      height: 0px;
+      position: absolute;
+      border-bottom: 10px solid transparent;
+      left: 20px;
+      bottom: -23px;
+    }
+  
+    &-sb7:after {
+      content: "";
+      width: 0px;
+      height: 0px;
+      position: absolute;
+      border-left: 10px solid #fff;
+      border-right: 10px solid transparent;
+      border-top: 10px solid #fff;
+      border-bottom: 10px solid transparent;
+      left: 24px;
+      bottom: -13px;
+    } 
+  }
+}
+
+.naoCircular {
+
+  &__speaking {
+    width: 250px;
+    border: 5px solid #00bfb6;
+    padding: 80px 0px;
+    margin: 30px auto;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 24px;
+    font-weight: 900;
+    font-family: arial;
+    position: relative;
+    color: #00bfb6;
+
+
+    &-circle3 {
+      border: 5px solid #00bfb6;
+      position: absolute;
+      width: 25px;
+      padding: 20px;
+      border-radius: 50%;
+      left: -10px;
+      bottom: 10px;
+    }
+    
+    &-circle3:before {
+      content: "";
+      position: absolute;
+      width: 25px;
+      padding: 20px;
+      border-radius: 50%;
+      right: 0px;
+      bottom: 0px;
+      background: #fff;
+    }
+    
+    &-circle4 {
+      border: 5px solid #00bfb6;
+      position: absolute;
+      width: 5px;
+      padding: 10px 15px;
+      border-radius: 50%;
+      left: -60px;
+      bottom: 5px;
+    }
+  }  
+}
+
+

@@ -97,7 +97,7 @@ export default function Application(props) {
               </Button>
                 <Logout setuserName={setUsername} userName={username} isloggedin={isloggedin} setIsloggedin={setloggedin} />
               {isloggedin? <Avatar src="images/alpac.jpg" alt="Lit"/>: null}
-              <Modal open={open} onClose={handleSurveyClose} style={{display:'flex',marginTop:'140px', justifyContent:'center'}}>
+              <Modal open={open} onClose={handleSurveyClose} style={{display:'flex',marginTop:'120px', justifyContent:'center'}}>
                 <Survey submitSurvey={submitSurvey} handleSurveyClose={handleSurveyClose} />
               </Modal>
           </Toolbar>
