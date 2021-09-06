@@ -105,6 +105,7 @@ export default function Application(props) {
         <CssBaseline />
         <AppBar position="static" className={classes.appBar}>
           <Toolbar>
+              <img  className="sidebar__imgLogo" src="images/smartVilleLogo.png" alt="smartvilleLogo"/>
               <Button className={classes.button} variant="outlined" color="primary" onClick={handleSurveyOpen}>
                 TAKE SURVEY
               </Button>

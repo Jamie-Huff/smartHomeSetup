@@ -46,11 +46,16 @@
   &__img {
     margin-top: 3px  
   }
+
+  &__imgLogo{
+    height: 34px;
+    margin-bottom: 2px  
+  }
   
   &__halfTwo {
     display: flex;
     flex-direction: column;
-    margin-top: 310px;
+    margin: 310px 0px 0px -46px
   }
 }
 
