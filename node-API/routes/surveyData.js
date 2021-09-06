@@ -60,7 +60,7 @@ const surveyData = (db) => {
                     WHERE room_id = 1`
         )).rows
 
-    finalRecommendations = await generateRecommendations(productsRoomAndCategories, productsRoomOrCategories, inspecificProducts, query.budget, db)
+    finalRecommendations = await generateRecommendations(productsRoomAndCategories, productsRoomOrCategories, inspecificProducts, query.budget, db, provider)
 
     const finalObjRooms = async (rooms, products) => {
       rooms.push ('inspecific')

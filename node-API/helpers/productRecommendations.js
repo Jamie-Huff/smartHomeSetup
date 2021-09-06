@@ -1,6 +1,6 @@
 // const db = require('../server')
 
-const generateRecommendations = async (roomAndCategory, roomOrCategory, inspecifics, budget, db) => {
+const generateRecommendations = async (roomAndCategory, roomOrCategory, inspecifics, budget, db, provider) => {
   // lets think about what I want to get done
     // first, go over all the roomAndCategory products adding a product for each category
     // next, if our roomAndCategory array is empty, we will go over our roomOrCategory function,
