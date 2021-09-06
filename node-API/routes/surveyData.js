@@ -11,7 +11,6 @@ const removeDuplicates = require('../helpers/removeDuplicates')
 const surveyData = (db) => {
   router.post("/", async (req, res) => {
     let query = req.body
-    console.log('@@@', query)
     let roomQuery = []
     let categoryQuery = []
     let categories = categoryFinder(query)
@@ -28,6 +27,8 @@ const surveyData = (db) => {
 
     let userId = await getUserFromToken(query.user, db)
     finalObj.user_id = userId
+
+
 
     for (const room of query.rooms) {
       roomQuery.push(`rooms.name = '${room}'`)
@@ -60,7 +61,7 @@ const surveyData = (db) => {
                     WHERE room_id = 1`
         )).rows
 
-    finalRecommendations = await generateRecommendations(productsRoomAndCategories, productsRoomOrCategories, inspecificProducts, query.budget, db, provider)
+    finalRecommendations = await generateRecommendations(productsRoomAndCategories, productsRoomOrCategories, inspecificProducts, query.budget, db, provider, query)
 
     const finalObjRooms = async (rooms, products) => {
       rooms.push ('inspecific')

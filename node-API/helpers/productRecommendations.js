@@ -1,12 +1,13 @@
 // const db = require('../server')
+const categoryFinder = require('./survey')
 
-const generateRecommendations = async (roomAndCategory, roomOrCategory, inspecifics, budget, db, provider) => {
+const generateRecommendations = async (roomAndCategory, roomOrCategory, inspecifics, budget, db, provider, query) => {
   // lets think about what I want to get done
     // first, go over all the roomAndCategory products adding a product for each category
     // next, if our roomAndCategory array is empty, we will go over our roomOrCategory function,
       // doing the same thing.
       // next we need to add either speakers or a hub depending on the client remaining budget
-
+  let categories = query.categories
   let includedCategorys = []
   let recommendations = []
   let balanceRemaining = budget
@@ -41,6 +42,38 @@ const generateRecommendations = async (roomAndCategory, roomOrCategory, inspecif
       }
     }
   }
+  //-------------------------------------------------------
+  // this contains all of our categories that have the ability to be multiple
+  for (const category in categories) {
+    let categoryIds = ''
+    if (category === 'lights') {
+      categoryIds = '2'
+    }
+    if (category === 'speakers') {
+      categoryIds = '16'
+    }
+    if (category === 'hubs') {
+      categoryIds = '1'
+    }
+    if (categories[category].quantity > 1) {
+      for (let i = 1; i < categories[category].quantity; i++) {
+        let product = (await db.query(`
+                      SELECT * 
+                      FROM products 
+                      WHERE category_id = ${categoryIds} 
+                      ORDER BY price 
+                      LIMIT 1`)).rows[0]
+        recommendations.push(product)
+        balanceRemaining -= (product.price / 100)
+        if (!includedCategorys.includes(product.category_id)) {
+        includedCategorys.push(product.category_id)
+        }
+      }
+    }
+  }
+  //----------------------------------------------------------
+
+
   let addHub = []
   let addSpeaker = []
   // this checks how much money we have left, and to make sure we dont already have speakers or a hub
@@ -59,6 +92,7 @@ const generateRecommendations = async (roomAndCategory, roomOrCategory, inspecif
                                     ORDER BY price 
                                     LIMIT 1`)).rows
     recommendations.push(addHub[0], addSpeaker[0])
+    includedCategorys.push(addHub[0].category_id, addSpeaker[0].category_id)
     balanceRemaining -= (addHub[0].price / 100) + (addSpeaker[0].price / 100)
     // if they have under 300 but over 150 remaining add 2 speakers instead of a speaker and a hub                                
   } else if (balanceRemaining >= 150 && !includedCategorys.includes(16)) {
@@ -69,9 +103,36 @@ const generateRecommendations = async (roomAndCategory, roomOrCategory, inspecif
                                     ORDER BY price 
                                     LIMIT 1`)).rows
     recommendations.push(addSpeaker[0], addSpeaker[0])
+    includedCategorys.push(addSpeaker[0].category_id)
     balanceRemaining -= (addSpeaker[0].price / 100) * 2
   }  
-  
+
+  if (balanceRemaining >= 400) {
+    for (const product of inspecifics) {
+      if (!includedCategorys.includes(product.category_id)) {
+        // start by adding 4 lights
+        // vacume after lights
+        if (product.category_id === 7 && balanceRemaining - (product.price / 100) > 0) {
+          recommendations.push(product)
+          includedCategorys.push(product.category_id)
+          balanceRemaining -= (product.price / 100)
+        } else if (product.category_id === 2 && (product.price / 100) < 20 && balanceRemaining - (product.price / 100) > 0) {
+          for (let i = 1; i <= 5; i++) { 
+            if (!includedCategorys.includes(product.category_id)) {
+              includedCategorys.push(product.category_id)
+            }
+            recommendations.push(product)
+            balanceRemaining -= (product.price / 100)
+          }
+        }
+      }
+      if (balanceRemaining - (product.price / 100) > 200 && !includedCategorys.includes(product.category_id) && product.category_id !== 2) {
+        recommendations.push(product)
+        includedCategorys.push(product.category_id)
+        balanceRemaining -= (product.price / 100)
+      }
+    }
+  }
 
   // 1. query roomsAndCategories try to add the cheapest of each category 
     // 2. in the event no products => query roomsOrCategories
