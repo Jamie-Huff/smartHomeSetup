@@ -25,6 +25,8 @@ app.use(express.json())
 const signup = require('./routes/signup');
 const login = require('./routes/login')
 const surveyData = require('./routes/surveyData')
+const surveyDataAnon = require('./routes/surveyDataAnon')
+
 const sendProducts = require('./routes/products')
 const sendRooms = require('./routes/rooms')
 const sendUsers = require('./routes/users')
@@ -38,6 +40,7 @@ const removeRecommendation = require('./routes/removeRecommendation')
 app.use("/signup", signup(db));
 app.use("/login", login(db))
 app.use("/surveyData", surveyData(db))
+app.use("/surveyDataAnon", surveyDataAnon(db))
 app.use("/products", sendProducts(db))
 app.use("/rooms", sendRooms(db))
 app.use("/users", sendUsers(db)) // security issue? lets talk about it
