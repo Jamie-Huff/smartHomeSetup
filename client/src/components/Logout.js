@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import './Logout.scss'
 
 const Logout = (props) => {
-
-const { userName, setuserName, isloggedin, setIsloggedin } = props
+const { userName, setuserName, isloggedin, setIsloggedin } = props;
+let history = useHistory();
 useEffect(() => {
     const isLocalStorage = localStorage.getItem("user_token");
     const userName = localStorage.getItem("user_name")
@@ -16,8 +16,9 @@ const clearStorage = (e) => {
   e.preventDefault()
     localStorage.clear();
     setIsloggedin(null);
-    return <Redirect to="/"/>
+    history.push("/");
 }
+
   return (
     <div>
       {(!isloggedin)? (
