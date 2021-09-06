@@ -53,7 +53,6 @@ const addProductHome = (db) => {
     }
 
     let survey = [{id: mostRecentSurvey.id, user_id: userId, products: productList, rooms: rooms}]
-
     res.json(survey)
   })
 
