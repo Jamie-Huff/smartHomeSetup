@@ -173,9 +173,14 @@ const checkRoomPresent = (rooms, id) => {
   return roomPresent.length
 }
 
+const getNewCostForRoom = (rooms, id) => {
+  return rooms.filter(x => x.id === id)[0].cost   
+}
+
 
 module.exports = {
   organiseSurvey,
   avatarForProduct,
-  checkRoomPresent
+  checkRoomPresent,
+  getNewCostForRoom
 }
