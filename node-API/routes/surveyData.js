@@ -118,7 +118,7 @@ const surveyData = (db) => {
     }
 
     res.json(finalArray)
-    })
+  })
   return router;
 }
 

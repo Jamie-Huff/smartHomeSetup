@@ -24,7 +24,8 @@ const useStyles = makeStyles((theme) => ({
   buttonSurvey: {
     color:"#00b7eb",
     marginTop:"40px",
-    fontWeight:"bold"
+    fontWeight:"bold",
+    width: "300px"
   }
 }));
 
@@ -94,7 +95,7 @@ export default function Form(props) {
         </div>
       } 
       {(mode === "LOADING") && <Loading/>}
-      {(mode === "ERROR") && 
+      {(mode === "ERROR_NO_BUDGET") && 
         <div className="survey__create-flexColumn">
           <Error/>
           <Button className={classes.buttonSurvey} 
