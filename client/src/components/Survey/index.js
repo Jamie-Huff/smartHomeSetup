@@ -8,7 +8,10 @@ import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 
 import "./index.scss";
+import "./naoSpeaksSurvey.scss";
+
 import Form from "./Form.js"
+import { naoSurveyQuestions } from "../../helpers/naoHelp"
 import useVisualMode from "../../hooks/useVisualMode"
 
 //Modes for the form to use for rendering
@@ -73,7 +76,9 @@ export default function Survey (props) {
 					transition(ERROR, true);
 				})
 			}, 1000);
-	}		
+	}
+	
+	
 
 	return (
 		<div  className={classes.paper} style ={{marginLeft:'20px'}}>
@@ -82,6 +87,9 @@ export default function Survey (props) {
 				{ (mode!== "LOADING" && mode!= "ERROR") && 
 					<section className="survey__card-nao_ask">
 						<img src="images/nao_ask.png" alt="nao" className="survey__card-img"/>
+						<div className="naoBox__speaking naoBox__speaking-sb6">
+							{naoSurveyQuestions(mode)}
+						</div>
 					</section>
 				}
 				<section className="survey__card-form">

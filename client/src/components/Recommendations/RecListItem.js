@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
-    height:"595px"
+    height:"615px"
   },
   rootInHome: {
     maxWidth: 345,

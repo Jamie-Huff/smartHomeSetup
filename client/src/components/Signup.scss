@@ -18,20 +18,22 @@
 .signup-div {
   width: 200px;
   height: 500px;
+  padding: 5px;
   display: flex;
   flex-direction: column;
   border-radius: 15px;
+  background-color: #292f3d;
   box-shadow: -15px -15px 15px rgba(255, 255, 255, 0),
     15px 15px 15px rgba(255, 255, 255, 0.3);
 }
 .input-signup {
-  margin: 5px;
+  margin: 2px;
   border-radius: 2px;
   outline: none;
   padding: 3px;
 }
 a.button {
-  margin: 5px 40px 0 40px;
+  margin: 15px 40px 0 40px;
   display: inline-block;
   padding: 0, 35em 1.2em;
   border: 0.1em solid #ffffff;

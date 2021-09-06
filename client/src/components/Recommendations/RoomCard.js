@@ -82,7 +82,6 @@ export default function RoomCard(props) {
       //update room price after deletting a product
       const newRoomCost = getNewCostForRoom(newRooms, id);
       setRoomCost(newRoomCost)
-      
     })
     .catch((err) =>{
       console.log(err);
