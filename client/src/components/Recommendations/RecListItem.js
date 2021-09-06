@@ -65,7 +65,21 @@ const useStyles = makeStyles((theme) => ({
   },
   infoIcon: {
     marginLeft: '-10px',
-    color:"white"
+    color:"white",
+    '&:hover': {
+      color: "gray",
+    },
+  },
+  deleteIcon: {
+    marginLeft: '-10px',
+    color:"white",
+    '&:hover': {
+      color: "red",
+    },
+  },
+  deleteIconHome: {
+    marginLeft: '-10px',
+    color:"black"
   },
   infoIconHome: {
     marginLeft: '-10px',
@@ -117,7 +131,7 @@ function truncate(str, n) {
 
 export default function RecListItem(props) {
 
-  const { id, title, image, price, info, desc, avatar, stores, 
+  const { id, title, image, price, info, desc, avatar, stores,
           quantity, deleteRec, deleteProductHome, addProductHome } = props
 
   const classes = useStyles();
@@ -129,8 +143,8 @@ export default function RecListItem(props) {
 
 
   const handleDeleteRec = () => {
-    
-    transition(WARNING);  
+
+    transition(WARNING);
   }
 
   const handleDeleteConfirm = () => {
@@ -162,7 +176,7 @@ export default function RecListItem(props) {
     <Card className={ clsx(
         classes.root,
         // classes.black,
-        { [classes.deleted]: deleted, 
+        { [classes.deleted]: deleted,
           [classes.black]: prodInHome,
           [classes.rootInHome]: prodInHome
         }
@@ -170,7 +184,7 @@ export default function RecListItem(props) {
       { mode === FLOW &&
         <React.Fragment>
         <div>
-          <CardHeader    
+          <CardHeader
             avatar = {
               <Avatar aria-label="recipe" className={classes.avatar}>
                 {avatar}
@@ -198,16 +212,16 @@ export default function RecListItem(props) {
             <CardMedia
               className={classes.media}
               image={image}
-              title={title}     
+              title={title}
             />
           </div>
           <CardContent>
             <div className= { prodInHome ? classes.contentHome : classes.content }>
               {
                 desc
-              }   
-            </div>  
-          </CardContent>      
+              }
+            </div>
+          </CardContent>
         </div>
         <div>
           <CardActions className="rec__actions">
@@ -224,17 +238,17 @@ export default function RecListItem(props) {
                 <InfoIcon className={ prodInHome ? classes.infoIconHome : classes.infoIcon }/>
               </IconButton>
               <IconButton>
-                <DeleteIcon onClick={handleDeleteRec} className={ prodInHome ? classes.infoIconHome : classes.infoIcon }/>
-              </IconButton> 
+                <DeleteIcon onClick={handleDeleteRec} className={ prodInHome ? classes.deleteIconHome : classes.deleteIcon }/>
+              </IconButton>
             </div>
           </CardActions>
-        </div> 
+        </div>
 
 
-        </React.Fragment>        
+        </React.Fragment>
       }
 
-      { mode === WARNING && 
+      { mode === WARNING &&
         <Warning deleteRewind={handleDeleteRewind} deleteConfirm={handleDeleteConfirm} />
       }
     </Card>
