@@ -13,6 +13,15 @@ const surveyData = (db) => {
     let query = req.body
     let roomQuery = []
     let categoryQuery = []
+    // if a user doesnt select any categories, we auto give them appliances, lights, and speakers
+    if (JSON.stringify(query.categories) === '{}') {
+      query.categories = {
+        lights: {quantity: 4},
+        speakers: {quantity: 2},
+        appliances: {quantity: 1}
+      }
+    }
+    console.log(query.categories)
     let categories = categoryFinder(query)
     let provider = query.provider
     let finalRecommendations = []
@@ -27,8 +36,6 @@ const surveyData = (db) => {
 
     let userId = await getUserFromToken(query.user, db)
     finalObj.user_id = userId
-
-
 
     for (const room of query.rooms) {
       roomQuery.push(`rooms.name = '${room}'`)
