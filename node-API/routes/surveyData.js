@@ -119,8 +119,7 @@ const surveyData = (db) => {
       }
     }
 
-    // res.json(finalArray)
-    res.status(500).send({message: 'This is an error!'});    
+    res.json(finalArray)
   })
   return router;
 }

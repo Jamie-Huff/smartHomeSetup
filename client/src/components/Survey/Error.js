@@ -14,7 +14,7 @@ export default function Loading(props){
         style={{height:"240px", marginLeft: "88px"}}
   		/>
       <div className="naoBox__speakingError naoBox__speakingError-sb8">
-				{ naoSurveyQuestions("ERROR") }
+				{ naoSurveyQuestions("ERROR_NO_BUDGET") }
 			</div>
       
     </section>

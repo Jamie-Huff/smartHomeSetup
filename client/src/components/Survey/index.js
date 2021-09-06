@@ -17,7 +17,8 @@ import useVisualMode from "../../hooks/useVisualMode"
 //Modes for the form to use for rendering
 const BUDGET = "BUDGET";
 const CATEGORIES = "CATEGORIES";
-const ERROR = "ERROR";
+const ERROR_NO_BUDGET = "ERROR_NO_BUDGET";
+const ERROR = "OTHER_ERROR"
 const ROOMS = "ROOMS";
 const PROVIDER = "PROVIDER";
 const LOADING = "LOADING"
@@ -65,16 +66,22 @@ export default function Survey (props) {
 		transition(LOADING);		
 
 		setTimeout(() => {
-			submitSurvey(surveyData)
+			console.log("SURVEY DATA",surveyData);
+			if(surveyData.budget === 0) {
+				transition(ERROR_NO_BUDGET);
+			} else {
+				submitSurvey(surveyData)
 				.then((res) => {
-					console.log("WITHIN INDEX FRONT END",res)
+					// console.log("WITHIN INDEX FRONT END",res)
 					handleSurveyClose();
 					history.push("/profile");
 				})
 				.catch((err) =>{
 					console.log(err);
-					transition(ERROR, true);
+					transition(ERROR);
 				})
+			}
+			
 			}, 1000);
 	}
 	
@@ -84,7 +91,7 @@ export default function Survey (props) {
 		<div  className={classes.paper} style ={{marginLeft:'20px'}}>
       <div className="survey__card survey__card--create">
 				{/* Dont load nao top pic ic its loading or displaying an error message */}
-				{ (mode!== "LOADING" && mode!= "ERROR") && 
+				{ (mode!== "LOADING" && mode!= "ERROR_NO_BUDGET") && 
 					<section className="survey__card-nao_ask">
 						<img src="images/nao_ask.png" alt="nao" className="survey__card-img"/>
 						<div className="naoBox__speaking naoBox__speaking-sb6">
@@ -96,7 +103,7 @@ export default function Survey (props) {
 					<Form save={save} mode={mode} backToStart={backToStart}/>
 				</section>			
     		<section className="survey__actions">
-					{(mode !== "BUDGET" && mode !== "LOADING" && mode != "ERROR") &&
+					{(mode !== "BUDGET" && mode !== "LOADING" && mode != "ERROR_NO_BUDGET") &&
 						<Button className = "survey__actions-button" variant="contained" color="default" onClick={goBack}>
 							<ArrowBackIosIcon style={{fontSize:'small'}}/> Back 
       			</Button> 
@@ -106,7 +113,7 @@ export default function Survey (props) {
 							<ArrowBackIosIcon style={{fontSize:'small'}}/> Back 
       			</Button> 
 					}
-					{(mode !== "CATEGORIES" && mode !== "LOADING" && mode != "ERROR") &&
+					{(mode !== "CATEGORIES" && mode !== "LOADING" && mode != "ERROR_NO_BUDGET") &&
 						<Button className = "survey__actions-button" variant="contained" color="primary" onClick={next}>
 							Next <ArrowForwardIosIcon style={{fontSize:'small'}}/>
       			</Button> 

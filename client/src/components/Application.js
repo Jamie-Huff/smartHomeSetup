@@ -10,6 +10,9 @@ import { createTheme , createMuiTheme, ThemeProvider } from "@material-ui/core";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Modal from "@material-ui/core/Modal";
 import Button from '@material-ui/core/Button';
+import AddToHomeScreenIcon from '@material-ui/icons/AddToHomeScreen';
+import CommentIcon from '@material-ui/icons/Comment';
+import FlashOnIcon from '@material-ui/icons/FlashOn';
 
 import "./Application.scss";
 import ProductListItem from "./ProductListItem";
@@ -20,6 +23,8 @@ import Signup from "./Signup";
 import Login from "./Login";
 import RoomCardList from "./Recommendations/RoomCardList";
 import Logout from './Logout'
+
+
 
 import ProductList from "./ProductList"
 
@@ -33,6 +38,8 @@ const useStyles = makeStyles((theme) => ({
   },
   appBar: {
     backgroundColor: '#001029',
+    display:'flex', 
+    alignItems:"flex-end"
   },
   paper: {
     position: "absolute",
@@ -41,6 +48,12 @@ const useStyles = makeStyles((theme) => ({
     border: "2px light #000",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3)
+  },
+
+  modal: {
+    display:'flex',
+    marginTop:'120px', 
+    justifyContent:'center'
   },
 
   button: {
@@ -90,14 +103,14 @@ export default function Application(props) {
     <Router>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <AppBar position="static" className={classes.appBar} style={{display:'flex', alignItems:"flex-end"}}>
+        <AppBar position="static" className={classes.appBar}>
           <Toolbar>
               <Button className={classes.button} variant="outlined" color="primary" onClick={handleSurveyOpen}>
                 TAKE SURVEY
               </Button>
                 <Logout setuserName={setUsername} userName={username} isloggedin={isloggedin} setIsloggedin={setloggedin} />
               {isloggedin? <Avatar src="images/alpac.jpg" alt="Lit"/>: null}
-              <Modal open={open} onClose={handleSurveyClose} style={{display:'flex',marginTop:'120px', justifyContent:'center'}}>
+              <Modal open={open} onClose={handleSurveyClose} className={classes.modal}>
                 <Survey submitSurvey={submitSurvey} handleSurveyClose={handleSurveyClose} />
               </Modal>
           </Toolbar>
@@ -105,7 +118,23 @@ export default function Application(props) {
 
         <main className="layout">
           <section className="sidebar">
-            <img className="sidebar--nao" src="images/nao_welcome.png" alt="Nao Chilling"/>
+            <div className="sidebar__menu">
+              <img className="sidebar--nao" src="images/nao_welcome.png" alt="Nao Chilling"/>
+              <div className="sidebar__halfTwo">
+                <div className="sidebar__menuItem">
+                  <FlashOnIcon  className="sidebar__img"/>
+                  <span  className="sidebar__text">Getting Started</span>
+                </div>
+                <div className="sidebar__menuItem">
+                  <AddToHomeScreenIcon className="sidebar__img" />
+                  <span className="sidebar__text">Products</span>     
+                </div>
+                <div className="sidebar__menuItem">
+                  <CommentIcon className="sidebar__img" />
+                  <span className="sidebar__text">Contact Us</span>
+                </div>
+              </div>     
+            </div>          
           </section>
           <Switch>
           <Route exact path='/'>
