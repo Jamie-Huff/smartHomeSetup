@@ -67,14 +67,14 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: '-10px',
     color:"white",
     '&:hover': {
-      color: "gray",
+      color: "#FBE889",
     },
   },
   deleteIcon: {
     marginLeft: '-10px',
     color:"white",
     '&:hover': {
-      color: "red",
+      color: "#DE9196",
     },
   },
   deleteIconHome: {

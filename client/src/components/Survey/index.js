@@ -18,7 +18,7 @@ import useVisualMode from "../../hooks/useVisualMode"
 const BUDGET = "BUDGET";
 const CATEGORIES = "CATEGORIES";
 const ERROR_NO_BUDGET = "ERROR_NO_BUDGET";
-const ERROR = "OTHER_ERROR"
+const ERROR_SERVER = "ERROR_SERVER";
 const ROOMS = "ROOMS";
 const PROVIDER = "PROVIDER";
 const LOADING = "LOADING"
@@ -78,7 +78,7 @@ export default function Survey (props) {
 				})
 				.catch((err) =>{
 					console.log(err);
-					transition(ERROR);
+					transition(ERROR_NO_BUDGET);
 				})
 			}
 			
