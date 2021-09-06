@@ -108,6 +108,7 @@ const surveyData = (db) => {
     finalObj.id = surveyValues.id
     finalArray.push(finalObj)
     // ensure that inspecific, if it exists, is always the first one in the array
+    
     for (let i = 0; i < finalArray[0].rooms.length; i++) {
       if (finalArray[0].rooms[i].name === 'inspecific') {
         finalArray[0].rooms.unshift(finalArray[0].rooms[i])
