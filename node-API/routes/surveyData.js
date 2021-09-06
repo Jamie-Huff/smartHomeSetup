@@ -6,13 +6,16 @@ const jwt = require("jsonwebtoken");
 const generateRecommendations = require("../helpers/productRecommendations")
 const compare = require("../helpers/objSorter")
 const getUserFromToken = require('../helpers/getUserFromToken')
+const removeDuplicates = require('../helpers/removeDuplicates')
 
 const surveyData = (db) => {
   router.post("/", async (req, res) => {
     let query = req.body
+    console.log('@@@', query)
     let roomQuery = []
     let categoryQuery = []
     let categories = categoryFinder(query)
+    let provider = query.provider
     let finalRecommendations = []
     let finalObj = { 
       id: null,
@@ -59,8 +62,6 @@ const surveyData = (db) => {
 
     finalRecommendations = await generateRecommendations(productsRoomAndCategories, productsRoomOrCategories, inspecificProducts, query.budget, db)
 
-    finalObj.products = finalRecommendations
-
     const finalObjRooms = async (rooms, products) => {
       rooms.push ('inspecific')
       const roomFinal = []
@@ -103,10 +104,12 @@ const surveyData = (db) => {
       (await db.query(`INSERT INTO recommendations (user_id, survey_id, product_id) VALUES($1, $2, $3)`, [finalObj.user_id, surveyValues.id, product.id]))
     }
 
+    finalRecommendations = removeDuplicates(finalRecommendations)
+
+    finalObj.products = finalRecommendations
     finalObj.id = surveyValues.id
     finalArray.push(finalObj)
 
-    // ensure that inspecific, if it exists, is always the first one in the array
     for (let i = 0; i < finalArray[0].rooms.length; i++) {
       if (finalArray[0].rooms[i].name === 'inspecific') {
         finalArray[0].rooms.unshift(finalArray[0].rooms[i])
@@ -114,13 +117,11 @@ const surveyData = (db) => {
         break
       }
     }
-    res.json(finalArray)
 
+    res.json(finalArray)
     })
   return router;
 }
-
-
 
 
 module.exports = surveyData

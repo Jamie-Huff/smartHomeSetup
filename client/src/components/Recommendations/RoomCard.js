@@ -11,7 +11,7 @@ import useApplicationData from "../../hooks/useApplicationData";
 
 import RecListItem from "./RecListItem";
 import "./RoomCard.scss";
-import { avatarForProduct, checkRoomPresent } from "../../helpers/selectors";
+import { avatarForProduct, checkRoomPresent, getNewCostForRoom } from "../../helpers/selectors";
 
 //modes for deletion of recitem
 
@@ -52,7 +52,7 @@ export default function RoomCard(props) {
   const classes = useStyles();
 
   const [roomPresent, setRoomPresent] = useState(true);
-
+  const [roomCost, setRoomCost] = useState(cost);
 
   const {
     deleteRecommendation,
@@ -73,11 +73,15 @@ export default function RoomCard(props) {
       console.log("INSIDE ROOM CARD, DEL REC", res)
       const newRooms = res;
 
+      //To remove empty room from page
       checkRoomPresent(newRooms, id);
-
       if (!checkRoomPresent(newRooms, id)){
         setRoomPresent(false);
       }
+
+      //update room price after deletting a product
+      const newRoomCost = getNewCostForRoom(newRooms, id);
+      setRoomCost(newRoomCost)
     })
     .catch((err) =>{
       console.log(err);
@@ -123,7 +127,7 @@ export default function RoomCard(props) {
           }
         />
         <div className="rec__card-priceText">
-          ${cost/100}
+          ${roomCost/100}
         </div>
       </div>
       <CardContent className={classes.displayRec}>
