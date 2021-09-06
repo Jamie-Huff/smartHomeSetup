@@ -110,8 +110,7 @@ const generateRecommendations = async (roomAndCategory, roomOrCategory, inspecif
   if (balanceRemaining >= 400) {
     for (const product of inspecifics) {
       if (!includedCategorys.includes(product.category_id)) {
-        // start by adding 4 lights
-        // vacume after lights
+
         if (product.category_id === 7 && balanceRemaining - (product.price / 100) > 0) {
           recommendations.push(product)
           includedCategorys.push(product.category_id)

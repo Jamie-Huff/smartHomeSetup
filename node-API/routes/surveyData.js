@@ -28,8 +28,6 @@ const surveyData = (db) => {
     let userId = await getUserFromToken(query.user, db)
     finalObj.user_id = userId
 
-
-
     for (const room of query.rooms) {
       roomQuery.push(`rooms.name = '${room}'`)
     }
