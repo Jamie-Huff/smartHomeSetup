@@ -8,5 +8,6 @@ CREATE TABLE products (
   price INTEGER NOT NULL,
   category_id INTEGER REFERENCES categories(id) ON DELETE CASCADE,
   room_id INTEGER REFERENCES rooms(id) ON DELETE CASCADE,
-  image VARCHAR(255) NOT NULL
+  image VARCHAR(255) NOT NULL,
+  provider INTEGER REFERENCES providers(id) ON DELETE CASCADE
 );
