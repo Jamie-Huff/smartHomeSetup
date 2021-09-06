@@ -121,7 +121,8 @@ const useStyles = makeStyles((theme) => ({
   special: {
     backgroundColor: "#fff",
     borderRadius: "2px",
-    margin: "0px 16px"
+    margin: "0px 16px",
+    paddingTop: "2px",
   }
 }));
 
