@@ -21,7 +21,6 @@ const surveyData = (db) => {
         appliances: {quantity: 1}
       }
     }
-    console.log(query.categories)
     let categories = categoryFinder(query)
     let provider = query.provider
     let finalRecommendations = []
@@ -117,7 +116,7 @@ const surveyData = (db) => {
     finalObj.products = finalRecommendations
     finalObj.id = surveyValues.id
     finalArray.push(finalObj)
-
+    console.log('@@', finalArray)
     for (let i = 0; i < finalArray[0].rooms.length; i++) {
       if (finalArray[0].rooms[i].name === 'inspecific') {
         finalArray[0].rooms.unshift(finalArray[0].rooms[i])
