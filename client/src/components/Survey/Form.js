@@ -67,9 +67,14 @@ export default function Form(props) {
     const surveyCategories = setupCategories(categories, quantities);
     const surveyRooms = setUpRooms(rooms);
     const surveyUser = checkForUser();
-    const surveyData = formDataForSurvey(budget, provider, surveyCategories, surveyRooms, surveyUser);
-    
-    save(surveyData);
+
+    if(surveyUser) {
+      const surveyData = formDataForSurvey(budget, provider, surveyCategories, surveyRooms, surveyUser);
+      save(surveyData)
+    } else {
+      const surveyDataAnon = formDataForSurvey(budget, provider, surveyCategories, surveyRooms);
+      save(surveyDataAnon)
+    }   
   }
  
   return(

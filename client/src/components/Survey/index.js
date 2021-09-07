@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Survey (props) {
-	const { submitSurvey, handleSurveyClose } = props;
+	const { submitSurveyUser, handleSurveyClose, submitSurveyAnon } = props;
 
 	const classes = useStyles();
 	let history = useHistory();
@@ -67,12 +67,48 @@ export default function Survey (props) {
 
 		setTimeout(() => {
 			console.log("SURVEY DATA",surveyData);
+			//check if this is a user's request or anonymous, to determine the routing
+			if(surveyData.user) {
+				if(surveyData.budget === 0) {
+					transition(ERROR_NO_BUDGET);
+				} else {
+					submitSurveyUser(surveyData)
+					.then((res) => {
+						console.log("WITHIN INDEX FRONT END",res)
+	
+						handleSurveyClose();
+						history.push("/profile");
+					})
+					.catch((err) =>{
+						console.log(err);
+						transition(ERROR_NO_BUDGET);
+					})
+				}
+			} else { //Anon user
+				if(surveyData.budget === 0) {
+					transition(ERROR_NO_BUDGET);
+				} else {
+					submitSurveyAnon(surveyData)
+					.then((res) => {
+						console.log("WITHIN INDEX FRONT END",res)
+	
+						handleSurveyClose();
+						history.push("/notLoggedIn");
+					})
+					.catch((err) =>{
+						console.log(err);
+						transition(ERROR_NO_BUDGET);
+					})
+				}
+			}
+
 			if(surveyData.budget === 0) {
 				transition(ERROR_NO_BUDGET);
 			} else {
-				submitSurvey(surveyData)
+				submitSurveyUser(surveyData)
 				.then((res) => {
-					// console.log("WITHIN INDEX FRONT END",res)
+					console.log("WITHIN INDEX FRONT END",res)
+
 					handleSurveyClose();
 					history.push("/profile");
 				})
