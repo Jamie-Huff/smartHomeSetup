@@ -87,7 +87,6 @@ export default function Survey (props) {
 				}
 			} else { //Anon user
 				console.log("TRYING TO ENTER SUB SURV ANON")
-
 				if(surveyData.budget === 0) {
 					transition(ERROR_NO_BUDGET);
 				} else {
@@ -103,22 +102,6 @@ export default function Survey (props) {
 						transition(ERROR_NO_BUDGET);
 					})
 				}
-			}
-
-			if(surveyData.budget === 0) {
-				transition(ERROR_NO_BUDGET);
-			} else {
-				submitSurveyUser(surveyData)
-				.then((res) => {
-					console.log("WITHIN INDEX FRONT END",res)
-
-					handleSurveyClose();
-					history.push("/profile");
-				})
-				.catch((err) =>{
-					console.log(err);
-					transition(ERROR_NO_BUDGET);
-				})
 			}
 			console.log("SET TIMEOUT IS FINISHED")
 			}, 1000);
