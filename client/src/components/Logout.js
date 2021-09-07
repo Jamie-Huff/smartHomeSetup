@@ -14,9 +14,10 @@ useEffect(() => {
 
 const clearStorage = (e) => {
   e.preventDefault()
+    history.push("/");
     localStorage.clear();
     setIsloggedin(null);
-    history.push("/");
+
 }
 
   return (

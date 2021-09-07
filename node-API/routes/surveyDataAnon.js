@@ -21,7 +21,7 @@ const surveyDataAnon = (db) => {
         price: 20099,
         image:"images/hue.jpeg",
         quantity:2
-    
+
       },
       {
         id: 2,
@@ -64,7 +64,7 @@ const surveyDataAnon = (db) => {
         quantity:1
       },
     ]
-    
+
     const survey = [
       {
        id: 1,
@@ -73,6 +73,7 @@ const surveyDataAnon = (db) => {
        products: products,
      }
     ]
+    console.log("@@@", survey)
     res.json(survey)
   })
   return router;

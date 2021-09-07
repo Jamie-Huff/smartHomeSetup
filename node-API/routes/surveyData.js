@@ -25,7 +25,7 @@ const surveyData = (db) => {
     let categories = categoryFinder(query)
     let provider = query.provider
     let finalRecommendations = []
-    let finalObj = { 
+    let finalObj = {
       id: null,
       user_id: null,
       rooms: [],
@@ -45,25 +45,25 @@ const surveyData = (db) => {
     }
 
     // get all products that match the room or category requested
-    let productsRoomAndCategories = (await db.query(`SELECT products.* 
-                    FROM products 
-                    WHERE products.room_id 
-                    IN (SELECT DISTINCT rooms.id FROM rooms WHERE ${roomQuery.join(' OR ')}) 
+    let productsRoomAndCategories = (await db.query(`SELECT products.*
+                    FROM products
+                    WHERE products.room_id
+                    IN (SELECT DISTINCT rooms.id FROM rooms WHERE ${roomQuery.join(' OR ')})
                     AND products.category_id
                     IN (SELECT DISTINCT categories.id FROM categories WHERE ${categoryQuery.join(' OR ')})
                     ORDER BY products.price`
       )).rows
 
-    let productsRoomOrCategories = (await db.query(`SELECT products.* 
-                    FROM products 
-                    WHERE products.room_id 
-                    IN (SELECT DISTINCT rooms.id FROM rooms WHERE ${roomQuery.join(' OR ')}) 
+    let productsRoomOrCategories = (await db.query(`SELECT products.*
+                    FROM products
+                    WHERE products.room_id
+                    IN (SELECT DISTINCT rooms.id FROM rooms WHERE ${roomQuery.join(' OR ')})
                     OR products.category_id
                     IN (SELECT DISTINCT categories.id FROM categories WHERE ${categoryQuery.join(' OR ')})
                     ORDER BY products.price`
         )).rows
     let inspecificProducts = (await db.query(`
-                    SELECT * 
+                    SELECT *
                     FROM products
                     WHERE room_id = 1`
         )).rows
@@ -97,7 +97,7 @@ const surveyData = (db) => {
     }
 
     let roomsFinalArray = await finalObjRooms(query.rooms, finalRecommendations)
-    
+
     roomsFinalArray.sort(compare);
 
     finalObj.rooms = roomsFinalArray
