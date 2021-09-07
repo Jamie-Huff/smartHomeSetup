@@ -44,7 +44,7 @@ app.use("/surveyDataAnon", surveyDataAnon(db))
 app.use("/products", sendProducts(db))
 app.use("/rooms", sendRooms(db))
 app.use("/users", sendUsers(db)) // security issue? lets talk about it
-app.use("/productInStore", sendProductInStore(db)) 
+app.use("/productInStore", sendProductInStore(db))
 app.use("/grabResults", grabResults(db))
 app.use("/deleteProductHome", deleteProductHome(db))
 app.use("/addProductHome", addProductHome(db))

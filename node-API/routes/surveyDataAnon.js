@@ -7,76 +7,96 @@ const generateRecommendations = require("../helpers/productRecommendations")
 const compare = require("../helpers/objSorter")
 const getUserFromToken = require('../helpers/getUserFromToken')
 const removeDuplicates = require('../helpers/removeDuplicates')
+const roomArrayFinder = require('../helpers/roomArrayFinder')
+const roomObjMaker = require('../helpers/roomObjMaker')
 
-const surveyDataAnon = (db) => {
+const surveyData = (db) => {
   router.post("/", async (req, res) => {
-    console.log("AN ANON USER WANTS TO SEE RECS", req.body)
-    const products = [
-      {
-        id: 1,
-        room_id: 3,
-        category_id: 2,
-        name: "Phillips Hue of Life",
-        description: "Amazing product Get A Copywriter. Native English speakers. Unlimited revisions. 100% money-back guarantee. Order now! 100% unique content by copywriters with local knowledge. Reviewed by senior editors. 100% money-back guarantee. Reliable delivery. Fast turnaround.",
-        price: 20099,
-        image:"images/hue.jpeg",
-        quantity:2
-    
-      },
-      {
-        id: 2,
-        room_id: 2,
-        category_id: 16,
-        name: "Sonos One",
-        description: "Super Amazing product",
-        price: 27599,
-        image: "Another Lit Image",
-        quantity:3
-      },
-      {
-        id: 3,
-        room_id: 2,
-        category_id: 4,
-        name: "Selection Camera",
-        description: "Beyond Amazing product",
-        price: 50099,
-        image: "Just the very best image",
-        quantity:1
-      },
-      {
-        id: 4,
-        room_id: 3,
-        category_id: 6,
-        name: "Door Bell",
-        description: "Super Amayzung",
-        price: 10000,
-        image:"Lit Eyy Image",
-        quantity:1
-      },
-      {
-        id: 5,
-        room_id: 4,
-        category_id: 8,
-        name: "Fridge",
-        description: "Super Amayzliung",
-        price: 22199,
-        image:"Lit sheswut Image",
-        quantity:1
-      },
-    ]
-    
-    const survey = [
-      {
-       id: 1,
-       user_id: null,
-       rooms: [{id:3, name: "kitchen", cost: 20000 }, {id: 2, name: "bedroom", cost: 400099}, {id: 4, name: "common area", cost: 170000}],
-       products: products,
-     }
-    ]
-    res.json(survey)
+    let query = req.body
+    let roomQuery = []
+    let categoryQuery = []
+    // if a user doesnt select any categories, we auto give them appliances, lights, and speakers
+    if (JSON.stringify(query.categories) === '{}') {
+      query.categories = {
+        lights: {quantity: 4},
+        speakers: {quantity: 2},
+        appliances: {quantity: 1}
+      }
+    }
+    if (query.rooms.length === 0) {
+      query.rooms = ['common area', 'kitchen', 'entryway']
+    }
+    let categories = categoryFinder(query)
+    let provider = query.provider
+    let finalRecommendations = []
+    let finalObj = {
+      rooms: [],
+      products: [],
+      totalPrice: query.budget
+    }
+    let finalArray = []
+
+    for (const room of query.rooms) {
+      roomQuery.push(`rooms.name = '${room}'`)
+    }
+    for (const category in categories) {
+      categoryQuery.push(`categories.name = '${categories[category].name}'`)
+    }
+
+    // get all products that match the room or category requested
+    let productsRoomAndCategories = (await db.query(`SELECT products.*
+                    FROM products
+                    WHERE products.room_id
+                    IN (SELECT DISTINCT rooms.id FROM rooms WHERE ${roomQuery.join(' OR ')})
+                    AND products.category_id
+                    IN (SELECT DISTINCT categories.id FROM categories WHERE ${categoryQuery.join(' OR ')})
+                    ORDER BY products.price`
+      )).rows
+
+    let productsRoomOrCategories = (await db.query(`SELECT products.*
+                    FROM products
+                    WHERE products.room_id
+                    IN (SELECT DISTINCT rooms.id FROM rooms WHERE ${roomQuery.join(' OR ')})
+                    OR products.category_id
+                    IN (SELECT DISTINCT categories.id FROM categories WHERE ${categoryQuery.join(' OR ')})
+                    ORDER BY products.price`
+        )).rows
+    let inspecificProducts = (await db.query(`
+                    SELECT *
+                    FROM products
+                    WHERE room_id = 1`
+        )).rows
+
+    finalRecommendations = await generateRecommendations(productsRoomAndCategories, productsRoomOrCategories, inspecificProducts, query.budget, db, provider, query)
+
+    let rooms = roomArrayFinder(finalRecommendations)
+    rooms = await roomObjMaker(rooms, finalRecommendations, db)
+    let roomsFinalArray = rooms
+
+    roomsFinalArray.sort(compare);
+
+    finalObj.rooms = roomsFinalArray
+
+    //---------------------------------------
+
+
+    finalRecommendations = removeDuplicates(finalRecommendations)
+
+    finalObj.products = finalRecommendations
+    finalArray.push(finalObj)
+
+    for (let i = 0; i < finalArray[0].rooms.length; i++) {
+      if (finalArray[0].rooms[i].name === 'inspecific') {
+        finalArray[0].rooms.unshift(finalArray[0].rooms[i])
+        finalArray[0].rooms.splice(i + 1, 1)
+        break
+      }
+    }
+
+    res.json(finalArray)
   })
   return router;
 }
 
 
-module.exports = surveyDataAnon
+module.exports = surveyData
