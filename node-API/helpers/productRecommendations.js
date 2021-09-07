@@ -2,20 +2,13 @@
 const categoryFinder = require('./survey')
 
 const generateRecommendations = async (roomAndCategory, roomOrCategory, inspecifics, budget, db, provider, query) => {
-  // lets think about what I want to get done
-    // first, go over all the roomAndCategory products adding a product for each category
-    // next, if our roomAndCategory array is empty, we will go over our roomOrCategory function,
-      // doing the same thing.
-      // next we need to add either speakers or a hub depending on the client remaining budget
+
   let categories = query.categories
   let includedCategorys = []
   let recommendations = []
   let balanceRemaining = budget
-  // adds the cheapest product from each category, to the recommendations,
-  // however here are some issues
-      // this doesnt account for the roomOrCategory table | Completed
-      // doesn't apply the inspecifics table 
-      // and doesn't increase in price as I loop
+
+  // start by looping through the products that match both are room and category
   for (const product of roomAndCategory) {
     if (budget < 3000 && product.category_id === 8 || budget < 1700 && product.category_id === 9 || budget < 3000 && product.category_id === 10) {
       continue
@@ -28,9 +21,15 @@ const generateRecommendations = async (roomAndCategory, roomOrCategory, inspecif
       }
     }
   }
+  // if after looping through the room and category, we dont have any products that match our needs, 
+    // start going over the room OR category products
+  console.log('@@@', categories)
   if (recommendations.length === 0) {
     for (const product of roomOrCategory) {
-      if (budget < 3000 && product.category_id === 8 || budget < 1700 && product.category_id === 9 || budget < 3000 && product.category_id === 10) {
+      // the user cant afford a certain product, without taking all of their budget, skip it
+      // additionally, since lights and speakers are handled later on, skip them for now aswell
+        // unless a user only wants one of them
+      if (budget < 3000 && product.category_id === 8 || budget < 1700 && product.category_id === 9 || budget < 3000 && product.category_id === 10 || product.category_id === 2 && categories['lights'].quantity > 1 || product.category_id === 3 && categories['lights'].quantity > 1 || product.category_id === 16 && categories['speakers'].quantity > 1|| product.category_id === 1 && categories['hubs'].quantity > 1) {
         continue
       }
       if (!includedCategorys.includes(product.category_id)) {
@@ -44,6 +43,8 @@ const generateRecommendations = async (roomAndCategory, roomOrCategory, inspecif
   }
   //-------------------------------------------------------
   // this contains all of our categories that have the ability to be multiple
+    // if a user wanted multiple of a product, we go through the array, checking for the cheapest product in that category
+    // for the case of 'lights' we only check for interior lights
   for (const category in categories) {
     let categoryIds = ''
     if (category === 'lights') {
@@ -55,8 +56,9 @@ const generateRecommendations = async (roomAndCategory, roomOrCategory, inspecif
     if (category === 'hubs') {
       categoryIds = '1'
     }
+    // depending on how many products the user wanted, of a specific category, adds accordingly
     if (categories[category].quantity > 1) {
-      for (let i = 1; i < categories[category].quantity; i++) {
+      for (let i = 0; i < categories[category].quantity; i++) {
         let product = (await db.query(`
                       SELECT * 
                       FROM products 
@@ -106,17 +108,21 @@ const generateRecommendations = async (roomAndCategory, roomOrCategory, inspecif
     includedCategorys.push(addSpeaker[0].category_id)
     balanceRemaining -= (addSpeaker[0].price / 100) * 2
   }  
-
+  // add random inspecific products if a user has over 400 dollars left
   if (balanceRemaining >= 400) {
-    for (const product of inspecifics) {
+    for (const product of inspecifics) { 
+      // start by checking if they already have a product with this category_id
       if (!includedCategorys.includes(product.category_id)) {
-
+        // next try to add a vacume
         if (product.category_id === 7 && balanceRemaining - (product.price / 100) > 0) {
           recommendations.push(product)
           includedCategorys.push(product.category_id)
           balanceRemaining -= (product.price / 100)
+          // if we can afford a vaccume here we add it
+          // after we add one, any additional vacumes will fail the inital if condition
+            // after the vaccume, we try to add 4 light bulbs
         } else if (product.category_id === 2 && (product.price / 100) < 20 && balanceRemaining - (product.price / 100) > 0) {
-          for (let i = 1; i <= 5; i++) { 
+          for (let i = 1; i <= 4; i++) { 
             if (!includedCategorys.includes(product.category_id)) {
               includedCategorys.push(product.category_id)
             }
@@ -133,6 +139,7 @@ const generateRecommendations = async (roomAndCategory, roomOrCategory, inspecif
     }
   }
 
+  
   // 1. query roomsAndCategories try to add the cheapest of each category 
     // 2. in the event no products => query roomsOrCategories
       // 3. query inspecifics

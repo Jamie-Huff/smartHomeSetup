@@ -23,6 +23,10 @@ const surveyData = (db) => {
         appliances: {quantity: 1}
       }
     }
+    if (query.rooms.length === 0) {
+      query.rooms = ['common area', 'kitchen', 'entryway']
+    }
+    console.log(query)
     let categories = categoryFinder(query)
     let provider = query.provider
     let finalRecommendations = []
@@ -34,7 +38,7 @@ const surveyData = (db) => {
       totalPrice: query.budget
     }
     let finalArray = []
-    
+
     let userId = await getUserFromToken(query.user, db)
     finalObj.user_id = userId
 
@@ -95,7 +99,7 @@ const surveyData = (db) => {
     finalObj.products = finalRecommendations
     finalObj.id = surveyValues.id
     finalArray.push(finalObj)
-    console.log('@@', finalArray)
+
     for (let i = 0; i < finalArray[0].rooms.length; i++) {
       if (finalArray[0].rooms[i].name === 'inspecific') {
         finalArray[0].rooms.unshift(finalArray[0].rooms[i])
