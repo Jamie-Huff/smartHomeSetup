@@ -17,6 +17,8 @@ import "./Sidebar/naoSpeaksApp.scss";
 
 import ProductListItem from "./ProductListItem";
 import useApplicationData from "../hooks/useApplicationData"
+import AppContext from "../hooks/appContext"
+
 import SmartVille from "./SmartVille";
 import Survey from "./Survey/index";
 import Signup from "./Signup";
@@ -95,6 +97,8 @@ export default function Application(props) {
     submitSurveyUser,
     submitSurveyAnon,
     modeNao,
+    gotProductHome,
+    hasProductStore,
     transitionNao,
     recommendations,
     recommendationsAnon,
@@ -105,9 +109,12 @@ export default function Application(props) {
     isloggedin,
     setloggedin
   } = useApplicationData();
+
   console.log("RECOMMENDATIONS IS NOW---", recommendations)
   return (
-    <Router>
+      <Router>
+            <AppContext.Provider value={{ deleteRecommendation, removeProductHome, gotProductHome, hasProductStore }}>
+
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <AppBar position="static" className={classes.appBar}>
@@ -157,6 +164,8 @@ export default function Application(props) {
           </Switch>
         </main>
       </ThemeProvider>
+      </AppContext.Provider>
+
     </Router>
   );
 }

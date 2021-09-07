@@ -152,7 +152,7 @@ export default function RecListItem(props) {
     const removeRecObj = formDataForHome(id, checkForUser());
 
     deleteRec(removeRecObj);
-    setDeleted(true);
+    // setDeleted(true);
   }
 
   const handleDeleteRewind = () => {
