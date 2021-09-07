@@ -26,7 +26,6 @@ const surveyData = (db) => {
     if (query.rooms.length === 0) {
       query.rooms = ['common area', 'kitchen', 'entryway']
     }
-    console.log(query)
     let categories = categoryFinder(query)
     let provider = query.provider
     let finalRecommendations = []
