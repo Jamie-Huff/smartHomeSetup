@@ -3,6 +3,8 @@ import axios from 'axios';
 import useVisualMode from "./useVisualMode"
 
 import { checkForUser } from "../helpers/dataOrganisers"
+import { removeProductFromRecs } from "../helpers/selectors"
+
 const WELCOME = "WELCOME"
 
 export default function useApplicationData () {
@@ -125,15 +127,16 @@ export default function useApplicationData () {
   }
 
   const deleteRecommendation = (removeRecData) => {
-
+    console.log("****TO BE DELETED ***", removeRecData);
     return new Promise((resolve, reject) => {
       axios.post("http://localhost:3002/removeRecommendation", removeRecData)
       .then((res) => {
-        console.log("SUCCESSFUL DELETE")  
+        console.log("SUCCESSFUL DELETE") 
+        setRec(recs => removeProductFromRecs(recs, removeRecData.product_id)); 
         return resolve(res.data);
       })
       .catch((err) => {
-        return reject(console.log(err.message));
+        return reject(err.message);
       })
     })
   }

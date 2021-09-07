@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { makeStyles } from '@material-ui/styles';
 
 import RoomCard from "./RoomCard";
-import useApplicationData from "../../hooks/useApplicationData";
+import AppContext from "../../hooks/appContext";
 
 import { organiseSurvey } from "../../helpers/selectors";
 
@@ -11,7 +11,7 @@ export default function RoomCardList(props) {
 
   const {
     hasProductStore
-  } = useApplicationData();
+  } = useContext(AppContext);
 
   let surveyRooms;
   console.log(survey)

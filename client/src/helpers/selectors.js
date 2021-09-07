@@ -1,14 +1,19 @@
 const organiseSurvey = (survey, hasProductInStore) => {
   const surveyRooms = []
 
-  for (let room of survey[0].rooms) {
+  for (let roomX of survey[0].rooms) {
+      let room = {...roomX}
     room.avatar = avatarForRoom(room)
     room.name = nameForRoom(room)
 
     const roomProducts = [];
+    room.cost = 0;
 
-    for (let product of survey[0].products) {
+    for (let productX of survey[0].products) {
+      let product = {...productX}
+
       if (product.room_id === room.id) {
+        room.cost += (product.price * product.quantity);
         product.stores = findStoresForProduct(product, hasProductInStore)
         roomProducts.push(product);
       }
@@ -177,10 +182,19 @@ const getNewCostForRoom = (rooms, id) => {
   return rooms.filter(x => x.id === id)[0].cost   
 }
 
+const removeProductFromRecs = (recs, productId) => {
+  console.log("****PRODUCT ID****", productId)
+  return recs.map((rec) => {
+    const products = rec.products.filter(p => p.id !== productId)
+    return { ...rec, products }
+  })
+}
+
 
 module.exports = {
   organiseSurvey,
   avatarForProduct,
   checkRoomPresent,
-  getNewCostForRoom
+  getNewCostForRoom,
+  removeProductFromRecs
 }

@@ -17,8 +17,6 @@ const naoSurveyQuestions = (mode) => {
   if(mode === "ERROR_NO_BUDGET") {
     return "Unfortunately, your budget does not match your selected needs. Please try again"
   }
-
-
 }
 
 const naoSidebar = (mode) => {

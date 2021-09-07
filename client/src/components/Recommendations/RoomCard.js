@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 
 import { makeStyles } from '@material-ui/styles';
 
@@ -7,7 +7,7 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import Avatar from '@material-ui/core/Avatar';
 
-import useApplicationData from "../../hooks/useApplicationData";
+import AppContext from "../../hooks/appContext";
 
 import RecListItem from "./RecListItem";
 import "./RoomCard.scss";
@@ -52,15 +52,18 @@ export default function RoomCard(props) {
   const classes = useStyles();
 
   const [roomPresent, setRoomPresent] = useState(true);
-  const [roomCost, setRoomCost] = useState(cost);
+  // const [roomCost, setRoomCost] = useState(cost);
+
+  // Always ensure the right cost is set
+  // if(roomCost != cost) {
+  //   setRoomCost(cost)
+  // }
 
   const {
     deleteRecommendation,
-    recommendations,
     removeProductHome,
     gotProductHome,
-    setRec
-  } = useApplicationData();
+  } = useContext(AppContext);
 
 
   const deleteRec = (removeRecObj) => {
@@ -78,10 +81,9 @@ export default function RoomCard(props) {
       if (!checkRoomPresent(newRooms, id)){
         setRoomPresent(false);
       }
-
-      //update room price after deletting a product
-      const newRoomCost = getNewCostForRoom(newRooms, id);
-      setRoomCost(newRoomCost)
+       //update room price after deleting a product
+      //  const newRoomCost = getNewCostForRoom(newRooms, id);
+      //  setRoomCost(newRoomCost);
     })
     .catch((err) =>{
       console.log(err);
@@ -127,7 +129,7 @@ export default function RoomCard(props) {
           }
         />
         <div className="rec__card-priceText">
-          ${roomCost/100}
+          ${ cost/100 }
         </div>
       </div>
       <CardContent className={classes.displayRec}>
