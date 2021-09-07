@@ -35,7 +35,10 @@ export default function useApplicationData () {
           console.log("GRABBING RESULTS YO", res)
           setRec(res.data)
         })
-      }
+    } else {
+      
+    }
+
   },[])
 
   const submitSurveyUser = (surveyData) => {
@@ -77,7 +80,7 @@ export default function useApplicationData () {
         //   // ...state,
         //   // survey
         // })
-        console.log("GOT BACK A MESSAGE SUBMIT SURVEY")
+        console.log("GOT BACK A MESSAGE SUBMIT SURVEY ANON")
         console.log("MESSAGE IS", res)
         setRecAnon(res.data);
         return resolve(res);

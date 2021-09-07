@@ -11,6 +11,9 @@ const removeDuplicates = require('../helpers/removeDuplicates')
 const surveyData = (db) => {
   router.post("/", async (req, res) => {
     let query = req.body
+    if(!query.user) {
+      return null;
+    }
     let roomQuery = []
     let categoryQuery = []
     // if a user doesnt select any categories, we auto give them appliances, lights, and speakers
@@ -21,7 +24,7 @@ const surveyData = (db) => {
         appliances: {quantity: 1}
       }
     }
-    console.log(query.categories)
+    console.log("@@@@@",query.categories)
     let categories = categoryFinder(query)
     let provider = query.provider
     let finalRecommendations = []

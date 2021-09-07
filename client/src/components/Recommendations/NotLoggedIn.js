@@ -8,7 +8,7 @@ export default function NotLoggedIn(props) {
 
   return (
     <React.Fragment>
-      <div>Yoooo</div>
+      {/* <div>Yoooo</div> */}
       <RoomCardList survey ={recommendationsAnon}/>
     </React.Fragment>
     

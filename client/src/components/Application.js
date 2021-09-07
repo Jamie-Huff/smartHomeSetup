@@ -15,6 +15,8 @@ import CommentIcon from '@material-ui/icons/Comment';
 import FlashOnIcon from '@material-ui/icons/FlashOn';
 
 import "./Application.scss";
+import "./naoSpeaksApp.scss";
+
 import ProductListItem from "./ProductListItem";
 import useApplicationData from "../hooks/useApplicationData"
 import SmartVille from "./SmartVille";
@@ -124,7 +126,16 @@ export default function Application(props) {
         <main className="layout">
           <section className="sidebar">
             <div className="sidebar__menu">
+              <div className="naoCircular__speaking">
+                
+                <div> 
+                  Hey there, welcome to smartville       
+                </div>
+
+
+              </div>
               <img className="sidebar--nao" src="images/nao_welcome.png" alt="Nao Chilling"/>
+
               <div className="sidebar__halfTwo">
                 <div className="sidebar__menuItem">
                   <FlashOnIcon  className="sidebar__img"/>

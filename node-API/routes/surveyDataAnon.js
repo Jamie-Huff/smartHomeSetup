@@ -68,7 +68,7 @@ const surveyDataAnon = (db) => {
     const survey = [
       {
        id: 1,
-       user_id: 2,
+       user_id: null,
        rooms: [{id:3, name: "kitchen", cost: 20000 }, {id: 2, name: "bedroom", cost: 400099}, {id: 4, name: "common area", cost: 170000}],
        products: products,
      }
