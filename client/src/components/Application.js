@@ -23,6 +23,8 @@ import Signup from "./Signup";
 import Login from "./Login";
 import RoomCardList from "./Recommendations/RoomCardList";
 import Logout from './Logout'
+import NotLoggedIn from "./Recommendations/NotLoggedIn"
+
 
 
 
@@ -89,8 +91,10 @@ export default function Application(props) {
     surveys,
     username,
     setUsername,
-    submitSurvey,
+    submitSurveyUser,
+    submitSurveyAnon,
     recommendations,
+    recommendationsAnon,
     removeProductHome,
     addProductHome,
     deleteRecommendation,
@@ -112,7 +116,7 @@ export default function Application(props) {
                 <Logout setuserName={setUsername} userName={username} isloggedin={isloggedin} setIsloggedin={setloggedin} />
               {isloggedin? <Avatar src="images/alpac.jpg" alt="Lit"/>: null}
               <Modal open={open} onClose={handleSurveyClose} className={classes.modal}>
-                <Survey submitSurvey={submitSurvey} handleSurveyClose={handleSurveyClose} />
+                <Survey submitSurveyAnon={submitSurveyAnon} submitSurveyUser={submitSurveyUser} handleSurveyClose={handleSurveyClose} />
               </Modal>
           </Toolbar>
         </AppBar>
@@ -156,6 +160,11 @@ export default function Application(props) {
             <Route path='/profile'>
               <div className="rooms">
                 <RoomCardList survey ={recommendations}/>
+              </div>
+            </Route>
+            <Route path='/notLoggedIn'>
+              <div className="rooms">
+                <NotLoggedIn recommendationsAnon={recommendationsAnon}/>
               </div>
             </Route>
 

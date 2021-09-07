@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "space-between",
     color:"black"
   },
-  deleted: {
+  none: {
     display: "none"
   },
   media: {
@@ -141,7 +141,7 @@ export default function RecListItem(props) {
   const [prodInHome, setProdInHome] = useState(false);
   const { mode, transition, back } = useVisualMode(FLOW)
 
-
+  const user = checkForUser();
 
   const handleDeleteRec = () => {
 
@@ -177,7 +177,7 @@ export default function RecListItem(props) {
     <Card className={ clsx(
         classes.root,
         // classes.black,
-        { [classes.deleted]: deleted,
+        { [classes.none]: deleted,
           [classes.black]: prodInHome,
           [classes.rootInHome]: prodInHome
         }
@@ -192,7 +192,10 @@ export default function RecListItem(props) {
               </Avatar>
             }
             action={
-              <Checkbox handleProdHome={handleProdHome} checkedProduct={checkedProduct}/>
+              <Checkbox handleProdHome={handleProdHome} 
+                checkedProduct={checkedProduct}
+                user={user}
+              />
             }
             title={truncate(title, 57)}
             classes={{
@@ -238,7 +241,7 @@ export default function RecListItem(props) {
               <IconButton>
                 <InfoIcon className={ prodInHome ? classes.infoIconHome : classes.infoIcon }/>
               </IconButton>
-              <IconButton>
+              <IconButton className={clsx({[classes.none] : !user })}>
                 <DeleteIcon onClick={handleDeleteRec} className={ prodInHome ? classes.deleteIconHome : classes.deleteIcon }/>
               </IconButton>
             </div>

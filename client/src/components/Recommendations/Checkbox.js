@@ -9,10 +9,13 @@ const useStyles = makeStyles((theme) => ({
   check: {
     color:"white"
   },
+  none: {
+    display:"none"
+  }
 }))
 
 export default function CheckBox(props) {
-  const { handleProdHome, checkedProduct } = props
+  const { handleProdHome, checkedProduct, user } = props
   const classes = useStyles();
 
   const handleChange = (event) => {
@@ -28,7 +31,7 @@ export default function CheckBox(props) {
             onChange={handleChange}
             // key={id}
             color="primary"
-            className={classes.check}
+            className={ user ? classes.check : classes.none}
           />
         }
       />

@@ -10,8 +10,8 @@ export default function useApplicationData () {
   const [surveys, setSurveys] = useState({});
   const [username, setUsername] = useState("");
   const [recommendations, setRec] = useState([]);
+  const [recommendationsAnon, setRecAnon] = useState([]);
   const [isloggedin, setloggedin] = useState(null);
-  const [changeRec, setChangeRec] = useState(false);
 
   useEffect(() => {
     //Load all the data from the database when the page loads
@@ -38,7 +38,7 @@ export default function useApplicationData () {
       }
   },[])
 
-  const submitSurvey = (surveyData) => {
+  const submitSurveyUser = (surveyData) => {
 
     console.log("IN SUBMIT SURVEY", surveyData)
 
@@ -55,6 +55,31 @@ export default function useApplicationData () {
         console.log("GOT BACK A MESSAGE SUBMIT SURVEY")
         console.log("MESSAGE IS", res)
         setRec(res.data);
+        return resolve(res);
+      })
+      .catch((err) => {
+        return reject(console.log(err.message))
+      })
+    })
+  }
+
+  const submitSurveyAnon = (surveyDataAnon) => {
+
+    console.log("IN SUBMIT SURVEY", surveyDataAnon)
+
+    // send data to the backend
+    return new Promise((resolve, reject) => {
+      axios.post("http://localhost:3002/surveyDataAnon", surveyDataAnon)
+      .then((res) => {
+        // const survey = {
+        // }
+        // setState({
+        //   // ...state,
+        //   // survey
+        // })
+        console.log("GOT BACK A MESSAGE SUBMIT SURVEY")
+        console.log("MESSAGE IS", res)
+        setRecAnon(res.data);
         return resolve(res);
       })
       .catch((err) => {
@@ -95,7 +120,6 @@ export default function useApplicationData () {
 
   const deleteRecommendation = (removeRecData) => {
 
-    console.log("IN DELETE RECOMMENDATION, CHANGE REC IS", changeRec)
     return new Promise((resolve, reject) => {
       axios.post("http://localhost:3002/removeRecommendation", removeRecData)
       .then((res) => {
@@ -136,9 +160,10 @@ export default function useApplicationData () {
     hasProductStore,
     setUsername,
     setRec,
-    changeRec,
     recommendations,
-    submitSurvey,
+    recommendationsAnon,
+    submitSurveyAnon,
+    submitSurveyUser,
     gotProductHome,
     removeProductHome,
     deleteRecommendation,
