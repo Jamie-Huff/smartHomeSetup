@@ -23,7 +23,6 @@ const generateRecommendations = async (roomAndCategory, roomOrCategory, inspecif
   }
   // if after looping through the room and category, we dont have any products that match our needs, 
     // start going over the room OR category products
-  console.log('@@@', categories)
   if (recommendations.length === 0) {
     for (const product of roomOrCategory) {
       // the user cant afford a certain product, without taking all of their budget, skip it

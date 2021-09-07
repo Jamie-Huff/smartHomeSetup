@@ -13,6 +13,9 @@ const roomObjMaker = require('../helpers/roomObjMaker')
 const surveyData = (db) => {
   router.post("/", async (req, res) => {
     let query = req.body
+    if (!query.user) {
+      return null
+    }
     let roomQuery = []
     let categoryQuery = []
     // if a user doesnt select any categories, we auto give them appliances, lights, and speakers
