@@ -10,12 +10,10 @@ import { createTheme , createMuiTheme, ThemeProvider } from "@material-ui/core";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Modal from "@material-ui/core/Modal";
 import Button from '@material-ui/core/Button';
-import AddToHomeScreenIcon from '@material-ui/icons/AddToHomeScreen';
-import CommentIcon from '@material-ui/icons/Comment';
-import FlashOnIcon from '@material-ui/icons/FlashOn';
+
 
 import "./Application.scss";
-import "./naoSpeaksApp.scss";
+import "./Sidebar/naoSpeaksApp.scss";
 
 import ProductListItem from "./ProductListItem";
 import useApplicationData from "../hooks/useApplicationData"
@@ -26,6 +24,7 @@ import Login from "./Login";
 import RoomCardList from "./Recommendations/RoomCardList";
 import Logout from './Logout'
 import NotLoggedIn from "./Recommendations/NotLoggedIn"
+import Sidebar from "./Sidebar/Sidebar"
 
 
 
@@ -95,6 +94,8 @@ export default function Application(props) {
     setUsername,
     submitSurveyUser,
     submitSurveyAnon,
+    modeNao,
+    transitionNao,
     recommendations,
     recommendationsAnon,
     removeProductHome,
@@ -125,32 +126,7 @@ export default function Application(props) {
 
         <main className="layout">
           <section className="sidebar">
-            <div className="sidebar__menu">
-              <div className="naoCircular__speaking">
-                
-                <div> 
-                  Hey there, welcome to smartville       
-                </div>
-
-
-              </div>
-              <img className="sidebar--nao" src="images/nao_welcome.png" alt="Nao Chilling"/>
-
-              <div className="sidebar__halfTwo">
-                <div className="sidebar__menuItem">
-                  <FlashOnIcon  className="sidebar__img"/>
-                  <span  className="sidebar__text">Getting Started</span>
-                </div>
-                <div className="sidebar__menuItem">
-                  <AddToHomeScreenIcon className="sidebar__img" />
-                  <span className="sidebar__text">Products</span>     
-                </div>
-                <div className="sidebar__menuItem">
-                  <CommentIcon className="sidebar__img" />
-                  <span className="sidebar__text">Contact Us</span>
-                </div>
-              </div>     
-            </div>          
+            <Sidebar modeNao={modeNao}/>  
           </section>
           <Switch>
           <Route exact path='/'>
@@ -158,7 +134,7 @@ export default function Application(props) {
             </Route>
             <Route path='/products'>
               <div>
-                <ProductList products={products}/>
+                <ProductList products={products} transitionNao={transitionNao}/>
               </div>
             </Route>
             <Route path='/login'>
@@ -178,7 +154,6 @@ export default function Application(props) {
                 <NotLoggedIn recommendationsAnon={recommendationsAnon}/>
               </div>
             </Route>
-
           </Switch>
         </main>
       </ThemeProvider>

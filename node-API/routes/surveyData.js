@@ -24,7 +24,7 @@ const surveyData = (db) => {
         appliances: {quantity: 1}
       }
     }
-    console.log("@@@@@",query.categories)
+    
     let categories = categoryFinder(query)
     let provider = query.provider
     let finalRecommendations = []
