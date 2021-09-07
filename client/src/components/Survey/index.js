@@ -87,7 +87,6 @@ export default function Survey (props) {
 				}
 			} else { //Anon user
 				console.log("TRYING TO ENTER SUB SURV ANON")
-
 				if(surveyData.budget === 0) {
 					transition(ERROR_NO_BUDGET);
 				} else {

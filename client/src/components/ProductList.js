@@ -22,7 +22,7 @@ const useStyles = makeStyles({
 const ProductList = (props) => {
   const { products, transitionNao } = props;
   const classes = useStyles();
-  
+
   const categoryArray = [
     { name: "Hubs", idArray: [1] },
     { name: "Lights", idArray: [2, 3] },
@@ -39,16 +39,18 @@ const ProductList = (props) => {
     return products.filter((product) => idArray.includes(product.category_id));
   };
 
-  if (!products) {
+  if (!products.length) {
     return <h1>Loading....</h1>
   } else {
     transitionNao(PRODUCTS)
     return (
       <section>
+
+
         {categoryArray.map((category) => (
           <div>
             <div>
-              <h1 className={classes.root}>{category.name}</h1>
+             <h1 className={classes.root}>{category.name}</h1>
             </div>
             <div className={classes.productsDiv}>
               {getCategoryProduct(category.idArray).map((product) => (
@@ -63,6 +65,7 @@ const ProductList = (props) => {
             </div>
           </div>
         ))}
+
       </section>
     );
   }

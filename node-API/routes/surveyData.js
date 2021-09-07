@@ -91,11 +91,10 @@ const surveyData = (db) => {
       )).rows[0]
 
     surveyValues = addSurvey
-
     for (const product of finalRecommendations) {
       (await db.query(`INSERT INTO recommendations (user_id, survey_id, product_id) VALUES($1, $2, $3)`, [finalObj.user_id, surveyValues.id, product.id]))
     }
-
+    
     finalRecommendations = removeDuplicates(finalRecommendations)
 
     finalObj.products = finalRecommendations
