@@ -7,6 +7,8 @@ const generateRecommendations = require("../helpers/productRecommendations")
 const compare = require("../helpers/objSorter")
 const getUserFromToken = require('../helpers/getUserFromToken')
 const removeDuplicates = require('../helpers/removeDuplicates')
+const roomArrayFinder = require('../helpers/roomArrayFinder')
+const roomObjMaker = require('../helpers/roomObjMaker')
 
 const surveyData = (db) => {
   router.post("/", async (req, res) => {
@@ -32,7 +34,7 @@ const surveyData = (db) => {
       totalPrice: query.budget
     }
     let finalArray = []
-
+    
     let userId = await getUserFromToken(query.user, db)
     finalObj.user_id = userId
 
@@ -69,38 +71,15 @@ const surveyData = (db) => {
 
     finalRecommendations = await generateRecommendations(productsRoomAndCategories, productsRoomOrCategories, inspecificProducts, query.budget, db, provider, query)
 
-    const finalObjRooms = async (rooms, products) => {
-      rooms.push ('inspecific')
-      const roomFinal = []
-
-      for (let room of rooms) {
-        if (room === 'laundryroom') {
-          room = 'laundry room'
-        }
-        if (room === 'entryway') {
-          room = 'entrance way'
-        }
-        let roomObj = {name: room, id: null, cost: 0}
-        let roomDetails = (await db.query(`SELECT * FROM rooms WHERE name = $1`, [room])).rows[0]
-        roomObj.id = roomDetails.id
-        for (const product of products) {
-          if (product.room_id === roomObj.id) {
-             roomObj.cost += product.price
-          }
-        }
-        if (roomObj.cost > 0) {
-          roomFinal.push(roomObj)
-        }
-      }
-      return roomFinal
-    }
-
-    let roomsFinalArray = await finalObjRooms(query.rooms, finalRecommendations)
+    let rooms = roomArrayFinder(finalRecommendations)
+    rooms = await roomObjMaker(rooms, finalRecommendations, db)
+    let roomsFinalArray = rooms
     
     roomsFinalArray.sort(compare);
 
     finalObj.rooms = roomsFinalArray
 
+    //---------------------------------------
     const addSurvey = (await db.query(
       `INSERT INTO survey_results (user_id, budget) VALUES($1, $2) RETURNING *`, [finalObj.user_id, query.budget]
       )).rows[0]
