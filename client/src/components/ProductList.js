@@ -2,6 +2,9 @@ import React from "react";
 import "./ProductList.scss";
 import ProductListItem from "./ProductListItem";
 import { makeStyles } from "@material-ui/core/styles";
+import transitions from "@material-ui/core/styles/transitions";
+
+const PRODUCTS = "PRODUCTS"
 
 const useStyles = makeStyles({
   root: {
@@ -17,7 +20,7 @@ const useStyles = makeStyles({
 });
 
 const ProductList = (props) => {
-  const { products } = props;
+  const { products, transitionNao } = props;
   const classes = useStyles();
 
   const categoryArray = [
@@ -39,6 +42,7 @@ const ProductList = (props) => {
   if (!products.length) {
     return <h1>Loading....</h1>
   } else {
+    transitionNao(PRODUCTS)
     return (
       <section>
 

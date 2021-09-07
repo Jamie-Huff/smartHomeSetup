@@ -21,6 +21,17 @@ const naoSurveyQuestions = (mode) => {
 
 }
 
+const naoSidebar = (mode) => {
+  if(mode === "WELCOME") {
+    return "Hey there, welcome to smartville"
+  }
+
+  if(mode === "PRODUCTS") {
+    return "Here are all the smart products I have for you, take the survey for recommendations"
+  }
+}
+
 module.exports = {
-  naoSurveyQuestions
+  naoSurveyQuestions,
+  naoSidebar
 }

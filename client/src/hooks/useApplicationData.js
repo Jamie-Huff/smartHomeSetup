@@ -1,7 +1,9 @@
 import {useState, useEffect} from "react";
 import axios from 'axios';
+import useVisualMode from "./useVisualMode"
 
 import { checkForUser } from "../helpers/dataOrganisers"
+const WELCOME = "WELCOME"
 
 export default function useApplicationData () {
   const [products, setProducts] = useState([]);
@@ -12,6 +14,7 @@ export default function useApplicationData () {
   const [recommendations, setRec] = useState([]);
   const [recommendationsAnon, setRecAnon] = useState([]);
   const [isloggedin, setloggedin] = useState(null);
+  const [ modeNao, transitionNao ] = useState(WELCOME)
 
   useEffect(() => {
     //Load all the data from the database when the page loads
@@ -19,6 +22,7 @@ export default function useApplicationData () {
       axios.get('http://localhost:3002/products'),
       axios.get('http://localhost:3002/rooms'),
       axios.get('http://localhost:3002/productInStore')
+
     ]).then((all) => {
       setProducts(all[0].data);
       console.log("this is form useapp",products)
@@ -35,7 +39,9 @@ export default function useApplicationData () {
           console.log("GRABBING RESULTS YO", res)
           setRec(res.data)
         })
-      }
+    } else {
+      //Redirect to homepage
+    }
   },[])
 
   const submitSurveyUser = (surveyData) => {
@@ -77,7 +83,7 @@ export default function useApplicationData () {
         //   // ...state,
         //   // survey
         // })
-        console.log("GOT BACK A MESSAGE SUBMIT SURVEY")
+        console.log("GOT BACK A MESSAGE SUBMIT SURVEY ANON")
         console.log("MESSAGE IS", res)
         setRecAnon(res.data);
         return resolve(res);
@@ -160,6 +166,8 @@ export default function useApplicationData () {
     hasProductStore,
     setUsername,
     setRec,
+    modeNao,
+    transitionNao,
     recommendations,
     recommendationsAnon,
     submitSurveyAnon,
