@@ -138,7 +138,7 @@ export default function Application(props) {
           </section>
           <Switch>
           <Route exact path='/'>
-              <SmartVille transitionNao={transitionNao}/>
+              <SmartVille transitionNao={transitionNao} modeNao={modeNao}/>
             </Route>
             <Route path='/products'>
               <div>

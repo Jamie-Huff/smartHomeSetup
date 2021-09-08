@@ -1,0 +1,21 @@
+.div-container-hidden {
+  display: flex;
+  justify-content: center;
+}
+
+.printHiddenn {
+  padding: 10px 15px;
+  border: 1px solid rgba(63, 81, 181, 0.5);
+  cursor: pointer;
+  background-color: #001029;
+  color: #dcdcdc;
+}
+.printHiddenn:hover {
+  border: 1px solid rgba(63, 81, 181, 0.9);
+}
+
+@media print {
+  .printHiddenn {
+    display: none;
+  }
+}
