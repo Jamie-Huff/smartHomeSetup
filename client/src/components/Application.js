@@ -147,7 +147,7 @@ export default function Application(props) {
           <Toolbar style={{display:"flex", justifyContent: "space-between", width:"100%" }}>
               {/* <div classNames= {classes.navBar} style={{display:"flex"}}> */}
                 <img  className="sidebar__imgLogo" src="images/smartVilleLogo.png" alt="smartvilleLogo"/>
-                <div style={{display:"flex"}}><h1 style={{ fontFamily:"system-ui", marginLeft:"480px", fontStyle:"italic" }}> SM</h1> <HouseIcon  style={{marginTop:"5px", fontSize:"30px", fontStyle:"italic"}}/><h1 style={{ fontFamily:"system-ui", fontStyle:"italic", marginLeft:"-4px"}}>RTVILLE</h1></div>
+                <div style={{display:"flex"}}><h1 style={{ fontFamily:"system-ui", marginLeft:"480px", fontStyle:"italic" }}> SM</h1> <HouseIcon  style={{marginTop:"5px", fontSize:"30px", fontStyle:"italic"}}/><h1 style={{ fontFamily:"system-ui", fontStyle:"italic", marginLeft:"-2px"}}>RTVILLE</h1></div>
                 <Button className={classes.button} variant="outlined" color="primary" onClick={handleSurveyOpen}>
                   TAKE SURVEY
                 </Button>
