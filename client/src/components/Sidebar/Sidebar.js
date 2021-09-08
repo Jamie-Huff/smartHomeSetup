@@ -1,4 +1,8 @@
 import React, { useState } from "react";
+import {Link} from "react-router-dom"
+
+import { makeStyles } from '@material-ui/core/styles';
+
 import "../Application.scss";
 import "./naoSpeaksApp.scss";
 
@@ -7,10 +11,18 @@ import { naoSidebar } from "../../helpers/naoHelp"
 import AddToHomeScreenIcon from '@material-ui/icons/AddToHomeScreen';
 import CommentIcon from '@material-ui/icons/Comment';
 import FlashOnIcon from '@material-ui/icons/FlashOn';
+import classNames from "classnames";
 
+const useStyles = makeStyles((theme) => ({
+  link:{
+    color:"white",
+    textDecoration: 'none' 
+  }
+}));
 
 export default function Sidebar(props) {
   const { modeNao } = props
+  const classes = useStyles();
 
   const naoTalking = naoSidebar(modeNao)
   let x = 0
@@ -41,15 +53,19 @@ export default function Sidebar(props) {
       <div className="sidebar__halfTwo">
         <div className="sidebar__menuItem">
           <FlashOnIcon  className="sidebar__img"/>
-          <span  className="sidebar__text">Getting Started</span>
+          <Link to="/" className={classes.link}>
+            <div className="sidebar__text">Getting Started</div>
+          </Link>   
         </div>
         <div className="sidebar__menuItem">
-          <AddToHomeScreenIcon className="sidebar__img" />
-          <span className="sidebar__text">Products</span>     
+            <AddToHomeScreenIcon className="sidebar__img" />
+            <Link to="/products" className={classes.link}>
+              <div className="sidebar__text">Products</div>  
+            </Link>   
         </div>
         <div className="sidebar__menuItem">
           <CommentIcon className="sidebar__img" />
-          <span className="sidebar__text">Contact Us</span>
+          <div className="sidebar__text">Contact Us</div>
         </div>
       </div>     
     </div>        
