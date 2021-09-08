@@ -4,14 +4,17 @@
 }
 
 .printHiddenn {
-  padding: 10px 15px;
+  padding: 5px 10px;
   border: 1px solid rgba(63, 81, 181, 0.5);
   cursor: pointer;
-  background-color: #001029;
-  color: #dcdcdc;
+  background-color: #B87A92;
+  color: #081421;
+  font-family: "system-ui";
+  font-weight: 400;
+  margin: 10px 0px -10px 0px;
 }
 .printHiddenn:hover {
-  border: 1px solid rgba(63, 81, 181, 0.9);
+  border: 1px solid black;
 }
 
 @media print {

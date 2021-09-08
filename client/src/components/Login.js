@@ -79,14 +79,14 @@ export default function Login(props) {
     <div className="main-div">
       <form className="signup-form">
         <div className="signup-div">
-          <label>Email</label>
+          <label className="signup-text">Email</label>
           <input
 		  className="input-signup"
             type="text"
             onChange={(e) => setData({ ...data, email: e.target.value })}
           />
 		  <span className="form-error">{formErrors.email}</span>
-          <label>Password</label>
+          <label className="signup-text">Password</label>
           <input
 		  className="input-signup"
             type="password"
