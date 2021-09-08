@@ -53,7 +53,9 @@ export default function Sidebar(props) {
       <div className="sidebar__halfTwo">
         <div className="sidebar__menuItem">
           <FlashOnIcon  className="sidebar__img"/>
-          <div className="sidebar__text">Getting Started</div>
+          <Link to="/" className={classes.link}>
+            <div className="sidebar__text">Getting Started</div>
+          </Link>   
         </div>
         <div className="sidebar__menuItem">
             <AddToHomeScreenIcon className="sidebar__img" />

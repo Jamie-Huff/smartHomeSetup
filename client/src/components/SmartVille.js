@@ -17,12 +17,10 @@ export default function SmartVille(props) {
   }
   
   return (
-    <div className="smartVille__top">
+    <div className="smartVille__top" style={{width:"100%"}}>
       <div className="smartVille__top smartVille__top-gettingStarted">
-        <h1> WELCOME TO SMARTVILL</h1>
-        <HouseIcon/>
       </div>
-      <img src="images/nao_dab.png" alt="nao"/>
+      <img src="images/nao_normal.png" alt="nao" style={{height:"400px", marginLeft: "440px", marginTop:"60px"}}/>
     </div>
   )
 }

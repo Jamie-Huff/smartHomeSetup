@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Switch,Route, Link} from "react-router-dom";
 import Divider from '@material-ui/core/Divider';
 import { alpha, makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
+import HouseIcon from '@material-ui/icons/House';
+
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import { createTheme , createMuiTheme, ThemeProvider } from "@material-ui/core";
@@ -48,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems:"flex-end",
     '@media print' : {
       display: 'none',
-}
+  }
   },
   paper: {
     position: "absolute",
@@ -66,7 +68,27 @@ const useStyles = makeStyles((theme) => ({
   },
 
   button: {
-    color:"#dcdcdc"
+    color:"#fff",
+    backgroundColor:"#76BED0",
+    fontFamily:"system-ui",
+    fontSize:"14px"
+  },
+
+  navBar: {
+    display:"flex",
+    justifyContent: "space-between"
+  },
+
+  userNav: {
+    display:"flex",
+  },
+
+  profilePic: {
+
+  },
+
+  loginLogout: {
+
   }
 }));
 
@@ -122,13 +144,22 @@ export default function Application(props) {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <AppBar position="static" className={classes.appBar}>
-          <Toolbar>
-              <img  className="sidebar__imgLogo" src="images/smartVilleLogo.png" alt="smartvilleLogo"/>
-              <Button className={classes.button} variant="outlined" color="primary" onClick={handleSurveyOpen}>
-                TAKE SURVEY
-              </Button>
-                <Logout setuserName={setUsername} userName={username} isloggedin={isloggedin} setIsloggedin={setloggedin} transitionNao={transitionNao} />
-              {isloggedin? <Avatar src="images/alpac.jpg" alt="Lit"/>: null}
+          <Toolbar style={{display:"flex", justifyContent: "space-between", width:"100%" }}>
+              {/* <div classNames= {classes.navBar} style={{display:"flex"}}> */}
+                <img  className="sidebar__imgLogo" src="images/smartVilleLogo.png" alt="smartvilleLogo"/>
+                <div style={{display:"flex"}}><h1 style={{ fontFamily:"system-ui", marginLeft:"480px", fontStyle:"italic" }}> SM</h1> <HouseIcon  style={{marginTop:"5px", fontSize:"30px", fontStyle:"italic"}}/><h1 style={{ fontFamily:"system-ui", fontStyle:"italic", marginLeft:"-4px"}}>RTVILLE</h1></div>
+                <Button className={classes.button} variant="outlined" color="primary" onClick={handleSurveyOpen}>
+                  TAKE SURVEY
+                </Button>
+                  <div classNames= {classes.userNav} style={{display:"flex", justifyContent: "space-between", fontFamily:"system-ui" }}>
+                    <Logout setuserName={setUsername} userName={username} 
+                      isloggedin={isloggedin} setIsloggedin={setloggedin} 
+                      transitionNao={transitionNao}  style={{fontFamily:"system-ui", fontWeight:500, marginRight:"20px" }}/>
+                      <div style={{marginLeft:"30px"}}>
+                        {isloggedin? <Avatar src="images/profilePic.jpg" alt="Lit"/>: null}
+                      </div>                 
+                  </div>
+                {/* </div>             */}
               <Modal open={open} onClose={handleSurveyClose} className={classes.modal}>
                 <Survey submitSurveyAnon={submitSurveyAnon} submitSurveyUser={submitSurveyUser} handleSurveyClose={handleSurveyClose} />
               </Modal>
