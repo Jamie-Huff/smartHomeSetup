@@ -1,9 +1,13 @@
+import transitions from "@material-ui/core/styles/transitions";
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import './Logout.scss'
 
+//mode for Nao
+const LOGOUT = "LOGOUT"
+
 const Logout = (props) => {
-const { userName, setuserName, isloggedin, setIsloggedin } = props;
+const { userName, setuserName, isloggedin, setIsloggedin, transitionNao } = props;
 let history = useHistory();
 useEffect(() => {
     const isLocalStorage = localStorage.getItem("user_token");
@@ -19,7 +23,7 @@ const clearStorage = (e) => {
     setIsloggedin(null);
 
 }
-
+  transitionNao(LOGOUT)
   return (
     <div>
       {(!isloggedin)? (

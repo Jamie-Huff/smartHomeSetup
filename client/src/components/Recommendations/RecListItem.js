@@ -137,7 +137,6 @@ export default function RecListItem(props) {
 
   const classes = useStyles();
   const [checkedProduct, setCheckedProduct] = useState(false);
-  const [deleted, setDeleted] = useState(false);
   const [prodInHome, setProdInHome] = useState(false);
   const { mode, transition, back } = useVisualMode(FLOW)
 
@@ -152,7 +151,6 @@ export default function RecListItem(props) {
     const removeRecObj = formDataForHome(id, checkForUser());
 
     deleteRec(removeRecObj);
-    // setDeleted(true);
   }
 
   const handleDeleteRewind = () => {
@@ -177,7 +175,7 @@ export default function RecListItem(props) {
     <Card className={ clsx(
         classes.root,
         // classes.black,
-        { [classes.none]: deleted,
+        {
           [classes.black]: prodInHome,
           [classes.rootInHome]: prodInHome
         }

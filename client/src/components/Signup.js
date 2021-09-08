@@ -3,6 +3,9 @@ import React, { useState } from "react";
 import "./Signup.scss";
 import axios from "axios";
 import * as yup from "yup";
+
+//mode for nao 
+const SIGNUP = "SIGNUP"
 // set the error messages
 const nameError = "Name is required";
 const emailError = ["Must be valid email", "Email is required"];
@@ -18,7 +21,7 @@ const signupSchema = yup.object().shape({
 });
 
 export default function Signup(props) {
-  const { setUser, setIsloggedin } = props
+  const { setUser, setIsloggedin, transitionNao } = props
   const [data, setData] = useState({
     name: "",
     email: "",
@@ -76,6 +79,8 @@ export default function Signup(props) {
   if (signedup) {
 	  return <Redirect to="/" />
   }
+  
+  transitionNao(SIGNUP)
   return (
     <div className="main-div">
       <form className="signup-form">

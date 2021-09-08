@@ -13,15 +13,29 @@ export default function Sidebar(props) {
   const { modeNao } = props
 
   const naoTalking = naoSidebar(modeNao)
+  let x = 0
+  const [ changeStatement, setChangeStatement ] = useState(false)
+
+  if(naoTalking.heSays.length > 1) {
+    setTimeout(() => {  
+      setChangeStatement(true)
+    }, 5000);
+  }
+  
   
   return (
     <div className="sidebar__menu">
-      <div className="naoCircular__speaking">               
+      <div className="naoCircular__speaking"> 
         <div> 
-          {naoTalking}     
-        </div>
+            {!changeStatement &&
+              naoTalking.heSays[0]
+            }
+            { changeStatement &&
+              naoTalking.heSays[x+1]
+            }
+        </div>                
       </div>
-      <img className="sidebar--nao" src="images/nao_peace.png" alt="Nao Chilling"/>
+      <img className="sidebar--nao" src={naoTalking.img} alt="Nao Chilling"/>
 
 
       <div className="sidebar__halfTwo">

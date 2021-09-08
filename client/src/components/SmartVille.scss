@@ -1,0 +1,15 @@
+@import "../styles/variables.scss";
+
+.smartville {
+  &__top {
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    width: 100%
+    &-gettingStarted {
+      display:flex;
+      align-items:flex-start
+    }
+  }
+}
+  

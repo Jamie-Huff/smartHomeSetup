@@ -5,7 +5,7 @@ import useVisualMode from "./useVisualMode"
 import { checkForUser } from "../helpers/dataOrganisers"
 import { removeProductFromRecs } from "../helpers/selectors"
 
-const WELCOME = "WELCOME"
+const LOADING = "LOADING"
 
 export default function useApplicationData () {
   const [products, setProducts] = useState([]);
@@ -16,7 +16,7 @@ export default function useApplicationData () {
   const [recommendations, setRec] = useState([]);
   const [recommendationsAnon, setRecAnon] = useState([]);
   const [isloggedin, setloggedin] = useState(null);
-  const [ modeNao, transitionNao ] = useState(WELCOME)
+  const [ modeNao, transitionNao ] = useState(LOADING)
 
   useEffect(() => {
     //Load all the data from the database when the page loads

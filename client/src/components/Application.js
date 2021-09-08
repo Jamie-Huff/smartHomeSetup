@@ -32,6 +32,7 @@ import Sidebar from "./Sidebar/Sidebar"
 
 
 import ProductList from "./ProductList"
+import transitions from "@material-ui/core/styles/transitions";
 
 //Declare material ui styling here
 const useStyles = makeStyles((theme) => ({
@@ -123,7 +124,7 @@ export default function Application(props) {
               <Button className={classes.button} variant="outlined" color="primary" onClick={handleSurveyOpen}>
                 TAKE SURVEY
               </Button>
-                <Logout setuserName={setUsername} userName={username} isloggedin={isloggedin} setIsloggedin={setloggedin} />
+                <Logout setuserName={setUsername} userName={username} isloggedin={isloggedin} setIsloggedin={setloggedin} transitionNao={transitionNao} />
               {isloggedin? <Avatar src="images/alpac.jpg" alt="Lit"/>: null}
               <Modal open={open} onClose={handleSurveyClose} className={classes.modal}>
                 <Survey submitSurveyAnon={submitSurveyAnon} submitSurveyUser={submitSurveyUser} handleSurveyClose={handleSurveyClose} />
@@ -137,7 +138,7 @@ export default function Application(props) {
           </section>
           <Switch>
           <Route exact path='/'>
-              <SmartVille/>
+              <SmartVille transitionNao={transitionNao}/>
             </Route>
             <Route path='/products'>
               <div>
@@ -145,20 +146,20 @@ export default function Application(props) {
               </div>
             </Route>
             <Route path='/login'>
-              <Login setUser={setUsername} setIsloggedin={setloggedin} />
+              <Login setUser={setUsername} setIsloggedin={setloggedin} transitionNao={transitionNao} />
 
             </Route>
             <Route path='/signup'>
-              <Signup setUser={setUsername} setIsloggedin={setloggedin} />
+              <Signup setUser={setUsername} setIsloggedin={setloggedin} transitionNao={transitionNao}/>
             </Route>
             <Route path='/profile'>
               <div className="rooms">
-                <RoomCardList survey ={recommendations}/>
+                <RoomCardList survey ={recommendations} transitionNao={transitionNao}/>
               </div>
             </Route>
             <Route path='/notLoggedIn'>
               <div className="rooms">
-                <NotLoggedIn recommendationsAnon={recommendationsAnon}/>
+                <NotLoggedIn recommendationsAnon={recommendationsAnon} transitionNao={transitionNao}/>
               </div>
             </Route>
           </Switch>

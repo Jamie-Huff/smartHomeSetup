@@ -10,6 +10,9 @@ const passwordError = [
   "password must be at least 6 characters",
 ];
 
+//mode for Nao
+const LOGIN = "LOGIN"
+
 // set the schema for the yup library
 const loginSchema = yup.object().shape({
   email: yup.string().email(emailError[0]).required(emailError[1]),
@@ -17,7 +20,7 @@ const loginSchema = yup.object().shape({
 });
 
 export default function Login(props) {
-  const { setUser, setIsloggedin} = props
+  const { setUser, setIsloggedin, transitionNao} = props
   // set the states for the compoenet
   const [data, setData] = useState({
     email: "",
@@ -71,6 +74,7 @@ export default function Login(props) {
   if (signedup) {
     return <Redirect to="/" />
 }
+  transitionNao(LOGIN)
   return (
     <div className="main-div">
       <form className="signup-form">

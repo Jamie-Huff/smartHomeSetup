@@ -52,12 +52,6 @@ export default function RoomCard(props) {
   const classes = useStyles();
 
   const [roomPresent, setRoomPresent] = useState(true);
-  // const [roomCost, setRoomCost] = useState(cost);
-
-  // Always ensure the right cost is set
-  // if(roomCost != cost) {
-  //   setRoomCost(cost)
-  // }
 
   const {
     deleteRecommendation,
@@ -81,9 +75,7 @@ export default function RoomCard(props) {
       if (!checkRoomPresent(newRooms, id)){
         setRoomPresent(false);
       }
-       //update room price after deleting a product
-      //  const newRoomCost = getNewCostForRoom(newRooms, id);
-      //  setRoomCost(newRoomCost);
+  
     })
     .catch((err) =>{
       console.log(err);

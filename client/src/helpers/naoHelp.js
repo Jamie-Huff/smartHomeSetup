@@ -21,11 +21,54 @@ const naoSurveyQuestions = (mode) => {
 
 const naoSidebar = (mode) => {
   if(mode === "WELCOME") {
-    return "Hey there, welcome to smartville"
+    const naoSpeaksObj = { heSays: ["Hi, My name is Nao, I'l be your guide today"], 
+      img:"images/nao_peace.png" }
+    return naoSpeaksObj
   }
 
   if(mode === "PRODUCTS") {
-    return "Here are all the smart products I have for you, take the survey for recommendations"
+    const naoSpeaksObj = { heSays: ["Here are some of the products I have for you", 
+      "Take the survey to start setting up your smart home"],
+      img:"images/nao_turnedLeft.png" }
+    return naoSpeaksObj
+  }
+
+  if(mode === "LOADING") {
+    const naoSpeaksObj = { heSays:["Hang tight..."], 
+      img:"images/nao_hangTight.png" }
+    return naoSpeaksObj
+  }
+
+  if(mode === "RECOMMENDATION") {
+    const naoSpeaksObj = { heSays:["Here are your recommendations", 
+      "Keep track of your purchased products by using the checkbox"], 
+      img:"images/nao_pointing.png" }
+    return naoSpeaksObj
+  }
+
+  if(mode === "RECOMMENDATIONANON") {
+    const naoSpeaksObj = { heSays:["Here are your recommendations", 
+      "You can download a Pdf of your recommendations"], 
+      img:"images/nao_pointing.png" }
+    return naoSpeaksObj
+  }
+
+  if(mode === "LOGIN" || mode === "SIGNUP") {
+    const naoSpeaksObj = { heSays:["Please Login/Signup to have the best smartville experience"], 
+      img:"images/nao_come.png" }
+    return naoSpeaksObj
+  }
+
+  if(mode === "NOTHING") {
+    const naoSpeaksObj = { heSays:["Hi, My name is Nao, I'l be your guide today"], 
+      img:"images/nao_come.png" }
+    return naoSpeaksObj
+  }
+
+  if(mode === "LOGOUT") {
+    const naoSpeaksObj = { heSays:["Hope you had a great experience at Smartville"], 
+      img:"images/nao_normal.png" }
+    return naoSpeaksObj
   }
 }
 
