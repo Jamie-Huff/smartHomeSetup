@@ -45,7 +45,10 @@ const useStyles = makeStyles((theme) => ({
   appBar: {
     backgroundColor: '#001029',
     display:'flex', 
-    alignItems:"flex-end"
+    alignItems:"flex-end",
+    '@media print' : {
+      display: 'none',
+}
   },
   paper: {
     position: "absolute",
