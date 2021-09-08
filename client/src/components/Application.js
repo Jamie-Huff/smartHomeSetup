@@ -46,11 +46,11 @@ const useStyles = makeStyles((theme) => ({
   },
   appBar: {
     backgroundColor: '#001029',
-    display:'flex', 
+    display:'flex',
     alignItems:"flex-end",
     '@media print' : {
       display: 'none',
-  }
+},
   },
   paper: {
     position: "absolute",
@@ -63,7 +63,7 @@ const useStyles = makeStyles((theme) => ({
 
   modal: {
     display:'flex',
-    marginTop:'120px', 
+    marginTop:'120px',
     justifyContent:'center'
   },
 
@@ -171,7 +171,7 @@ export default function Application(props) {
 
         <main className="layout">
           <section className="sidebar">
-            <Sidebar modeNao={modeNao}/>  
+            <Sidebar modeNao={modeNao}/>
           </section>
           <Switch>
           <Route exact path='/'>
