@@ -5,7 +5,8 @@ import HouseIcon from '@material-ui/icons/House';
 import transitions from "@material-ui/core/styles/transitions";
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import { makeStyles } from '@material-ui/core/styles';
-
+ 
+import { naoGettingStarted } from "../helpers/naoHelp"
 
 import "./SmartVille.scss";
 import "./naoSpeaksSmartville.scss"
@@ -23,6 +24,16 @@ const MAJOR = "MAJOR"
 const useStyles = makeStyles((theme) => ({
   arrow: {
     color: "#CED3DE"
+  },
+
+  googleImages: {
+    display:"flex", 
+    height:"280px", 
+    margin:"60px 0px 0px 90px"
+  },
+
+  none: {
+    display: "none"
   }
 }))
 
@@ -31,6 +42,8 @@ export default function SmartVille(props) {
   const { transitionNao, modeNao } = props;
  
   const [modeGS, transitionModeGS] = useState(GETSTARTED);
+
+  const naoTalking = naoGettingStarted(modeGS)
 
   
   if(modeNao === "LOGOUT"){
@@ -59,25 +72,18 @@ export default function SmartVille(props) {
           <div style={{ display:"flex", flexDirection: "column", justifyContent:"space-between", height: "100%" }}>
             
               <div style={{fontSize:"16px"}}>
-                { modeGS === GETSTARTED &&
-                  " GET STARTED"
-                }
-
-                { modeGS === GENERAL &&
-                  "GENERAL"
-                }   
-
-                { modeGS === MAJOR &&
-                  "MAJOR"
-                }    
+                  {naoTalking.heSays[0]}
               </div>
             
             <div style={{ display:"flex", justifyContent:"flex-end" }}>
               <ArrowForwardIcon className={classes.arrow} onClick={handleModeGS}/>
             </div>
           </div>
+          <div className= {modeGS === MAJOR ? classes.googleImages : classes.none}>
+            <img src="images/googleHomeExample.png" style={{margin:"5px"}}/>
+            <img src="images/googleHomeExample2.png"  style={{margin:"5px 5px 23px 5px"}} /></div>
+        </div>
       </div>
-     </div>
     
   )
 }

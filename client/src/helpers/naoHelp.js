@@ -88,10 +88,30 @@ const naoSidebar = (mode) => {
       img:"images/nao_normal.png" }
     return naoSpeaksObj
   }
+}
 
+const naoGettingStarted = (mode) => {
+  if(mode === "GETSTARTED") {
+    const naoSpeaksObj = { heSays:["Hi there! My name is Nao, and i'll be your guide through Smartville"], 
+      img:"images/nao_normal.png" }
+    return naoSpeaksObj
+  }
+
+  if(mode === "GENERAL") {
+    const naoSpeaksObj = { heSays:["GENERAL"], 
+      img:"images/nao_normal.png" }
+    return naoSpeaksObj
+  }
+
+  if(mode === "MAJOR") {
+    const naoSpeaksObj = { heSays:["LAST FOR PRESENTATION"],
+      img:"images/nao_normal.png" }
+    return naoSpeaksObj
+  }
 }
 
 module.exports = {
   naoSurveyQuestions,
-  naoSidebar
+  naoSidebar,
+  naoGettingStarted
 }
