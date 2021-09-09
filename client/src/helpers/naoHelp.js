@@ -70,6 +70,25 @@ const naoSidebar = (mode) => {
       img:"images/nao_normal.png" }
     return naoSpeaksObj
   }
+
+  if(mode === "GETSTARTED") {
+    const naoSpeaksObj = { heSays:["Hope you had a great experience at Smartville"], 
+      img:"images/nao_normal.png" }
+    return naoSpeaksObj
+  }
+
+  if(mode === "GENERAL") {
+    const naoSpeaksObj = { heSays:["Hope you had a great experience at Smartville"], 
+      img:"images/nao_normal.png" }
+    return naoSpeaksObj
+  }
+
+  if(mode === "MAJOR") {
+    const naoSpeaksObj = { heSays:["Hope you had a great experience at Smartville"], 
+      img:"images/nao_normal.png" }
+    return naoSpeaksObj
+  }
+
 }
 
 module.exports = {

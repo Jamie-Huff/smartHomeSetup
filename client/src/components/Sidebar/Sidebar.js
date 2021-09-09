@@ -9,8 +9,8 @@ import "./naoSpeaksApp.scss";
 import { naoSidebar } from "../../helpers/naoHelp"
 
 import AddToHomeScreenIcon from '@material-ui/icons/AddToHomeScreen';
-import CommentIcon from '@material-ui/icons/Comment';
 import FlashOnIcon from '@material-ui/icons/FlashOn';
+import ImportContactsIcon from '@material-ui/icons/ImportContacts';
 import classNames from "classnames";
 
 const useStyles = makeStyles((theme) => ({
@@ -64,8 +64,8 @@ export default function Sidebar(props) {
             </Link>   
         </div>
         <div className="sidebar__menuItem">
-          <CommentIcon className="sidebar__img" />
-          <div className="sidebar__text">Contact Us</div>
+          <ImportContactsIcon className="sidebar__img" />
+          <div className="sidebar__text">Take Survey</div>
         </div>
       </div>     
     </div>        
