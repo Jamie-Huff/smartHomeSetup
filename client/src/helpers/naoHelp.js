@@ -98,13 +98,13 @@ const naoGettingStarted = (mode) => {
   }
 
   if(mode === "GENERAL") {
-    const naoSpeaksObj = { heSays:["GENERAL"], 
+    const naoSpeaksObj = { heSays:["Let us begin to set up your smart home. Its nice to have an app where you can control all the smart devices in your home"], 
       img:"images/nao_normal.png" }
     return naoSpeaksObj
   }
 
   if(mode === "MAJOR") {
-    const naoSpeaksObj = { heSays:["LAST FOR PRESENTATION"],
+    const naoSpeaksObj = { heSays:["If you Android is your favourite provider, you can begin by downloading Google Home from the App store"],
       img:"images/nao_normal.png" }
     return naoSpeaksObj
   }

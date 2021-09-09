@@ -64,7 +64,8 @@ export default function SmartVille(props) {
   }
   
   return (
-    // <div style={{width:"100%", display:"flex" }}>
+    <div style={{width:"100%", display:"flex",flexDirection:"column"  }}>
+    <div style={{display:"flex",flexDirection:"column"}}>
       <div className="smartVille" style={{width:"100%", display:"flex", marginTop:"60px" }}>
         <img src="images/nao_normal.png" alt="nao" 
         style={{height:"400px", marginLeft: "440px", marginTop:"116px"}}/>
@@ -84,6 +85,14 @@ export default function SmartVille(props) {
             <img src="images/googleHomeExample2.png"  style={{margin:"5px 5px 23px 5px"}} /></div>
         </div>
       </div>
-    
+    </div> 
+    <div style={{marginTop:"150px"}}>
+        <div style={{display:"flex", height:"200px", width:"880px", justifyContent: "space-between", margin:"100px 120px 0px 150px"}}>
+          <img src="images/googleAssistant.png"/> 
+          <img  style={{height:"130px", marginTop:"34px", marginLeft:"-48px"}} src="images/appleHomeKit.png"/> 
+          <img src="images/alexa.png"/>
+        </div>
+    </div>
+  </div>
   )
 }
